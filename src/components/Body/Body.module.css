@@ -1,0 +1,16 @@
+.main {
+  background-color: var(--black);
+}
+
+.bannerContainer {
+}
+
+.banner {
+  width: 100%;
+  object-fit: contain;
+  max-height: 100vh;
+}
+
+.carouselContainer {
+  padding: 0;
+}

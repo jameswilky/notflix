@@ -1,0 +1,15 @@
+:root {
+  --black: #141414;
+  --white: #fff;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  background-color: transparent;
+  color: white;
+  font-family: "Noto Sans", sans-serif;
+}
+
+/* ==================*/
