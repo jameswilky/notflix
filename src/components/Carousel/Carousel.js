@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./Carousel.module.css";
+import Slide from "./Slide";
 
 export default function Carousel() {
   return (
@@ -10,18 +11,9 @@ export default function Carousel() {
         </div>
         <div className={styles.body}>
           <div className={styles.body__inner}>
-            <div className={styles.tile}>
-              <div className={styles.tile__media}>
-                <img
-                  class={styles.tile__img}
-                  src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/70390/show-1.jpg"
-                  alt=""
-                />
-              </div>
-              <div className={styles.tile__details}>
-                <div className={styles.tile__title}>Top Gear</div>
-              </div>
-            </div>
+            <Slide />
+            <Slide />
+            <Slide />
           </div>
         </div>
       </div>
