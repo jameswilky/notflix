@@ -32,7 +32,8 @@
     rgba(0, 0, 0, 0) 100%
   );
   transition: 450ms opacity;
-  pointer-events: none; /* Allows video to be clicked */
+  pointer-events: none;
+  z-index: 3;
 }
 .body__overlay:after,
 .body__overlay:before {
@@ -60,7 +61,12 @@
   border: 1px solid var(--white);
   border-radius: 100%;
   padding: 3px 2px 3px 3px;
+  pointer-events: auto;
 }
+.overlay__play *:hover {
+  color: white;
+}
+
 .overlay__text {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;

@@ -3,32 +3,32 @@ import styles from "./Carousel.module.css";
 import Slide from "./Slide";
 
 export default function Carousel() {
-  const resp = async () => {};
+  // const resp = async () => {};
 
-  const x = async user => {
-    const profileResponse = await fetch(
-      `https://api.github.com/users/${user}?client_id=${
-        this.client_id
-      }&client_secret=${this.client_secret}`
-    );
+  // const x = async user => {
+  //   const profileResponse = await fetch(
+  //     `https://api.github.com/users/${user}?client_id=${
+  //       this.client_id
+  //     }&client_secret=${this.client_secret}`
+  //   );
 
-    const repoResponse = await fetch(
-      `https://api.github.com/users/${user}/repos?per_pafge=${
-        this.repos_count
-      }&sort=${this.repos_sort}&client_id=${this.client_id}&client_secret=${
-        this.client_secret
-      }`
-    );
+  //   const repoResponse = await fetch(
+  //     `https://api.github.com/users/${user}/repos?per_pafge=${
+  //       this.repos_count
+  //     }&sort=${this.repos_sort}&client_id=${this.client_id}&client_secret=${
+  //       this.client_secret
+  //     }`
+  //   );
 
-    const profile = await profileResponse.json();
-    const repos = await repoResponse.json();
+  //   const profile = await profileResponse.json();
+  //   const repos = await repoResponse.json();
 
-    console.log(profile);
-    return {
-      profile,
-      repos
-    };
-  };
+  //   console.log(profile);
+  //   return {
+  //     profile,
+  //     repos
+  //   };
+  // };
 
   return (
     <div>
@@ -39,9 +39,9 @@ export default function Carousel() {
         </div>
         <div className={styles.body}>
           <div className={styles.body__inner}>
-            <Slide />
-            <Slide />
-            <Slide />
+            <Slide id={"Y7d42LJfkqQ"} />
+            <Slide id={"bkk2H3Ztrfk"} />
+            <Slide id={"4CCfYi1u8Y4"} />
           </div>
         </div>
       </div>

@@ -1,9 +1,10 @@
 import React, { useState, useEffect, Fragment } from "react";
 import styles from "./Slide.module.css";
 
-export default function Slide() {
+export default function Slide(props) {
+  const { id } = props;
   const [showThumbnail, setShowThumbnail] = useState(true);
-  const [video, setVideo] = useState("Y7d42LJfkqQ");
+
   const [metaData, setMetaData] = useState({
     title: "Top Gear",
     match: "94% match",
@@ -16,9 +17,9 @@ export default function Slide() {
     return (
       <img
         className={styles.body__img}
-        data-video={video}
+        data-video={id}
         alt="Play this video"
-        src={`http://img.youtube.com/vi/${video}/0.jpg`}
+        src={`http://img.youtube.com/vi/${id}/0.jpg`}
       />
     );
   };
@@ -28,10 +29,10 @@ export default function Slide() {
       <iframe
         width="250"
         height="140"
-        src={`https://www.youtube.com/embed/Y7d42LJfkqQ?rel=0&autoplay=1;controls=0;`}
+        src={`https://www.youtube.com/embed/${id}?rel=0&autoplay=1;controls=0;`}
         frameBorder="0"
         allow="autoplay; encrypted-media"
-        // allowFullScreen
+        allowFullScreen
       />
     );
   };
