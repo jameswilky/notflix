@@ -12,11 +12,16 @@
   -webkit-transform-origin: center left;
   transform-origin: center left;
 }
-.body__img {
+.thumbnail {
   width: 250px;
   height: 140.625px;
-  /* -o-object-fit: cover;
-  object-fit: cover; */
+  -o-object-fit: cover;
+  object-fit: cover;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
 }
 .body__overlay {
   position: absolute;
@@ -55,15 +60,15 @@
   padding: 1px;
 }
 
-.overlay__play * {
+.playBtn {
   font-size: 0.7em;
   color: red;
   border: 1px solid var(--white);
   border-radius: 100%;
   padding: 3px 2px 3px 3px;
-  pointer-events: auto;
 }
-.overlay__play *:hover {
+
+.playBtn:hover {
   color: white;
 }
 

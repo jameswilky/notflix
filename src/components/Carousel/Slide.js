@@ -1,4 +1,5 @@
 import React, { useState, useEffect, Fragment } from "react";
+import Youtube from "react-youtube";
 import styles from "./Slide.module.css";
 
 export default function Slide(props) {
@@ -16,7 +17,7 @@ export default function Slide(props) {
   const ThumbNail = () => {
     return (
       <img
-        className={styles.body__img}
+        className={styles.thumbnail}
         data-video={id}
         alt="Play this video"
         src={`http://img.youtube.com/vi/${id}/0.jpg`}
@@ -25,14 +26,43 @@ export default function Slide(props) {
   };
 
   const Video = () => {
+    const options = {
+      height: "140",
+      width: "250",
+      playerVars: {
+        autoplay: 1,
+        allowFullScreen: 1,
+        // modestBranding: 1,
+        controls: 0,
+        frameBorder: 0,
+        rel: 0
+      }
+    };
+
+    const onStateChangeHandler = e => {
+      switch (e.data) {
+        case 2:
+          console.log("video paused");
+          break;
+        default:
+          console.log("other case");
+          break;
+      }
+    };
+
+    const onReadyHandler = e => {
+      // e.target.pauseVideo();
+      console.log("video playing");
+      // console.log(e.target);
+    };
+
     return (
-      <iframe
-        width="250"
-        height="140"
-        src={`https://www.youtube.com/embed/${id}?rel=0&autoplay=1;controls=0;`}
-        frameBorder="0"
-        allow="autoplay; encrypted-media"
-        allowFullScreen
+      <Youtube
+        videoId={id}
+        opts={options}
+        onStateChange={e => onStateChangeHandler(e)}
+        onReady={e => onReadyHandler(e)}
+        onClick={e => console.log(e.target)}
       />
     );
   };
@@ -47,12 +77,16 @@ export default function Slide(props) {
           setShowThumbnail(true);
         }}
       >
-        {showThumbnail ? <ThumbNail /> : <Video />}
+        <Video />
+        {showThumbnail ? <ThumbNail /> : null}
       </div>
-      <div className={styles.body__overlay}>
+      <div
+        className={styles.body__overlay}
+        onClick={() => console.log("testing")}
+      >
         <div className={styles.overlay__left}>
           <div className={styles.overlay__play}>
-            <i className="fas fa-play" />
+            <i className={`fas fa-play ${styles.playBtn}`} />
           </div>
           <div>
             <h3>{metaData.title}</h3>
