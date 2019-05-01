@@ -22,8 +22,11 @@
   left: 0;
   right: 0;
   top: 0;
+  z-index: 2;
+  /* pointer-events: not-allowed; */
 }
-.body__overlay {
+
+.overlay {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -37,11 +40,11 @@
     rgba(0, 0, 0, 0) 100%
   );
   transition: 450ms opacity;
-  pointer-events: none;
   z-index: 3;
+  /* pointer-events: not-allowed; */
 }
-.body__overlay:after,
-.body__overlay:before {
+.overlay:after,
+.overlay:before {
   content: "";
   position: absolute;
   top: 50%;
@@ -110,7 +113,7 @@
 .btn > i {
   padding: 3px 2px 3px 3px;
 }
-.body:hover .body__overlay {
+.body:hover .overlay {
   opacity: 1;
 }
 

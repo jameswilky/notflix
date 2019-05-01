@@ -1,9 +1,10 @@
 import React, { useState, useEffect, Fragment } from "react";
-import Youtube from "react-youtube";
+import Video from "./Video";
 import styles from "./Slide.module.css";
 
 export default function Slide(props) {
   const { id } = props;
+  const [player, setPlayer] = useState();
   const [showThumbnail, setShowThumbnail] = useState(true);
 
   const [metaData, setMetaData] = useState({
@@ -25,65 +26,34 @@ export default function Slide(props) {
     );
   };
 
-  const Video = () => {
-    const options = {
-      height: "140",
-      width: "250",
-      playerVars: {
-        autoplay: 1,
-        allowFullScreen: 1,
-        // modestBranding: 1,
-        controls: 0,
-        frameBorder: 0,
-        rel: 0
-      }
-    };
-
-    const onStateChangeHandler = e => {
-      switch (e.data) {
-        case 2:
-          console.log("video paused");
-          break;
-        default:
-          console.log("other case");
-          break;
-      }
-    };
-
-    const onReadyHandler = e => {
-      // e.target.pauseVideo();
-      console.log("video playing");
-      // console.log(e.target);
-    };
-
-    return (
-      <Youtube
-        videoId={id}
-        opts={options}
-        onStateChange={e => onStateChangeHandler(e)}
-        onReady={e => onReadyHandler(e)}
-        onClick={e => console.log(e.target)}
-      />
-    );
-  };
   return (
-    <div className={styles.body}>
-      <div
-        className={styles.body__media}
-        onMouseEnter={e => {
-          setShowThumbnail(false);
-        }}
-        onMouseOut={e => {
-          setShowThumbnail(true);
-        }}
-      >
-        <Video />
-        {showThumbnail ? <ThumbNail /> : null}
-      </div>
-      <div
-        className={styles.body__overlay}
-        onClick={() => console.log("testing")}
-      >
+    <div
+      className={styles.body}
+      onMouseEnter={e => {
+        setShowThumbnail(false);
+        try {
+          player.playVideo();
+        } catch {
+          console.log("player not ready");
+        }
+      }}
+      onClick={e => {
+        console.log("asdsa");
+      }}
+      onMouseLeave={e => {
+        console.log("mouseout");
+        setShowThumbnail(true);
+        try {
+          player.pauseVideo();
+        } catch {
+          console.log("player not ready");
+        }
+      }}
+    >
+      <Video id={id} player={player} setPlayer={setPlayer} />
+      {showThumbnail ? <ThumbNail /> : null}
+
+      <div className={styles.overlay}>
         <div className={styles.overlay__left}>
           <div className={styles.overlay__play}>
             <i className={`fas fa-play ${styles.playBtn}`} />
