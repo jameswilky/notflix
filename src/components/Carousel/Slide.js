@@ -15,10 +15,11 @@ export default function Slide(props) {
     categories: ["Action", "Comedy", "Documentary"]
   });
 
-  const ThumbNail = () => {
+  const Thumbnail = () => {
     return (
       <img
         className={styles.thumbnail}
+        style={{ zIndex: showThumbnail ? 0 : 1 }} // Bring Thumbnail to front on hide
         data-video={id}
         alt="Play this video"
         src={`http://img.youtube.com/vi/${id}/0.jpg`}
@@ -37,9 +38,6 @@ export default function Slide(props) {
           console.log("player not ready");
         }
       }}
-      onClick={e => {
-        console.log("asdsa");
-      }}
       onMouseLeave={e => {
         console.log("mouseout");
         setShowThumbnail(true);
@@ -51,12 +49,26 @@ export default function Slide(props) {
       }}
     >
       <Video id={id} player={player} setPlayer={setPlayer} />
-      {showThumbnail ? <ThumbNail /> : null}
+      <Thumbnail />
 
       <div className={styles.overlay}>
         <div className={styles.overlay__left}>
           <div className={styles.overlay__play}>
-            <i className={`fas fa-play ${styles.playBtn}`} />
+            <i
+              className={`fas fa-play ${styles.playBtn} ${styles.btn}`}
+              onClick={() => {
+                player.playVideo();
+
+                let iframe = player.a; // reference the iframe
+                let requestFullScreen =
+                  iframe.requestFullScreen ||
+                  iframe.mozRequestFullScreen ||
+                  iframe.webkitRequestFullScreen;
+                if (requestFullScreen) {
+                  requestFullScreen.bind(iframe)();
+                }
+              }}
+            />
           </div>
           <div>
             <h3>{metaData.title}</h3>

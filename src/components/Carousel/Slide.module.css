@@ -22,8 +22,12 @@
   left: 0;
   right: 0;
   top: 0;
-  z-index: 2;
-  /* pointer-events: not-allowed; */
+  opacity: 1;
+  transition: 1s opacity;
+}
+
+.thumbnail:hover {
+  opacity: 0;
 }
 
 .overlay {
@@ -40,8 +44,6 @@
     rgba(0, 0, 0, 0) 100%
   );
   transition: 450ms opacity;
-  z-index: 3;
-  /* pointer-events: not-allowed; */
 }
 .overlay:after,
 .overlay:before {
@@ -66,13 +68,9 @@
 .playBtn {
   font-size: 0.7em;
   color: red;
-  border: 1px solid var(--white);
+  border: 1px solid grey;
   border-radius: 100%;
   padding: 3px 2px 3px 3px;
-}
-
-.playBtn:hover {
-  color: white;
 }
 
 .overlay__text {
@@ -105,13 +103,18 @@
 }
 .overlay__btnContainer > .btn {
   margin: 3px auto;
-  border: 1px solid var(--white);
+  border: 1px solid grey;
   border-radius: 100%;
-  opacity: 0.8;
+  opacity: 0.7;
 }
 
 .btn > i {
   padding: 3px 2px 3px 3px;
+}
+
+.btn:hover {
+  color: white;
+  opacity: 1;
 }
 .body:hover .overlay {
   opacity: 1;
