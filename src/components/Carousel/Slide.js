@@ -45,7 +45,7 @@ export default function Slide(props) {
           // hovered over before it was loaded
           try {
             player.playVideo();
-            setTimeout(() => setShowThumbnail(false), 450);
+            setTimeout(() => setShowThumbnail(false), 300);
           } catch {}
         });
       }}
@@ -53,13 +53,13 @@ export default function Slide(props) {
         playerLoading.then(player => {
           // this will prevent overlay from working untill the player has actually loaded
           player.playVideo();
-          setTimeout(() => setShowThumbnail(false), 450);
+          setTimeout(() => setShowThumbnail(false), 300);
         });
       }}
       onMouseLeave={e => {
         playerLoading.then(player => {
           player.pauseVideo();
-          setTimeout(() => setShowThumbnail(true), 450);
+          setTimeout(() => setShowThumbnail(true), 300);
         });
       }}
     >

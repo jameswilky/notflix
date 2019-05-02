@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import styles from "./Overlay.module.css";
+import { CUSTOM_SELECTOR_RE } from "stylable";
 
 export default function Overlay(props) {
   const { id, metaData, player } = props;
   const [isMuted, setIsMuted] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
+  const [isDisliked, setIsDisliked] = useState(false);
 
   const fullScreen = () => {
     player.playVideo();
@@ -69,14 +72,41 @@ export default function Overlay(props) {
               }}
             />{" "}
           </div>
-          <div className={styles.btn}>
-            <i className="far fa-thumbs-up" />
+          <div
+            className={`
+            ${styles.btn}
+            ${isLiked ? styles.btnSelected : ""}
+            `}
+          >
+            <i
+              className="far fa-thumbs-up"
+              onClick={() => {
+                setIsLiked(true);
+                setIsDisliked(false);
+              }}
+            />
+          </div>
+          <div
+            className={`
+            ${styles.btn}
+            ${isDisliked ? styles.btnSelected : ""}
+            `}
+          >
+            <i
+              className="far fa-thumbs-down"
+              onClick={() => {
+                setIsLiked(false);
+                setIsDisliked(true);
+              }}
+            />
           </div>
           <div className={styles.btn}>
-            <i className="far fa-thumbs-down" />
-          </div>
-          <div className={styles.btn}>
-            <i className="fas fa-plus" />
+            <i
+              className="fas fa-plus"
+              onClick={() => {
+                console.log(`TODO Add Video ${id} to List`);
+              }}
+            />
           </div>
         </div>
       </div>
