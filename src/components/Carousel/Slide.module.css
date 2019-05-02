@@ -23,7 +23,7 @@
   right: 0;
   top: 0;
   opacity: 1;
-  transition: 1s opacity;
+  transition: 450ms opacity;
 }
 
 .thumbnail:hover {

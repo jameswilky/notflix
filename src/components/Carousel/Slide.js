@@ -19,7 +19,7 @@ export default function Slide(props) {
     return (
       <img
         className={styles.thumbnail}
-        style={{ zIndex: showThumbnail ? 0 : 1 }} // Bring Thumbnail to front on hide
+        style={{ display: showThumbnail ? "block" : "none" }} // Bring Thumbnail to front on hide
         data-video={id}
         alt="Play this video"
         src={`http://img.youtube.com/vi/${id}/0.jpg`}
@@ -27,29 +27,30 @@ export default function Slide(props) {
     );
   };
 
+  const fullScreen = () => {};
+
   return (
     <div
       className={styles.body}
       onMouseEnter={e => {
-        setShowThumbnail(false);
         try {
           player.playVideo();
+          setTimeout(() => setShowThumbnail(false), 450);
         } catch {
           console.log("player not ready");
         }
       }}
       onMouseLeave={e => {
-        console.log("mouseout");
-        setShowThumbnail(true);
         try {
           player.pauseVideo();
+          setShowThumbnail(true);
+          // setTimeout(() => setShowThumbnail(true), 450);
         } catch {
           console.log("player not ready");
         }
       }}
     >
       <Video id={id} player={player} setPlayer={setPlayer} />
-      <Thumbnail />
 
       <div className={styles.overlay}>
         <div className={styles.overlay__left}>
@@ -107,6 +108,7 @@ export default function Slide(props) {
           </div>
         </div>
       </div>
+      <Thumbnail />
     </div>
   );
 }
