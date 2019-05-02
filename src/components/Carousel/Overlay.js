@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./Overlay.module.css";
 
-export default function body(props) {
+export default function Overlay(props) {
   const { id, metaData, player } = props;
+  const [isMuted, setIsMuted] = useState(false);
 
   const fullScreen = () => {
     player.playVideo();
@@ -49,8 +50,24 @@ export default function body(props) {
       </div>
       <div className={styles.right}>
         <div className={styles.btnContainer}>
-          <div className={styles.btn}>
-            <i className="fas fa-volume-mute" />{" "}
+          <div
+            className={`
+            ${styles.btn}
+            ${isMuted ? styles.btnSelected : ""}
+            `}
+          >
+            <i
+              className="fas fa-volume-mute"
+              onClick={() => {
+                if (player.isMuted()) {
+                  player.unMute();
+                  setIsMuted(false);
+                } else {
+                  player.mute();
+                  setIsMuted(true);
+                }
+              }}
+            />{" "}
           </div>
           <div className={styles.btn}>
             <i className="far fa-thumbs-up" />

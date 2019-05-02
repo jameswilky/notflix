@@ -25,7 +25,6 @@ export default function Slide(props) {
       <img
         className={`
         ${styles.thumbnail}
-        
         `}
         style={{
           visibility: showThumbnail ? "visible" : "hidden"
@@ -40,8 +39,19 @@ export default function Slide(props) {
   return (
     <div
       className={styles.body}
+      onClick={e => {
+        playerLoading.then(player => {
+          // Fixes issue with having to mouse over again to play a vidoe that was
+          // hovered over before it was loaded
+          try {
+            player.playVideo();
+            setTimeout(() => setShowThumbnail(false), 450);
+          } catch {}
+        });
+      }}
       onMouseEnter={e => {
         playerLoading.then(player => {
+          // this will prevent overlay from working untill the player has actually loaded
           player.playVideo();
           setTimeout(() => setShowThumbnail(false), 450);
         });
@@ -49,11 +59,11 @@ export default function Slide(props) {
       onMouseLeave={e => {
         playerLoading.then(player => {
           player.pauseVideo();
-          setShowThumbnail(true);
+          setTimeout(() => setShowThumbnail(true), 450);
         });
       }}
     >
-      <Video id={id} player={player} setPlayer={setPlayer} />
+      <Video id={id} setPlayer={setPlayer} />
       <Overlay id={id} player={player} metaData={metaData} />
       <Thumbnail />
     </div>
