@@ -14,7 +14,7 @@ export default function Slide(props) {
 
   const [metaData, setMetaData] = useState({
     title: "Top Gear",
-    match: "94% match",
+    match: "94% match", // use user score
     maturity: "M",
     length: "4 Seasons",
     categories: ["Action", "Comedy", "Documentary"]

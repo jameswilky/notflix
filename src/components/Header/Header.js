@@ -3,7 +3,8 @@ import styles from "./Header.module.css";
 import logo from "../../images/logo.png";
 import userIcon from "../../images/userIcon.jpg";
 
-export default function Header() {
+export default function Header(props) {
+  const { isAuthenticated, login } = props.auth;
   return (
     <div className={styles.nav}>
       <div className={styles.logoContainer}>
@@ -19,9 +20,13 @@ export default function Header() {
       <div className={styles.notificationsBtn}>
         <i className="fas fa-bell" />
       </div>
-      <div className={styles.accountBtn}>
-        <img className={styles.img} src={userIcon} alt="" />
-      </div>
+      {isAuthenticated() ? (
+        <div className={styles.accountBtn}>
+          <img className={styles.img} src={userIcon} alt="" />
+        </div>
+      ) : (
+        <button onClick={login}> Log in</button>
+      )}
     </div>
   );
 }

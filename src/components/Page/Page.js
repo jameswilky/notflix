@@ -4,10 +4,11 @@ import Body from "../Body/Body";
 import Footer from "../Footer/Footer";
 import styles from "./Page.module.css";
 
-export default function Page() {
+export default function Page(props) {
+  const { auth } = props;
   return (
     <div>
-      <Header />
+      <Header auth={auth} />
       <Body />
       <Footer />
     </div>

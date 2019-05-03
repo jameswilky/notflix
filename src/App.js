@@ -1,12 +1,21 @@
 import React from "react";
 import Page from "./components/Page/Page";
 import "./main.css";
+import { Route } from "react-router-dom";
+import Auth from "./components/Auth/Auth";
+import Callback from "./components/Auth/Callback";
 
-function App() {
+function App(props) {
+  const { history } = props;
+  const auth = new Auth(history);
   return (
-    <div className="App">
-      <Page />
-    </div>
+    <>
+      <Route path="/" exact render={props => <Page auth={auth} {...props} />} />
+      <Route
+        path="/callback"
+        render={props => <Callback auth={auth} {...props} />}
+      />
+    </>
   );
 }
 

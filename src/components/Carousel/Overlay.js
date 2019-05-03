@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styles from "./Overlay.module.css";
-import { CUSTOM_SELECTOR_RE } from "stylable";
 
 export default function Overlay(props) {
   const { id, metaData, player } = props;
@@ -54,12 +53,7 @@ export default function Overlay(props) {
       </div>
       <div className={styles.right}>
         <div className={styles.btnContainer}>
-          <div
-            className={`
-            ${styles.btn}
-            ${isMuted ? styles.btnSelected : ""}
-            `}
-          >
+          <div className={`${styles.btn} ${isMuted ? styles.btnSelected : ""}`}>
             <i
               className="fas fa-volume-mute"
               onClick={() => {
@@ -73,12 +67,7 @@ export default function Overlay(props) {
               }}
             />{" "}
           </div>
-          <div
-            className={`
-            ${styles.btn}
-            ${isLiked ? styles.btnSelected : ""}
-            `}
-          >
+          <div className={`${styles.btn} ${isLiked ? styles.btnSelected : ""}`}>
             <i
               className="far fa-thumbs-up"
               onClick={() => {
@@ -88,10 +77,7 @@ export default function Overlay(props) {
             />
           </div>
           <div
-            className={`
-            ${styles.btn}
-            ${isDisliked ? styles.btnSelected : ""}
-            `}
+            className={`${styles.btn} ${isDisliked ? styles.btnSelected : ""}`}
           >
             <i
               className="far fa-thumbs-down"
@@ -101,12 +87,7 @@ export default function Overlay(props) {
               }}
             />
           </div>
-          <div
-            className={`
-            ${styles.btn}
-            ${isAdded ? styles.btnSelected : ""}
-            `}
-          >
+          <div className={`${styles.btn} ${isAdded ? styles.btnSelected : ""}`}>
             <i
               className="fas fa-plus"
               onClick={() => {
