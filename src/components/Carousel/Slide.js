@@ -4,7 +4,7 @@ import styles from "./Slide.module.css";
 import Overlay from "./Overlay";
 
 export default function Slide(props) {
-  const { id } = props;
+  const { id, auth } = props;
   const [player, setPlayer] = useState();
   const [showThumbnail, setShowThumbnail] = useState(true);
 
@@ -64,7 +64,7 @@ export default function Slide(props) {
       }}
     >
       <Video id={id} setPlayer={setPlayer} />
-      <Overlay id={id} player={player} metaData={metaData} />
+      <Overlay id={id} player={player} metaData={metaData} auth={auth} />
       <Thumbnail />
     </div>
   );

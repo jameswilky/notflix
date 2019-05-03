@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "./Overlay.module.css";
 
 export default function Overlay(props) {
-  const { id, metaData, player } = props;
+  const { id, metaData, player, auth } = props;
   const [isMuted, setIsMuted] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [isDisliked, setIsDisliked] = useState(false);
@@ -67,34 +67,44 @@ export default function Overlay(props) {
               }}
             />{" "}
           </div>
-          <div className={`${styles.btn} ${isLiked ? styles.btnSelected : ""}`}>
-            <i
-              className="far fa-thumbs-up"
-              onClick={() => {
-                setIsLiked(!isLiked);
-                setIsDisliked(false);
-              }}
-            />
-          </div>
-          <div
-            className={`${styles.btn} ${isDisliked ? styles.btnSelected : ""}`}
-          >
-            <i
-              className="far fa-thumbs-down"
-              onClick={() => {
-                setIsDisliked(!isDisliked);
-                setIsLiked(false);
-              }}
-            />
-          </div>
-          <div className={`${styles.btn} ${isAdded ? styles.btnSelected : ""}`}>
-            <i
-              className="fas fa-plus"
-              onClick={() => {
-                setIsAdded(!isAdded);
-              }}
-            />
-          </div>
+          {auth.isAuthenticated() ? (
+            <>
+              <div
+                className={`${styles.btn} ${isLiked ? styles.btnSelected : ""}`}
+              >
+                <i
+                  className="far fa-thumbs-up"
+                  onClick={() => {
+                    setIsLiked(!isLiked);
+                    setIsDisliked(false);
+                  }}
+                />
+              </div>
+              <div
+                className={`${styles.btn} ${
+                  isDisliked ? styles.btnSelected : ""
+                }`}
+              >
+                <i
+                  className="far fa-thumbs-down"
+                  onClick={() => {
+                    setIsDisliked(!isDisliked);
+                    setIsLiked(false);
+                  }}
+                />
+              </div>
+              <div
+                className={`${styles.btn} ${isAdded ? styles.btnSelected : ""}`}
+              >
+                <i
+                  className="fas fa-plus"
+                  onClick={() => {
+                    setIsAdded(!isAdded);
+                  }}
+                />
+              </div>
+            </>
+          ) : null}
         </div>
       </div>
     </div>

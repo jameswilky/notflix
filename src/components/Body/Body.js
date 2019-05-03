@@ -8,14 +8,14 @@ import Carousel from "../Carousel/Carousel";
   https://gomakethings.com/how-to-play-a-video-in-full-screen-mode-when-its-thumbnail-is-clicked-with-vanilla-js/
 */
 
-export default function Body() {
+export default function Body(props) {
   return (
     <div className={styles.main}>
       <div className={styles.bannerContainer}>
         <img className={styles.banner} src={banner} alt="" />
       </div>
       <div className={styles.carouselContainer}>
-        <Carousel key={1} />
+        <Carousel key={1} {...props} />
       </div>
     </div>
   );

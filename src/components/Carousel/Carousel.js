@@ -2,34 +2,8 @@ import React from "react";
 import styles from "./Carousel.module.css";
 import Slide from "./Slide";
 
-export default function Carousel() {
-  // const resp = async () => {};
-
-  // const x = async user => {
-  //   const profileResponse = await fetch(
-  //     `https://api.github.com/users/${user}?client_id=${
-  //       this.client_id
-  //     }&client_secret=${this.client_secret}`
-  //   );
-
-  //   const repoResponse = await fetch(
-  //     `https://api.github.com/users/${user}/repos?per_pafge=${
-  //       this.repos_count
-  //     }&sort=${this.repos_sort}&client_id=${this.client_id}&client_secret=${
-  //       this.client_secret
-  //     }`
-  //   );
-
-  //   const profile = await profileResponse.json();
-  //   const repos = await repoResponse.json();
-
-  //   console.log(profile);
-  //   return {
-  //     profile,
-  //     repos
-  //   };
-  // };
-
+export default function Carousel(props) {
+  const { auth } = props;
   return (
     <div>
       <div className={styles.container}>
@@ -39,9 +13,9 @@ export default function Carousel() {
         </div>
         <div className={styles.body}>
           <div className={styles.body__inner}>
-            <Slide id={"Y7d42LJfkqQ"} />
-            <Slide id={"bkk2H3Ztrfk"} />
-            <Slide id={"4CCfYi1u8Y4"} />
+            <Slide id={"Y7d42LJfkqQ"} {...props} />
+            <Slide id={"bkk2H3Ztrfk"} {...props} />
+            <Slide id={"4CCfYi1u8Y4"} {...props} />
           </div>
         </div>
       </div>

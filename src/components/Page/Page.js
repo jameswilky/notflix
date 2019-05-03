@@ -9,7 +9,7 @@ export default function Page(props) {
   return (
     <div>
       <Header auth={auth} />
-      <Body />
+      <Body auth={auth} />
       <Footer />
     </div>
   );
