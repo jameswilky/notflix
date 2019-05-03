@@ -7,6 +7,7 @@ export default function Overlay(props) {
   const [isMuted, setIsMuted] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [isDisliked, setIsDisliked] = useState(false);
+  const [isAdded, setIsAdded] = useState(false);
 
   const fullScreen = () => {
     player.playVideo();
@@ -81,7 +82,7 @@ export default function Overlay(props) {
             <i
               className="far fa-thumbs-up"
               onClick={() => {
-                setIsLiked(true);
+                setIsLiked(!isLiked);
                 setIsDisliked(false);
               }}
             />
@@ -95,16 +96,21 @@ export default function Overlay(props) {
             <i
               className="far fa-thumbs-down"
               onClick={() => {
+                setIsDisliked(!isDisliked);
                 setIsLiked(false);
-                setIsDisliked(true);
               }}
             />
           </div>
-          <div className={styles.btn}>
+          <div
+            className={`
+            ${styles.btn}
+            ${isAdded ? styles.btnSelected : ""}
+            `}
+          >
             <i
               className="fas fa-plus"
               onClick={() => {
-                console.log(`TODO Add Video ${id} to List`);
+                setIsAdded(!isAdded);
               }}
             />
           </div>
