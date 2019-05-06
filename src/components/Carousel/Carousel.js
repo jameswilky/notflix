@@ -3,7 +3,6 @@ import styles from "./Carousel.module.css";
 import Slide from "./Slide";
 
 export default function Carousel(props) {
-  const { auth } = props;
   return (
     <div>
       <div className={styles.container}>

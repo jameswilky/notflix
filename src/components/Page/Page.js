@@ -5,11 +5,10 @@ import Footer from "../Footer/Footer";
 import styles from "./Page.module.css";
 
 export default function Page(props) {
-  const { auth } = props;
   return (
     <div>
-      <Header auth={auth} />
-      <Body auth={auth} />
+      <Header {...props} />
+      <Body {...props} />
       <Footer />
     </div>
   );

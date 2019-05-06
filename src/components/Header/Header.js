@@ -5,6 +5,7 @@ import userIcon from "../../images/userIcon.jpg";
 
 export default function Header(props) {
   const { isAuthenticated, login } = props.auth;
+  console.log(props);
   return (
     <div className={styles.nav}>
       <div className={styles.logoContainer}>
