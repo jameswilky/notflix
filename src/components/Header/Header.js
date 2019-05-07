@@ -1,11 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import styles from "./Header.module.css";
 import logo from "../../images/logo.png";
 import userIcon from "../../images/userIcon.jpg";
 
 export default function Header(props) {
-  const { isAuthenticated, login, logout } = props.auth;
+  const { isAuthenticated, login, logout, getProfile } = props.auth;
   const [showDropdown, setShowDropdown] = useState(false);
+
+  const [profile, setProfile] = useState(null);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (isAuthenticated()) {
+      getProfile((profile, error) => {
+        setProfile(profile);
+        setError(error);
+      });
+    }
+  }, [profile, error]);
+
   return (
     <>
       <div className={styles.nav}>
@@ -25,13 +39,17 @@ export default function Header(props) {
         <div className={styles.notificationsBtn}>
           <i className="fas fa-bell" />
         </div>
-        {isAuthenticated() ? (
+        {isAuthenticated() && profile ? (
           <div
             className={styles.accountBtn}
             onMouseEnter={() => setShowDropdown(true)}
             onMouseLeave={() => setShowDropdown(false)}
           >
-            <img className={styles.accountImg} src={userIcon} alt="" />
+            <img
+              className={styles.accountImg}
+              src={userIcon}
+              alt="Profile Avatar"
+            />
             {showDropdown ? (
               <>
                 <div className={styles.arrow}>
@@ -39,7 +57,9 @@ export default function Header(props) {
                 </div>
                 <div className={styles.dropdown}>
                   <ul>
-                    <li>Account</li>
+                    <li>
+                      <Link to="/profile">Account</Link>
+                    </li>
                     <li>Help Center</li>
                     <li onClick={logout}>Log Out</li>
                   </ul>

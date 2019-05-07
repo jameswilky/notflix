@@ -8,7 +8,7 @@
   justify-items: center;
   position: fixed;
   width: 100%;
-  /* background-color: var(--black); */
+  background-color: var(--black);
 }
 
 .innerNav > * {

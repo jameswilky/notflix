@@ -1,0 +1,8 @@
+.main {
+  padding-top: 10%;
+}
+
+.main * {
+  background-color: var(--white);
+  color: var(--black);
+}

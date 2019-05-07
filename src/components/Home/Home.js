@@ -1,5 +1,5 @@
 import React, { useEffect, useState, Fragment } from "react";
-import styles from "./Body.module.css";
+import styles from "./Home.module.css";
 import banner from "../../images/placeholder.jpg";
 import Carousel from "../Carousel/Carousel";
 
@@ -8,7 +8,7 @@ import Carousel from "../Carousel/Carousel";
   https://gomakethings.com/how-to-play-a-video-in-full-screen-mode-when-its-thumbnail-is-clicked-with-vanilla-js/
 */
 
-export default function Body(props) {
+export default function Home(props) {
   return (
     <div className={styles.main}>
       <div className={styles.bannerContainer}>
