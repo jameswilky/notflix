@@ -30,6 +30,16 @@ function App(props) {
           )
         }
       />
+      <Route
+        path="/favourites"
+        render={props =>
+          auth.isAuthenticated() ? (
+            <Page auth={auth} {...props} content={"favourites"} />
+          ) : (
+            <Redirect to="/" />
+          )
+        }
+      />
     </>
   );
 }

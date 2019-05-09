@@ -5,6 +5,8 @@ import logo from "../../images/logo.png";
 import userIcon from "../../images/userIcon.jpg";
 
 export default function Header(props) {
+  const { isTransparent } = props;
+  console.log(props);
   const { isAuthenticated, login, logout, getProfile } = props.auth;
   const [showDropdown, setShowDropdown] = useState(false);
 
@@ -22,13 +24,30 @@ export default function Header(props) {
 
   return (
     <>
-      <div className={styles.nav}>
+      <div
+        className={styles.nav}
+        style={{ backgroundColor: isTransparent ? "none" : "var(--black)" }}
+      >
         <div className={styles.logoContainer}>
-          <img className={styles.img} src={logo} alt="" />
+          <Link to="/">
+            {" "}
+            <img className={styles.img} src={logo} alt="" />
+          </Link>
         </div>
         <div className={styles.innerNav}>
-          <h4>Browse</h4>
-          <i className="fas fa-caret-down" />
+          <div>
+            <Link to="/">
+              <h4>Browse</h4>
+              <i className="fas fa-caret-down" />
+            </Link>
+          </div>
+          <div>
+            {isAuthenticated() && profile ? (
+              <Link to="/favourites">
+                <h4>My List</h4>
+              </Link>
+            ) : null}
+          </div>
         </div>
         <div className={styles.searchContainer}>
           <i
