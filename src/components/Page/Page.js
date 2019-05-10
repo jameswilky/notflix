@@ -1,32 +1,78 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../Header/Header";
-import Home from "../Home/Home";
+import Browser from "../Browser/Browser";
 import Footer from "../Footer/Footer";
 import Profile from "../Profile/Profile";
 import Favourites from "../Favourites/Favourites";
+import pageNames from "../../pageNames";
 
 export default function Page(props) {
-  const { content } = props;
-  let isTransparent = true;
+  const { HOME, MOVIES, TV_SHOWS, PROFILE, FAVOURITES } = pageNames;
+  const { content, contentLoaded, videosByGenre } = props;
+
+  //Transparent header if the page is home, tv shows or movies
+  const isTransparent =
+    content == HOME || content == TV_SHOWS || content == MOVIES;
 
   const Body = () => {
-    switch (content) {
-      case "home":
-        return <Home {...props} />;
-      case "profile":
-        return <Profile {...props} />;
-      case "favourites":
-        return <Favourites {...props} />;
+    switch (contentLoaded) {
+      case true:
+        switch (content) {
+          case HOME:
+            return (
+              <Browser
+                {...props}
+                includeHeader={true}
+                videosByGenre={videosByGenre}
+              />
+            );
+          case TV_SHOWS:
+            return (
+              <Browser
+                {...props}
+                includeHeader={true}
+                videosByGenre={videosByGenre}
+              />
+            );
+          case MOVIES:
+            return (
+              <Browser
+                {...props}
+                includeHeader={true}
+                videosByGenre={videosByGenre}
+              />
+            );
+          case PROFILE:
+            return <Profile {...props} />;
+          case FAVOURITES:
+            return (
+              <Favourites
+                {...props}
+                includeHeader={false}
+                videosByGenre={videosByGenre}
+              />
+            );
+          default:
+            return <Browser {...props} />;
+        }
       default:
-        return <Home {...props} />;
+        return (
+          <div
+            style={{
+              height: "100vh",
+              backgroundColor: "var(--black)",
+              padding: "25% 50% 25% 50%"
+            }}
+          >
+            {" "}
+            Loading Content{" "}
+          </div>
+        );
     }
   };
   return (
     <div>
-      <Header
-        {...props}
-        isTransparent={content === "home" ? isTransparent : null}
-      />
+      <Header {...props} isTransparent={isTransparent} />
       <Body />
       <Footer />
     </div>

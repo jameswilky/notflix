@@ -27,7 +27,6 @@ const app = express();
 
 app.get("/public", function(req, res) {
   res.json({
-    message: "Hello from a public API!",
     videos: [
       {
         id: "9hJ8lLNWrM4",

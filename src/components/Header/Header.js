@@ -6,7 +6,6 @@ import userIcon from "../../images/userIcon.jpg";
 
 export default function Header(props) {
   const { isTransparent } = props;
-  console.log(props);
   const { isAuthenticated, login, logout, getProfile } = props.auth;
   const [showDropdown, setShowDropdown] = useState(false);
 
@@ -20,7 +19,7 @@ export default function Header(props) {
         setError(error);
       });
     }
-  }, [profile, error]);
+  }, []);
 
   return (
     <>
@@ -39,6 +38,16 @@ export default function Header(props) {
             <Link to="/">
               <h4>Browse</h4>
               <i className="fas fa-caret-down" />
+            </Link>
+          </div>
+          <div>
+            <Link to="/tvshows">
+              <p>TV Shows</p>{" "}
+            </Link>
+          </div>
+          <div>
+            <Link to="/movies">
+              <p>Movies</p>{" "}
             </Link>
           </div>
           <div>

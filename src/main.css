@@ -1,3 +1,7 @@
+/*===================
+ Base Styling
+*/
+
 :root {
   --black: #141414;
   --white: #fff;
@@ -12,5 +16,3 @@
   font-family: "Noto Sans", sans-serif;
   text-decoration: none;
 }
-
-/* ==================*/
