@@ -8,14 +8,14 @@ import pageNames from "../../pageNames";
 
 export default function Page(props) {
   const { HOME, MOVIES, TV_SHOWS, PROFILE, FAVOURITES } = pageNames;
-  const { content, contentLoaded, videosByGenre } = props;
+  const { content, videosLoaded, videosByGenre } = props;
 
   //Transparent header if the page is home, tv shows or movies
   const isTransparent =
     content == HOME || content == TV_SHOWS || content == MOVIES;
 
   const Body = () => {
-    switch (contentLoaded) {
+    switch (videosLoaded) {
       case true:
         switch (content) {
           case HOME:
@@ -32,6 +32,7 @@ export default function Page(props) {
                 {...props}
                 includeHeader={true}
                 videosByGenre={videosByGenre}
+                videoType={"show"}
               />
             );
           case MOVIES:
@@ -40,6 +41,7 @@ export default function Page(props) {
                 {...props}
                 includeHeader={true}
                 videosByGenre={videosByGenre}
+                videoType={"movie"}
               />
             );
           case PROFILE:

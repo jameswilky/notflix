@@ -4,7 +4,7 @@ import Utilities from "../Utilities";
 export default function useVideos() {
   const { sortBy, groupBy } = Utilities;
 
-  const [contentLoaded, setContentLoaded] = useState(false);
+  const [videosLoaded, setVideosLoaded] = useState(false);
   const [videosByGenre, setVideosByGenre] = useState([]);
   useEffect(() => {
     fetch("/public")
@@ -16,9 +16,9 @@ export default function useVideos() {
         const sortedVideos = sortBy(response.videos, "genre");
         const groupByGenre = groupBy("genre");
         setVideosByGenre(groupByGenre(sortedVideos));
-        setContentLoaded(true);
+        setVideosLoaded(true);
       })
       .catch(error => console.log(error.message));
   }, []);
-  return { contentLoaded, videosByGenre };
+  return { videosLoaded, videosByGenre };
 }

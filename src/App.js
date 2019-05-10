@@ -6,13 +6,15 @@ import Auth from "./Auth";
 import Callback from "./components/Auth/Callback";
 import pageNames from "./pageNames";
 import useVideos from "./hooks/useVideos";
+import Utilities from "./Utilities";
 
 function App(props) {
   const { history } = props;
   const auth = new Auth(history);
 
   const { HOME, MOVIES, TV_SHOWS, PROFILE, FAVOURITES } = pageNames;
-  const { contentLoaded, videosByGenre } = useVideos();
+  const { videosLoaded, videosByGenre } = useVideos();
+  console.log(videosByGenre);
 
   return (
     <>
@@ -24,7 +26,7 @@ function App(props) {
             auth={auth}
             {...props}
             content={HOME}
-            contentLoaded={contentLoaded}
+            videosLoaded={videosLoaded}
             videosByGenre={videosByGenre}
           />
         )}
@@ -36,7 +38,7 @@ function App(props) {
             auth={auth}
             {...props}
             content={TV_SHOWS}
-            contentLoaded={contentLoaded}
+            videosLoaded={videosLoaded}
             videosByGenre={videosByGenre}
           />
         )}
@@ -48,7 +50,7 @@ function App(props) {
             auth={auth}
             {...props}
             content={MOVIES}
-            contentLoaded={contentLoaded}
+            videosLoaded={videosLoaded}
             videosByGenre={videosByGenre}
           />
         )}
@@ -65,7 +67,7 @@ function App(props) {
               auth={auth}
               {...props}
               content={PROFILE}
-              contentLoaded={contentLoaded}
+              videosLoaded={videosLoaded}
             />
           ) : (
             <Redirect to="/" />
@@ -80,7 +82,7 @@ function App(props) {
               auth={auth}
               {...props}
               content={FAVOURITES}
-              contentLoaded={contentLoaded}
+              videosLoaded={videosLoaded}
               videosByGenre={videosByGenre}
             />
           ) : (

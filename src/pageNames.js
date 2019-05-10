@@ -5,4 +5,5 @@ const pageNames = {
   PROFILE: "profile",
   FAVOURITES: "favourites"
 };
+
 export default pageNames;
