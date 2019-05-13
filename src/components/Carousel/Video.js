@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Youtube from "react-youtube";
 import styles from "./Video.module.css";
 

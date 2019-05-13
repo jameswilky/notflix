@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import styles from "./Header.module.css";
 import logo from "../../images/logo.png";
 import userIcon from "../../images/userIcon.jpg";
+import { AuthContext } from "../../AuthContext";
 
 export default function Header(props) {
   const { isTransparent } = props;
-  const { isAuthenticated, login, logout, getProfile } = props.auth;
+  const { auth } = useContext(AuthContext);
+  const { isAuthenticated, login, logout, getProfile } = auth;
   const [showDropdown, setShowDropdown] = useState(false);
 
   const [profile, setProfile] = useState(null);

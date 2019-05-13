@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import styles from "./Profile.module.css";
+import { AuthContext } from "../../AuthContext";
 
 export default function Profile(props) {
-  const { auth } = props;
+  const { auth } = useContext(AuthContext);
   return (
     <div className={styles.main}>
       <div className={styles.container}>

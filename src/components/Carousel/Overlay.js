@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styles from "./Overlay.module.css";
+import { AuthContext } from "../../AuthContext";
 
 export default function Overlay(props) {
-  const { id, metaData, player, auth } = props;
+  const { id, metaData, player } = props;
+  const { auth } = useContext(AuthContext);
+
   const [isMuted, setIsMuted] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [isDisliked, setIsDisliked] = useState(false);

@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
+import { AuthContext } from "../../AuthContext";
 
 export default function Callback(props) {
   const { hash } = props.location;
-  const { auth } = props;
+  const { auth } = useContext(AuthContext);
   useEffect(() => {
     if (/access_token|id_token|error/.test(hash)) {
       auth.handleAuthentication();

@@ -7,23 +7,23 @@ import Callback from "./components/Auth/Callback";
 import pageNames from "./pageNames";
 import useVideos from "./hooks/useVideos";
 import Utilities from "./Utilities";
+import { AuthProvider, AuthContext } from "./AuthContext";
 
 function App(props) {
   const { history } = props;
+
   const auth = new Auth(history);
 
   const { HOME, MOVIES, TV_SHOWS, PROFILE, FAVOURITES } = pageNames;
   const { videosLoaded, videosByGenre } = useVideos();
-  console.log(videosByGenre);
 
   return (
-    <>
+    <AuthProvider auth={auth}>
       <Route
         path="/"
         exact
         render={props => (
           <Page
-            auth={auth}
             {...props}
             content={HOME}
             videosLoaded={videosLoaded}
@@ -90,7 +90,7 @@ function App(props) {
           )
         }
       />
-    </>
+    </AuthProvider>
   );
 }
 

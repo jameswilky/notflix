@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import styles from "./Favourites.module.css";
 import Carousel from "../Carousel/Carousel";
+import { AuthContext } from "../../AuthContext";
 
 export default function Favourites(props) {
   const [message, setMessage] = useState("");
-  const { getAccessToken } = props.auth;
+  const { auth } = useContext(AuthContext);
+  const { getAccessToken } = auth;
 
   useEffect(() => {
     fetch("/private", {
