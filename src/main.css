@@ -5,6 +5,10 @@
 :root {
   --black: #141414;
   --white: #fff;
+  --grey: #dfdfdf;
+  --grey1: #f3f3f3;
+  --grey2: #999999;
+  --grey3: #bababa;
 }
 
 * {

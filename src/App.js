@@ -55,20 +55,12 @@ function App(props) {
           />
         )}
       />
-      <Route
-        path="/callback"
-        render={props => <Callback auth={auth} {...props} />}
-      />
+      <Route path="/callback" render={props => <Callback {...props} />} />
       <Route
         path="/profile"
         render={props =>
           auth.isAuthenticated() ? (
-            <Page
-              auth={auth}
-              {...props}
-              content={PROFILE}
-              videosLoaded={videosLoaded}
-            />
+            <Page content={PROFILE} videosLoaded={videosLoaded} />
           ) : (
             <Redirect to="/" />
           )
@@ -79,7 +71,6 @@ function App(props) {
         render={props =>
           auth.isAuthenticated() ? (
             <Page
-              auth={auth}
               {...props}
               content={FAVOURITES}
               videosLoaded={videosLoaded}

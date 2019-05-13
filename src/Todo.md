@@ -7,4 +7,4 @@
 7. create compact nav bar for nav buttons
 8. finish account page
 9. Create mongo database to store user data and video data
-10. convert auth to context api
+   <!-- 10. convert auth to context api -->

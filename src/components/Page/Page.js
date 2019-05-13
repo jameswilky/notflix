@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React from "react";
 import Header from "../Header/Header";
 import Browser from "../Browser/Browser";
 import Footer from "../Footer/Footer";
