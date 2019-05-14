@@ -17,8 +17,6 @@ export default function Profile() {
     });
   }, [profile, error]);
 
-  const name = auth;
-  console.log(auth);
   return (
     <div className={styles.main}>
       <div className={styles.container}>

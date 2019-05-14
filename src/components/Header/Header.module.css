@@ -1,7 +1,7 @@
 .nav {
   display: grid;
   grid-template-columns: 100px 1fr auto 50px 50px;
-  grid-template-rows: 55px;
+  grid-template-rows: 45px;
   grid-gap: 10px;
   padding: 0px 20px;
   align-items: center;
@@ -15,6 +15,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
   width: 100%;
+  font-size: 0.9rem;
 }
 
 i,
@@ -58,6 +59,35 @@ h4 {
   margin-top: 15px;
   border: 1px solid grey;
 }
+
+.browserDropdown {
+  position: absolute;
+  text-align: center;
+  width: 250px;
+  left: 50px;
+  z-index: 2;
+  background-color: var(--black);
+  /* padding: 15px; */
+  opacity: 0.9;
+  border-top: 2px solid var(--grey);
+  margin-top: 20px;
+}
+.browserDropdown > * {
+  line-height: 3rem;
+}
+
+.arrowBrowser {
+  position: absolute;
+  left: 160px;
+  top: -73px;
+  width: 250px;
+  font-size: 2rem;
+  margin-top: 100px;
+}
+.arrowBrowser > i {
+  margin-bottom: 150px;
+}
+
 .arrow {
   position: absolute;
   right: 0;
@@ -70,11 +100,11 @@ h4 {
   margin-left: 142px;
 }
 
-.dropdown > * {
+.dropdown > *,
+.browserDropdown > * {
   color: var(--white);
   display: block;
   text-decoration: none;
-  line-height: 2em;
   list-style: none;
   cursor: pointer;
 }

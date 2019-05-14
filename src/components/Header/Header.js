@@ -12,7 +12,9 @@ export default function Header(props) {
   const { auth } = useContext(AuthContext);
   const { isAuthenticated, login, logout, getProfile } = auth;
 
-  const [showDropdown, setShowDropdown] = useState(false);
+  const [showAccountDropDown, setShowAccountDropDown] = useState(false);
+  const [showBrowserDropDown, setShowBrowserDropDown] = useState(false);
+
   const [profile, setProfile] = useState(null);
   const [error, setError] = useState("");
   const [screenWidth, setScreenWidth] = useState(
@@ -38,9 +40,38 @@ export default function Header(props) {
     }
   }, []);
 
+  const SubNav = function() {
+    return (
+      <>
+        <div>
+          <Link to="/">
+            <h4>Home</h4>
+          </Link>
+        </div>
+        <div>
+          <Link to="/tvshows">
+            <p>TV Shows</p>{" "}
+          </Link>
+        </div>
+        <div>
+          <Link to="/movies">
+            <p>Movies</p>{" "}
+          </Link>
+        </div>
+        <div>
+          {isAuthenticated() && profile ? (
+            <Link to="/favourites">
+              <p>My List</p>
+            </Link>
+          ) : null}
+        </div>
+      </>
+    );
+  };
+
   return (
     <>
-      <div
+      <header
         className={styles.nav}
         style={{ backgroundColor: isTransparent ? "none" : "var(--black)" }}
       >
@@ -52,36 +83,24 @@ export default function Header(props) {
         </div>
         <div className={styles.innerNav}>
           {screenWidth > breakPoint ? (
-            <>
-              <div>
-                <Link to="/">
-                  <h4>Home</h4>
-                </Link>
-              </div>
-              <div>
-                <Link to="/tvshows">
-                  <p>TV Shows</p>{" "}
-                </Link>
-              </div>
-              <div>
-                <Link to="/movies">
-                  <p>Movies</p>{" "}
-                </Link>
-              </div>
-              <div>
-                {isAuthenticated() && profile ? (
-                  <Link to="/favourites">
-                    <h4>My List</h4>
-                  </Link>
-                ) : null}
-              </div>
-            </>
+            <SubNav />
           ) : (
-            <div>
-              <Link to="/">
-                <h4>Browse</h4>
-                <i className="fas fa-caret-down" />
-              </Link>
+            <div
+              onMouseEnter={() => setShowBrowserDropDown(true)}
+              onMouseLeave={() => setShowBrowserDropDown(false)}
+            >
+              <h4>Browse</h4>
+              <i className="fas fa-caret-down" />
+              {showBrowserDropDown ? (
+                <>
+                  <div className={styles.arrowBrowser}>
+                    <i className={`fas fa-caret-up`} />
+                  </div>
+                  <div className={styles.browserDropdown}>
+                    <SubNav />
+                  </div>
+                </>
+              ) : null}
             </div>
           )}
         </div>
@@ -98,15 +117,15 @@ export default function Header(props) {
         {isAuthenticated() && profile ? (
           <div
             className={styles.accountBtn}
-            onMouseEnter={() => setShowDropdown(true)}
-            onMouseLeave={() => setShowDropdown(false)}
+            onMouseEnter={() => setShowAccountDropDown(true)}
+            onMouseLeave={() => setShowAccountDropDown(false)}
           >
             <img
               className={styles.accountImg}
               src={userIcon}
               alt="Profile Avatar"
             />
-            {showDropdown ? (
+            {showAccountDropDown ? (
               <>
                 <div className={styles.arrow}>
                   <i className={`fas fa-caret-up`} />
@@ -126,7 +145,7 @@ export default function Header(props) {
         ) : (
           <button onClick={login}> Log in</button>
         )}
-      </div>
+      </header>
     </>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import Page from "./components/Page/Page";
 import "./main.css";
 import { Route, Redirect } from "react-router-dom";
@@ -6,8 +6,7 @@ import Auth from "./Auth";
 import Callback from "./components/Auth/Callback";
 import pageNames from "./pageNames";
 import useVideos from "./hooks/useVideos";
-import Utilities from "./Utilities";
-import { AuthProvider, AuthContext } from "./AuthContext";
+import { AuthProvider } from "./AuthContext";
 
 function App(props) {
   const { history } = props;

@@ -73,10 +73,10 @@ export default function Page(props) {
     }
   };
   return (
-    <div>
+    <>
       <Header {...props} isTransparent={isTransparent} />
       <Body />
       <Footer />
-    </div>
+    </>
   );
 }
