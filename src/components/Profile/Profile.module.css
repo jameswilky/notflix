@@ -1,6 +1,6 @@
 .main {
   padding-top: 40px;
-  background-color: var(--white);
+  background-color: var(--grey1);
 }
 
 .main * {
@@ -9,7 +9,6 @@
 
 .container {
   padding: 25px;
-  background-color: var(--grey1);
   display: grid;
   grid-template-columns: auto;
   grid-gap: 5px;
@@ -21,7 +20,7 @@
 .subTitle {
   text-transform: uppercase;
   color: var(--grey2);
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 
 .innerContainer {
@@ -31,13 +30,16 @@
   line-height: 2.65rem;
 }
 
-.cancelBtn {
+.cancelBtnMobile {
   background-color: var(--grey);
   border: 0;
   padding: 12px;
   font-size: 1rem;
   width: 100%;
   font-weight: bold;
+}
+.cancelBtnDesktop {
+  display: none;
 }
 
 .tile {
@@ -72,8 +74,91 @@
   color: var(--grey2);
 }
 
-/* Tablet */
+.creditCardIcon {
+  font-size: 2rem;
+}
+/* Tablet + Desktop*/
 @media screen and (min-width: 451px) {
+  .innerContainer {
+    background-color: var(--grey1);
+    border-top: 1px solid black;
+    border-left: 0px;
+    border-right: 0px;
+    border-bottom: 0px;
+    padding: 5px 0 5px 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    font-size: 0.8rem;
+    line-height: 2rem;
+  }
+  .img {
+    width: 48px;
+    height: 48px;
+  }
+
+  .tile {
+    padding: 2px;
+  }
+
+  .innerContainer__userInfoContainer {
+    grid-template-rows: 1fr 1fr 1fr;
+    display: grid;
+  }
+  .innerContainer__userInfoContainer > div:not(:first-child) {
+    border-top: 1px solid black;
+    border-left: 0px;
+    border-right: 0px;
+    border-bottom: 0px;
+  }
+
+  .subContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .hasLinks,
+  .hasLinks * {
+    color: var(--lightBlue);
+    font-weight: bold;
+  }
+  .alignRight,
+  .alignRight * {
+    text-align: right;
+  }
+
+  .tile {
+    line-height: 2rem;
+  }
+
+  .arrowIcon {
+    visibility: hidden;
+  }
+  .lineBreak::before {
+    display: none;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: auto;
+    padding: 40px;
+  }
+
+  .cancelBtnMobile {
+    display: none;
+  }
+  .cancelBtnDesktop {
+    background-color: var(--grey);
+    border: 0;
+    padding: 12px;
+    margin: 0px 0px 20px 0px;
+
+    width: 220px;
+    font-weight: bold;
+    display: inline-block;
+  }
+  .cancelBtnDesktop:hover {
+    background-color: var(--grey3);
+  }
 }
 
 /* Desktop */
