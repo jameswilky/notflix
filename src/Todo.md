@@ -5,6 +5,6 @@
 5. add client-side MyList functionality
 6. add server-side mylist functionality
 7. create compact nav bar for nav buttons
-8. finish account page
-9. Create mongo database to store user data and video data
+   <!-- 8. finish account page -->
+8. Create mongo database to store user data and video data
    <!-- 10. convert auth to context api -->
