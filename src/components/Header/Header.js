@@ -5,6 +5,7 @@ import logo from "../../images/logo.png";
 import userIcon from "../../images/userIcon.jpg";
 import { AuthContext } from "../../AuthContext";
 import Utilities from "../../Utilities";
+import SearchBar from "./SearchBar";
 
 export default function Header(props) {
   const { isTransparent } = props;
@@ -104,13 +105,7 @@ export default function Header(props) {
             </div>
           )}
         </div>
-
-        <div className={styles.searchContainer}>
-          <i
-            className={`fas fa-search ${styles.searchBtn}`}
-            onClick={() => {}}
-          />
-        </div>
+        <SearchBar />
         <div className={styles.notificationsBtn}>
           <i className="fas fa-bell" />
         </div>
@@ -130,7 +125,7 @@ export default function Header(props) {
                 <div className={styles.arrow}>
                   <i className={`fas fa-caret-up`} />
                 </div>
-                <div className={styles.dropdown}>
+                <div className={styles.accountDropdown}>
                   <ul>
                     <li>
                       <Link to="/profile">Account</Link>
