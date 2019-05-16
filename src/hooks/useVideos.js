@@ -3,10 +3,11 @@ import Utilities from "../Utilities";
 
 export default function useVideos() {
   const { sortBy, groupBy } = Utilities;
-
+  console.log("running videos hook");
   const [videosLoaded, setVideosLoaded] = useState(false);
   const [videosByGenre, setVideosByGenre] = useState([]);
   useEffect(() => {
+    console.log("fetching videos");
     fetch("/public")
       .then(response => {
         if (response.ok) return response.json();

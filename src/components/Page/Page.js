@@ -3,7 +3,7 @@ import Header from "../Header/Header";
 import Browser from "../Browser/Browser";
 import Footer from "../Footer/Footer";
 import Profile from "../Profile/Profile";
-import Favourites from "../Favourites/Favourites";
+import Collection from "../Collection/Collection";
 import pageNames from "../../pageNames";
 
 export default function Page(props) {
@@ -27,13 +27,7 @@ export default function Page(props) {
               />
             );
           case SEARCH:
-            return (
-              <Browser
-                {...props}
-                includeBanner={false}
-                videosByGenre={videosByGenre}
-              />
-            );
+            return <Collection {...props} includeBanner={false} />;
           case TV_SHOWS:
             return (
               <Browser
@@ -55,7 +49,7 @@ export default function Page(props) {
           case PROFILE:
             return <Profile {...props} />;
           case FAVOURITES:
-            return <Favourites {...props} videosByGenre={videosByGenre} />;
+            return <Collection {...props} videosByGenre={videosByGenre} />;
           default:
             return <Browser {...props} />;
         }

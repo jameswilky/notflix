@@ -4,9 +4,10 @@ import styles from "./SearchBar.module.css";
 import { withRouter } from "react-router-dom";
 
 function SearchBar(props) {
-  const params = queryString.parse(props.location.search);
-  const [show, setShow] = useState(true);
-  const [value, setValue] = useState(params.q === undefined ? "" : params.q);
+  const query = queryString.parse(props.location.search).q;
+  const route = props.history.location.pathname;
+  const [show, setShow] = useState(query === undefined ? false : true);
+  const [value, setValue] = useState(query === undefined ? "" : query);
 
   /* On Click outside*/
   useEffect(() => {
@@ -22,14 +23,18 @@ function SearchBar(props) {
 
   /* On value change */
   const handleValueChange = e => {
+    // Keep textbox o
+
+    /* If search box is empty, reroute to home*/
     if (e.target.value === "") {
       props.history.push({
         pathname: "/"
       });
-    } else {
+    } /* otherwise, route to search and query the value*/ else {
       props.history.push({
         pathname: "/search",
-        search: `?q=${e.target.value}`
+        search: `?q=${e.target.value}`,
+        prevPath: route
       });
     }
     setValue(e.target.value);

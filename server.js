@@ -25,30 +25,46 @@ const checkJwt = jwt({
 
 const app = express();
 
+const videos = [
+  {
+    id: "9hJ8lLNWrM4",
+    title: "Pure Water",
+    genre: "Documentary",
+    type: "movie"
+  },
+  { id: "JTMVOzPPtiw", title: "Nookie", genre: "Action", type: "show" },
+  { id: "Gs069dndIYk", title: "September", genre: "Comedy", type: "show" },
+  {
+    id: "HgzGwKwLmgM",
+    title: "Don't Stop Me Now",
+    genre: "Action",
+    type: "movie"
+  },
+  {
+    id: "hTWKbfoikeg",
+    title: "Smells Like Teen Spirit",
+    genre: "Documentary",
+    type: "movie"
+  }
+];
+
 app.get("/public", function(req, res) {
   res.json({
-    videos: [
-      {
-        id: "9hJ8lLNWrM4",
-        title: "Pure Water",
-        genre: "Documentary",
-        type: "movie"
-      },
-      { id: "JTMVOzPPtiw", title: "Nookie", genre: "Action", type: "show" },
-      { id: "Gs069dndIYk", title: "September", genre: "Comedy", type: "show" },
-      {
-        id: "HgzGwKwLmgM",
-        title: "Don't Stop Me Now",
-        genre: "Action",
-        type: "movie"
-      },
-      {
-        id: "hTWKbfoikeg",
-        title: "Smells Like Teen Spirit",
-        genre: "Documentary",
-        type: "movie"
-      }
-    ]
+    videos
+  });
+});
+
+app.get("/search", function(req, res) {
+  let query = req.query.q.toLowerCase();
+
+  const filteredVideos = videos.filter(
+    video =>
+      video.genre.toLowerCase().includes(query) ||
+      video.title.toLowerCase().includes(query)
+  );
+  res.json({
+    videos: filteredVideos,
+    query: query
   });
 });
 
