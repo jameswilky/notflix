@@ -105,7 +105,7 @@ export default function Header(props) {
             </div>
           )}
         </div>
-        <SearchBar />
+        <SearchBar key={1} {...props} />
         <div className={styles.notificationsBtn}>
           <i className="fas fa-bell" />
         </div>

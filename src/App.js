@@ -10,10 +10,9 @@ import { AuthProvider } from "./AuthContext";
 
 function App(props) {
   const { history } = props;
-
   const auth = new Auth(history);
 
-  const { HOME, MOVIES, TV_SHOWS, PROFILE, FAVOURITES } = pageNames;
+  const { HOME, MOVIES, TV_SHOWS, PROFILE, FAVOURITES, SEARCH } = pageNames;
   const { videosLoaded, videosByGenre } = useVideos();
 
   return (
@@ -79,6 +78,18 @@ function App(props) {
             <Redirect to="/" />
           )
         }
+      />
+      <Route
+        path={`/search`}
+        render={props => (
+          <Page
+            auth={auth}
+            {...props}
+            content={SEARCH}
+            videosLoaded={videosLoaded}
+            videosByGenre={videosByGenre}
+          />
+        )}
       />
     </AuthProvider>
   );

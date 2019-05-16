@@ -10,12 +10,15 @@ export default function Profile() {
   const [profile, setProfile] = useState({});
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    auth.getProfile((profile, error) => {
-      setProfile(profile);
-      setError(error);
-    });
-  }, [profile, error]);
+  useEffect(
+    auth => {
+      auth.getProfile((profile, error) => {
+        setProfile(profile);
+        setError(error);
+      });
+    },
+    [profile, error]
+  );
 
   return (
     <div className={styles.main}>

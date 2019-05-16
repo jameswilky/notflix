@@ -13,9 +13,9 @@ export default function Carousel(props) {
         </div>
         <div className={styles.body}>
           <div className={styles.body__inner}>
-            {videos.map(video => {
+            {/* {videos.map(video => {
               return <Slide video={video} key={uuid()} {...props} />;
-            })}
+            })} */}
           </div>
         </div>
       </div>

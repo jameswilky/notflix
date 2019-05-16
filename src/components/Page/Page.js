@@ -7,12 +7,12 @@ import Favourites from "../Favourites/Favourites";
 import pageNames from "../../pageNames";
 
 export default function Page(props) {
-  const { HOME, MOVIES, TV_SHOWS, PROFILE, FAVOURITES } = pageNames;
+  const { HOME, MOVIES, TV_SHOWS, PROFILE, FAVOURITES, SEARCH } = pageNames;
   const { content, videosLoaded, videosByGenre } = props;
 
   //Transparent header if the page is home, tv shows or movies
   const isTransparent =
-    content == HOME || content == TV_SHOWS || content == MOVIES;
+    content === HOME || content === TV_SHOWS || content === MOVIES;
 
   const Body = () => {
     switch (videosLoaded) {
@@ -22,7 +22,15 @@ export default function Page(props) {
             return (
               <Browser
                 {...props}
-                includeHeader={true}
+                includeBanner={true}
+                videosByGenre={videosByGenre}
+              />
+            );
+          case SEARCH:
+            return (
+              <Browser
+                {...props}
+                includeBanner={false}
                 videosByGenre={videosByGenre}
               />
             );
@@ -30,7 +38,7 @@ export default function Page(props) {
             return (
               <Browser
                 {...props}
-                includeHeader={true}
+                includeBanner={true}
                 videosByGenre={videosByGenre}
                 videoType={"show"}
               />
@@ -39,7 +47,7 @@ export default function Page(props) {
             return (
               <Browser
                 {...props}
-                includeHeader={true}
+                includeBanner={true}
                 videosByGenre={videosByGenre}
                 videoType={"movie"}
               />
@@ -47,13 +55,7 @@ export default function Page(props) {
           case PROFILE:
             return <Profile {...props} />;
           case FAVOURITES:
-            return (
-              <Favourites
-                {...props}
-                includeHeader={false}
-                videosByGenre={videosByGenre}
-              />
-            );
+            return <Favourites {...props} videosByGenre={videosByGenre} />;
           default:
             return <Browser {...props} />;
         }

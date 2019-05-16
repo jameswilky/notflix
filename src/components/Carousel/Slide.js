@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment, useContext } from "react";
+import React, { useState } from "react";
 import Video from "./Video";
 import styles from "./Slide.module.css";
 import Overlay from "./Overlay";
@@ -13,7 +13,7 @@ export default function Slide(props) {
     if (player != null) resolve(player);
   });
 
-  const [metaData, setMetaData] = useState({
+  const [metaData] = useState({
     title: "Top Gear",
     match: "94% match", // use user score
     maturity: "M",
@@ -32,7 +32,7 @@ export default function Slide(props) {
         }}
         data-video={id}
         alt="Play this video"
-        src={`http://img.youtube.com/vi/${id}/0.jpg`}
+        src={`https://img.youtube.com/vi/${id}/0.jpg`}
       />
     );
   };
