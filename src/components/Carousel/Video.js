@@ -3,7 +3,7 @@ import Youtube from "react-youtube";
 import styles from "./Video.module.css";
 
 export default function Video(props) {
-  const { id, setPlayer } = props;
+  const { id, setPlayer, load } = props;
 
   const options = {
     height: "140",
@@ -16,15 +16,21 @@ export default function Video(props) {
   };
 
   const onReadyHandler = e => {
+    console.log(id + " loaded");
+
     setPlayer(e.target);
   };
 
   return (
-    <Youtube
-      className={styles.youTube}
-      videoId={id}
-      opts={options}
-      onReady={e => onReadyHandler(e)}
-    />
+    <>
+      {load ? (
+        <Youtube
+          className={styles.youTube}
+          videoId={id}
+          opts={options}
+          onReady={e => onReadyHandler(e)}
+        />
+      ) : null}
+    </>
   );
 }

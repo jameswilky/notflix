@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Video from "./Video";
 import styles from "./Slide.module.css";
 import Overlay from "./Overlay";
@@ -9,8 +9,12 @@ export default function Slide(props) {
   const [player, setPlayer] = useState();
   const [showThumbnail, setShowThumbnail] = useState(true);
 
+  // This is used to only load videos after a hover
+  // Improve performance, but requires clicking video to start playing
+  const [loadPlayer, setLoadPlayer] = useState(false);
+
   const playerLoading = new Promise(resolve => {
-    if (player != null) resolve(player);
+    if (player !== undefined) resolve(player);
   });
 
   const [metaData] = useState({
@@ -51,6 +55,7 @@ export default function Slide(props) {
         });
       }}
       onMouseEnter={e => {
+        setLoadPlayer(true);
         playerLoading.then(player => {
           // this will prevent overlay from working untill the player has actually loaded
           player.playVideo();
@@ -64,7 +69,7 @@ export default function Slide(props) {
         });
       }}
     >
-      <Video id={id} setPlayer={setPlayer} />
+      <Video id={id} setPlayer={setPlayer} load={loadPlayer} />
       <Overlay id={id} player={player} metaData={metaData} />
       <Thumbnail />
     </div>

@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import styles from "./Collection.module.css";
 import Carousel from "../Carousel/Carousel";
 import { AuthContext } from "../../AuthContext";
+import uuid from "uuid";
 
 export default function Collection(props) {
   const [videos, setVideos] = useState([]);
@@ -17,12 +18,13 @@ export default function Collection(props) {
         throw new Error("Network respones was not ok.");
       })
       .then(response => setVideos(response.videos));
-  });
+  }, [query]);
   return (
     <div className={styles.main}>
       <div className={styles.container} />
-      <div>{/* <Carousel key={5} {...props} /> */}</div>
-      <p>{JSON.stringify(videos)}</p>
+      <div>
+        <Carousel genre={query} videos={videos} key={uuid()} {...props} />
+      </div>
     </div>
   );
 }

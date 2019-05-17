@@ -50,3 +50,7 @@
   transform: scale(1.5);
   opacity: 1;
 }
+
+.poo {
+  z-index: -1;
+}

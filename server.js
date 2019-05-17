@@ -55,12 +55,19 @@ app.get("/public", function(req, res) {
 });
 
 app.get("/search", function(req, res) {
-  let query = req.query.q.toLowerCase();
+  // remove apostrophes
+  let query = req.query.q.toLowerCase().replace(/'/, "");
 
   const filteredVideos = videos.filter(
     video =>
-      video.genre.toLowerCase().includes(query) ||
-      video.title.toLowerCase().includes(query)
+      video.genre
+        .toLowerCase()
+        .replace(/'/, "")
+        .includes(query) ||
+      video.title
+        .toLowerCase()
+        .replace(/'/, "")
+        .includes(query)
   );
   res.json({
     videos: filteredVideos,
