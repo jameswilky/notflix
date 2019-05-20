@@ -21,6 +21,8 @@ function SearchBar(props) {
     return () => document.removeEventListener("click", clickedAway);
   }, [show]);
 
+  useEffect(() => console.log(props.history), []);
+
   /* On value change */
   const handleValueChange = e => {
     // Keep textbox o
