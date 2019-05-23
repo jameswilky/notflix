@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import styles from "./Header.module.css";
 import logo from "../../images/logo.png";
 import userIcon from "../../images/userIcon.jpg";
-import { AuthContext } from "../../AuthContext";
+import { AuthContext } from "../../contexts/AuthContext";
 import Utilities from "../../Utilities";
 import SearchBar from "./SearchBar";
 

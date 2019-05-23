@@ -10,14 +10,14 @@ export default (function() {
     });
   };
 
-  const groupBy = key => array =>
-    // returns an object of array of objects, grouped by the specified key
-
-    array.reduce((objectsByKeyValue, obj) => {
-      const value = obj[key];
-      objectsByKeyValue[value] = (objectsByKeyValue[value] || []).concat(obj);
-      return objectsByKeyValue;
-    }, {});
+  const groupBy = (videos, genres) => {
+    // This funcion returns a list of objects that map each genre to all vidoes of that genre
+    // The genre of each video is considered to be the first item from the genres array
+    return genres.map(genre => {
+      //genres[0] will select first genre from list of genres
+      return { [genre]: videos.filter(video => video.genres[0] === genre) };
+    });
+  };
 
   const addEvent = function(object, type, callback) {
     if (object == null || typeof object == "undefined") return;
@@ -36,5 +36,5 @@ export default (function() {
     }
   };
 
-  return { sortBy, groupBy, addEvent, removeEvent };
+  return { sortBy, groupBy, addEvent, removeEvent, groupBy };
 })();

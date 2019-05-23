@@ -1,12 +1,14 @@
 /* 
-This tool is meant to be used after youtubeFinder.html tool. this will take a json file and remove unnecassary fields and perge pages into one array
+This tool is meant to be used after youtubeFinder.html tool. this will take a 
+json file and remove unnecassary fields and perge pages into one array and cleanr 
+data for database entry
 */
 
 const fs = require("fs");
 
 const parseVideos = (path, type) => {
   return JSON.parse(fs.readFileSync(path))
-    .pages.map(video => video.results)
+    .map(video => video.results)
     .reduce((acc, val) => acc.concat(val), [])
     .map(video => {
       delete video.vote_count;
@@ -24,7 +26,11 @@ const parseVideos = (path, type) => {
       if (video.title == null) {
         video.title = video.name;
       }
-      video.genres = video.genre_ids;
+      video.genres = video.genre_ids.map(genre => {
+        return genre !== null ? genre.name : null;
+      });
+      video.genres = video.genres.filter(genre => genre !== null);
+
       delete video.genre_ids;
       delete video.name;
       video.type = type;
@@ -33,11 +39,16 @@ const parseVideos = (path, type) => {
     });
 };
 
-movies = parseVideos("./old/movies.json", "movie");
-tvShows = parseVideos("./old/tvShows.json", "show");
+movies = parseVideos("./movies.json", "movie");
+tvShows = parseVideos("./tvShows.json", "show");
 
 const videos = [movies, tvShows].reduce((acc, val) => acc.concat(val), []);
 
-fs.writeFileSync("videos.json", JSON.stringify(videos), "utf-8", () => {
-  console.log("done");
-});
+fs.writeFileSync(
+  "./output/videos.json",
+  JSON.stringify(videos),
+  "utf-8",
+  () => {
+    console.log("done");
+  }
+);

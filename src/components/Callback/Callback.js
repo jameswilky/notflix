@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from "react";
-import { AuthContext } from "../../AuthContext";
+import { AuthContext } from "../../contexts/AuthContext";
 
 export default function Callback(props) {
   const { hash } = props.location;

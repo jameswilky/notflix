@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import styles from "./Overlay.module.css";
-import { AuthContext } from "../../AuthContext";
+import { AuthContext } from "../../contexts/AuthContext";
 
 export default function Overlay(props) {
   const { id, metaData, player } = props;
@@ -43,14 +43,14 @@ export default function Overlay(props) {
           <div>{metaData.length}</div>
         </div>
         <div className={styles.text}>
-          <div>{metaData.categories[0]}</div>
+          {/* <div>{metaData.categories[0]}</div> */}
           <div>
             <span className={styles.dot}>&middot;</span>{" "}
-            {metaData.categories[1]}
+            {/* {metaData.categories[1]} */}
           </div>
           <div>
             <span className={styles.dot}>&middot;</span>{" "}
-            {metaData.categories[2]}
+            {/* {metaData.categories[2]} */}
           </div>
         </div>
       </div>

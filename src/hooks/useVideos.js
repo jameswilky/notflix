@@ -1,22 +1,20 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Utilities from "../Utilities";
+import genres from "../genres";
 
 export default function useVideos() {
-  const { sortBy, groupBy } = Utilities;
-  console.log("running videos hook");
   const [videosLoaded, setVideosLoaded] = useState(false);
-  const [videosByGenre, setVideosByGenre] = useState([]);
+  const [videosByGenre, setVideosByGenre] = useState({});
+  const { groupBy } = Utilities;
   useEffect(() => {
-    console.log("fetching videos");
-    fetch("/public")
+    // console.log("fetching videos");
+    fetch("/videos")
       .then(response => {
         if (response.ok) return response.json();
         throw new Error("Network respones was not ok.");
       })
       .then(response => {
-        const sortedVideos = sortBy(response.videos, "genre");
-        const groupByGenre = groupBy("genre");
-        setVideosByGenre(groupByGenre(sortedVideos));
+        setVideosByGenre(groupBy(response, genres));
         setVideosLoaded(true);
       })
       .catch(error => console.log(error.message));

@@ -8,3 +8,5 @@
    <!-- 8. finish account page -->
 5. Create mongo database to store user data and video data
    <!-- 10. convert auth to context api -->
+   6. redownload trailers to get genres
+   7. build parser into a single script

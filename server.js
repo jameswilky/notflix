@@ -2,6 +2,26 @@ const express = require("express");
 require("dotenv").config();
 const jwt = require("express-jwt"); // Validate JWT and set req.user
 const jwksRsa = require("jwks-rsa"); // Retrieve RSA keys from a JSON Web Key set (JWKS) endpoint
+const mongoose = require("mongoose");
+
+mongoose.connect(
+  "mongodb://localhost:27017/notflixLocalDB",
+  // "mongodb+srv://james123:james123@notflix-eiper.mongodb.net/notflixdb?retryWrites=true",
+  { useNewUrlParser: true }
+);
+
+mongoose.connection
+  .on("connected", function() {
+    console.log("Successfully connected to Database");
+    // mongoose.connection.db.listCollections().toArray(function(err, names) {
+    //   console.log(names); // [{ name: 'dbname.myCollection' }]
+    //   module.exports.Collection = names;
+    // });
+  })
+  .then(() => console.log("worked"), err => console.log(err));
+
+const Video = require("./video");
+const Genre = require("./genre");
 
 const checkJwt = jwt({
   // Dynamically provide a signing key based on the kid in the header
@@ -25,33 +45,18 @@ const checkJwt = jwt({
 
 const app = express();
 
-const videos = [
-  {
-    id: "9hJ8lLNWrM4",
-    title: "Pure Water",
-    genre: "Documentary",
-    type: "movie"
-  },
-  { id: "JTMVOzPPtiw", title: "Nookie", genre: "Action", type: "show" },
-  { id: "Gs069dndIYk", title: "September", genre: "Comedy", type: "show" },
-  {
-    id: "HgzGwKwLmgM",
-    title: "Don't Stop Me Now",
-    genre: "Action",
-    type: "movie"
-  },
-  {
-    id: "hTWKbfoikeg",
-    title: "Smells Like Teen Spirit",
-    genre: "Documentary",
-    type: "movie"
-  }
-];
-
 app.get("/public", function(req, res) {
-  res.json({
-    videos
-  });
+  // res.json({videos})
+  // Video.find({}).then(videos =>
+  //   Genre.find({}).then(genres => res.status(200).json({ videos, genres }))
+  // );
+});
+
+app.get("/videos", function(req, res) {
+  Video.find({}).then(videos => res.status(200).json(videos));
+});
+app.get("/genres", function(req, res) {
+  Genre.find({}).then(genres => res.status(200).json(genres));
 });
 
 app.get("/search", function(req, res) {

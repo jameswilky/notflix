@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import styles from "./Profile.module.css";
-import { AuthContext } from "../../AuthContext";
+import { AuthContext } from "../../contexts/AuthContext";
 import userIcon from "../../images/userIcon.jpg";
 
 // Breakpoints = 0-450 = mobile. 450-667 = tablet, 668 = desktop

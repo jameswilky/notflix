@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import styles from "./Collection.module.css";
 import Carousel from "../Carousel/Carousel";
-import { AuthContext } from "../../AuthContext";
+import { AuthContext } from "../../contexts/AuthContext";
 import uuid from "uuid";
 
 export default function Collection(props) {

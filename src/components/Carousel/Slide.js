@@ -5,12 +5,13 @@ import Overlay from "./Overlay";
 
 export default function Slide(props) {
   const { video } = props;
-  const { id } = video;
+  const { videoId } = video;
   const [player, setPlayer] = useState();
   const [showThumbnail, setShowThumbnail] = useState(true);
-
   // This is used to only load videos after a hover
-  // Improve performance, but requires clicking video to start playing
+  // SIGNIFICANTLY Improve performance, but requires clicking video to start playing
+  // potential solution: store all players in a context, Add side effec to pause all players when not hovering on any videos
+
   const [loadPlayer, setLoadPlayer] = useState(false);
 
   const playerLoading = new Promise(resolve => {
@@ -18,11 +19,14 @@ export default function Slide(props) {
   });
 
   const [metaData] = useState({
-    title: "Top Gear",
-    match: "94% match", // use user score
+    title: video.title,
+    match: `${video.vote_average * 10}% Match`, // use user score
     maturity: "M",
     length: "4 Seasons",
-    categories: ["Action", "Comedy", "Documentary"]
+    categories: ["test"]
+    // categories: video.genres.map(genre => {
+    //   genre;
+    // })
   });
 
   const Thumbnail = () => {
@@ -34,9 +38,9 @@ export default function Slide(props) {
         style={{
           visibility: showThumbnail ? "visible" : "hidden"
         }}
-        data-video={id}
+        data-video={videoId}
         alt="Play this video"
-        src={`https://img.youtube.com/vi/${id}/0.jpg`}
+        src={`https://img.youtube.com/vi/${videoId}/0.jpg`}
       />
     );
   };
@@ -69,8 +73,8 @@ export default function Slide(props) {
         });
       }}
     >
-      <Video id={id} setPlayer={setPlayer} load={loadPlayer} />
-      <Overlay id={id} player={player} metaData={metaData} />
+      <Video id={videoId} setPlayer={setPlayer} load={loadPlayer} />
+      <Overlay id={videoId} player={player} metaData={metaData} />
       <Thumbnail />
     </div>
   );

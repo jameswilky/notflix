@@ -1,30 +1,38 @@
-import React from "react";
+import React, { useContext } from "react";
 import styles from "./Browser.module.css";
 import Carousel from "../Carousel/Carousel";
 import BrowserHeader from "./BrowserHeader";
 import uuid from "uuid";
+import Loading from "../Loading/Loading";
+import { VideoContext } from "../../contexts/VideoContext";
 
 export default function Browser(props) {
-  const { includeBanner, videosByGenre, videoType = false } = props;
+  const { includeBanner, videoType = false } = props;
+  const { videosLoaded, videosByGenre } = useContext(VideoContext);
+
+  console.log(videosByGenre);
   const BrowserBody = () => {
-    return Object.keys(videosByGenre).map(genre => {
-      let videos = videosByGenre[genre];
-
-      // if type specified
-      if (videoType) {
-        // Only include videos of specified type
-        videos = videosByGenre[genre].filter(video => {
-          return video.type === videoType;
-        });
-      }
-
-      //If there are videos of that type then return those videos
-      if (videos.length > 0) {
-        return (
-          <Carousel genre={genre} videos={videos} key={uuid()} {...props} />
-        );
-      } else return null;
-    });
+    return videosLoaded ? (
+      videosByGenre.map(items => {
+        const genre = Object.keys(items)[0];
+        let videos = Object.values(items)[0];
+        //if type specified
+        console.log(items[genre]);
+        if (videoType) {
+          // Only include videos of specified type
+          videos = items[genre].filter(video => {
+            return video.type === videoType;
+          });
+        }
+        if (videos.length > 5) {
+          return (
+            <Carousel genre={genre} videos={videos} key={uuid()} {...props} />
+          );
+        } else return null;
+      })
+    ) : (
+      <Loading />
+    );
   };
 
   return (
