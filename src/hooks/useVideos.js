@@ -14,6 +14,7 @@ export default function useVideos() {
         throw new Error("Network respones was not ok.");
       })
       .then(response => {
+        console.log(response);
         setVideosByGenre(groupBy(response, genres));
         setVideosLoaded(true);
       })

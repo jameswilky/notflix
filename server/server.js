@@ -1,4 +1,5 @@
 const express = require("express");
+const bodyParser = require("body-parser");
 require("dotenv").config();
 const jwt = require("express-jwt"); // Validate JWT and set req.user
 const jwksRsa = require("jwks-rsa"); // Retrieve RSA keys from a JSON Web Key set (JWKS) endpoint
@@ -20,8 +21,8 @@ mongoose.connection
   })
   .then(() => console.log("worked"), err => console.log(err));
 
-const Video = require("./video");
-const Genre = require("./genre");
+const Video = require("./models/video");
+const Genre = require("./models/genre");
 
 const checkJwt = jwt({
   // Dynamically provide a signing key based on the kid in the header
@@ -44,6 +45,11 @@ const checkJwt = jwt({
 });
 
 const app = express();
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.post("/list", function(req, res) {
+  console.log(req.body);
+});
 
 app.get("/public", function(req, res) {
   // res.json({videos})
@@ -81,6 +87,7 @@ app.get("/search", function(req, res) {
 });
 
 app.get("/private", checkJwt, function(req, res) {
+  console.log("login details: " + req);
   res.json({
     message: "Hello from a private API!"
   });

@@ -74,7 +74,7 @@ export default function Slide(props) {
       }}
     >
       <Video id={videoId} setPlayer={setPlayer} load={loadPlayer} />
-      <Overlay id={videoId} player={player} metaData={metaData} />
+      <Overlay id={video._id} player={player} metaData={metaData} />
       <Thumbnail />
     </div>
   );

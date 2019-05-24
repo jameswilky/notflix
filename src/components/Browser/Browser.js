@@ -10,14 +10,12 @@ export default function Browser(props) {
   const { includeBanner, videoType = false } = props;
   const { videosLoaded, videosByGenre } = useContext(VideoContext);
 
-  console.log(videosByGenre);
   const BrowserBody = () => {
     return videosLoaded ? (
       videosByGenre.map(items => {
         const genre = Object.keys(items)[0];
         let videos = Object.values(items)[0];
         //if type specified
-        console.log(items[genre]);
         if (videoType) {
           // Only include videos of specified type
           videos = items[genre].filter(video => {

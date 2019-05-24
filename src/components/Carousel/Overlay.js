@@ -5,12 +5,28 @@ import { AuthContext } from "../../contexts/AuthContext";
 export default function Overlay(props) {
   const { id, metaData, player } = props;
   const { auth } = useContext(AuthContext);
+  // sub is the authentication id
+  // console.log(auth);
 
   const [isMuted, setIsMuted] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [isDisliked, setIsDisliked] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
 
+  const likeVideo = () => {
+    fetch("list", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        user: {
+          id: auth.userProfile.sub
+        },
+        video: {
+          id: id
+        }
+      })
+    });
+  };
   const fullScreen = () => {
     player.playVideo();
 
@@ -78,6 +94,8 @@ export default function Overlay(props) {
                 <i
                   className="far fa-thumbs-up"
                   onClick={() => {
+                    likeVideo();
+
                     setIsLiked(!isLiked);
                     setIsDisliked(false);
                   }}
