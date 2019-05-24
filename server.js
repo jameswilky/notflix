@@ -23,6 +23,7 @@ mongoose.connection
 
 const Video = require("./models/video");
 const Genre = require("./models/genre");
+const List = require("./models/list");
 
 const checkJwt = jwt({
   // Dynamically provide a signing key based on the kid in the header
@@ -48,16 +49,34 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.post("/list", function(req, res) {
-  console.log(req.body);
+  const newUserId = req.body.user.id;
+  const newVideoId = req.body.video.id;
+  // Video.findById(videoId, (err, video) => {
+  //   return video;
+  // }).then(video => console.log(video));
+  /* todo validate video*/
+
+  List.findOne({ userId: newUserId }, (err, list) => {
+    return list;
+  }).then(list => {
+    list === null
+      ? (list = new List({
+          _id: new mongoose.Types.ObjectId(),
+          userId: newUserId
+        }))
+      : list;
+
+    list.videos.push(newVideoId);
+    list.save();
+  });
 });
 
-app.get("/public", function(req, res) {
-  // res.json({videos})
-  // Video.find({}).then(videos =>
-  //   Genre.find({}).then(genres => res.status(200).json({ videos, genres }))
-  // );
+app.get("/list/:userId", function(req, res) {
+  // return a list of favourited videos
+  List.findOne({ userId: req.params.userId })
+    .populate("videos")
+    .exec((err, list) => res.status(200).json(list.videos));
 });
-
 app.get("/videos", function(req, res) {
   Video.find({}).then(videos => res.status(200).json(videos));
 });

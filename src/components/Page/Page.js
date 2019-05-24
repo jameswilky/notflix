@@ -28,7 +28,7 @@ export default function Page(props) {
       case PROFILE:
         return <Profile {...props} />;
       case FAVOURITES:
-        return <Collection {...props} />;
+        return <Collection {...props} includeBanner={false} />;
       default:
         return <Browser {...props} />;
     }
