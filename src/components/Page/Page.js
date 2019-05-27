@@ -5,7 +5,6 @@ import Footer from "../Footer/Footer";
 import Profile from "../Profile/Profile";
 import Collection from "../Collection/Collection";
 import pageNames from "../../pageNames";
-import { VideoProvider } from "../../contexts/VideoContext";
 
 export default function Page(props) {
   const { HOME, MOVIES, TV_SHOWS, PROFILE, FAVOURITES, SEARCH } = pageNames;
@@ -36,9 +35,9 @@ export default function Page(props) {
   return (
     <>
       <Header {...props} isTransparent={isTransparent} />
-      <VideoProvider>
-        <Body />
-      </VideoProvider>
+      {/* <VideoProvider> */}
+      <Body />
+      {/* </VideoProvider> */}
       <Footer />
     </>
   );

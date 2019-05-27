@@ -1,14 +1,14 @@
-import React, { useContext } from "react";
+import React from "react";
 import styles from "./Browser.module.css";
 import Carousel from "../Carousel/Carousel";
 import BrowserHeader from "./BrowserHeader";
 import uuid from "uuid";
 import Loading from "../Loading/Loading";
-import { VideoContext } from "../../contexts/VideoContext";
+import useVideos from "../../hooks/useVideos";
 
 export default function Browser(props) {
   const { includeBanner, videoType = false } = props;
-  const { videosLoaded, videosByGenre } = useContext(VideoContext);
+  const { videosLoaded, videosByGenre } = useVideos();
 
   const BrowserBody = () => {
     return videosLoaded ? (

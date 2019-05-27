@@ -19,3 +19,5 @@
 9. expand database
 10. change videoID to trailerID
 11. remove regular id
+12. Allow browser to remember items which are liked
+13. expand crud functionality for list

@@ -4,7 +4,7 @@ const VideoContext = new React.createContext(); // takes in an object and a func
 
 const VideoProvider = props => {
   return (
-    <VideoContext.Provider value={useVideos()}>
+    <VideoContext.Provider value={useVideos}>
       {props.children}
     </VideoContext.Provider>
   );
