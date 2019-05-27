@@ -16,8 +16,6 @@ export default function Video(props) {
   };
 
   const onReadyHandler = e => {
-    console.log(id + " loaded");
-    console.log(e.target);
     setPlayer(e.target);
   };
 

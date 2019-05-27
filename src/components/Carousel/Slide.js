@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Video from "./Video";
 import styles from "./Slide.module.css";
 import Overlay from "./Overlay";
-import Utilities from "../../Utilities";
 
 export default function Slide(props) {
   const { video } = props;
@@ -10,12 +9,7 @@ export default function Slide(props) {
   const [player, setPlayer] = useState();
   const [showThumbnail, setShowThumbnail] = useState(true);
 
-  // This is used to only load videos after a hover
-  // SIGNIFICANTLY Improve performance, but requires clicking video to start playing
-  // potential solution: store all players in a context, Add side effec to pause all players when not hovering on any videos
-
   const [loadPlayer, setLoadPlayer] = useState(false);
-
   const playerLoading = new Promise(resolve => {
     if (player !== undefined) resolve(player);
   });
@@ -51,31 +45,29 @@ export default function Slide(props) {
     <div
       className={styles.body}
       onClick={e => {
+        /* allows user to start video once loaded*/
         playerLoading.then(player => {
-          // Fixes issue with having to mouse over again to play a vidoe that was
-          // hovered over before it was loaded
           try {
             player.playVideo();
-            setTimeout(() => setShowThumbnail(false), 300);
           } catch {}
         });
       }}
       onMouseEnter={e => {
+        /* Start loading youtube player and hide thumbnail after animation is finished*/
         setLoadPlayer(true);
-        playerLoading.then(player => {
-          // this will prevent overlay from working untill the player has actually loaded
-          setTimeout(() => setShowThumbnail(false), 1000);
-        });
+        setTimeout(() => setShowThumbnail(false), 400);
       }}
       onMouseOver={e => {
+        /* After re-render, if mouse is hovering over the video once the player is loaded, it will play*/
         playerLoading.then(player => {
           player.playVideo();
         });
       }}
       onMouseLeave={e => {
+        /* If player is loaded, then pause when leaving slide and show thumbnail after animation is finished*/
         playerLoading.then(player => {
           player.pauseVideo();
-          setTimeout(() => setShowThumbnail(true), 300);
+          setTimeout(() => setShowThumbnail(true), 400);
         });
       }}
     >

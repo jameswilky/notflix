@@ -19,7 +19,7 @@ export default function Page(props) {
       case HOME:
         return <Browser {...props} includeBanner={true} />;
       case SEARCH:
-        return <Collection {...props} includeBanner={false} />;
+        return <Browser {...props} includeBanner={false} />;
       case TV_SHOWS:
         return <Browser {...props} includeBanner={true} videoType={"show"} />;
       case MOVIES:
@@ -27,7 +27,7 @@ export default function Page(props) {
       case PROFILE:
         return <Profile {...props} />;
       case FAVOURITES:
-        return <Collection {...props} includeBanner={false} />;
+        return <Browser {...props} includeBanner={false} />;
       default:
         return <Browser {...props} />;
     }
