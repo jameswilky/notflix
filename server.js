@@ -24,6 +24,7 @@ mongoose.connection
 const Video = require("./models/video");
 const Genre = require("./models/genre");
 const List = require("./models/list");
+const User = require("./models/user");
 
 const checkJwt = jwt({
   // Dynamically provide a signing key based on the kid in the header
@@ -70,12 +71,58 @@ app.post("/list", function(req, res) {
     list.save();
   });
 });
+app.post("/users/update", (req, res) => {
+  const newUserId = req.body.user.id;
+  const newVideoId = req.body.video.id;
+  const action = req.body.action;
+  console.log(action);
+  console.log(newVideoId);
 
-app.get("/list/:userId", function(req, res) {
+  User.findOne({ userId: newUserId }, (err, user) => {
+    /* Find user*/
+    return user;
+  }).then(user => {
+    user === null
+      ? (user = new User({
+          _id: new mongoose.Types.ObjectId(),
+          userId: newUserId
+        }))
+      : user;
+    switch (action.type) {
+      case "FAVOURITE":
+        {
+          if (action.payload) {
+            user.favorites = [...user.favorites, newVideoId];
+          } else {
+            user.favorites = user.favorites.filter(id => id != newVideoId);
+          }
+        }
+        break;
+      case "LIKE":
+        if (action.payload) {
+          user.likes = [...user.likes, newVideoId];
+        } else {
+          user.likes = user.likes.filter(id => id != newVideoId);
+        }
+        break;
+      case "DISLIKE":
+        if (action.payload) {
+          user.dislikes = [...user.dislikes, newVideoId];
+        } else {
+          user.dislikes = user.dislikes.filter(id => id != newVideoId);
+        }
+        break;
+    }
+    console.log(user);
+    user.save();
+  });
+});
+
+app.get("/users/:userId", function(req, res) {
   // return a list of favourited videos
-  List.findOne({ userId: req.params.userId })
-    .populate("videos")
-    .exec((err, list) => res.status(200).json(list.videos));
+  User.findOne({ userId: req.params.userId })
+    .populate("favorites")
+    .exec((err, user) => res.status(200).json(user.favorites));
 });
 app.get("/videos", function(req, res) {
   Video.find({}).then(videos => res.status(200).json(videos));

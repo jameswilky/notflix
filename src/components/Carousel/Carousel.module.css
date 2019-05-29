@@ -1,15 +1,21 @@
 .container {
-  height: 220px;
+  height: 190px;
+  position: relative;
 }
 .header {
   position: absolute;
-  padding-left: 50px;
-  padding-top: 10px;
+  padding-left: 28px;
 }
 
 .body {
   overflow: scroll;
   width: 100%;
+  z-index: 2;
+  position: absolute;
+
+  /* Temp fix untill javascript transform solution works*/
+  width: calc(100% - 60px);
+  margin: 0 30px;
 }
 
 /* Hide scrollbar chrome*/
@@ -32,12 +38,46 @@
   transition: 450ms transform, 450ms -webkit-transform;
   font-size: 0;
   white-space: nowrap;
-  margin: 50px 50px; /* Temp */
-  padding-bottom: 10px;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 .body__inner:hover {
-  -webkit-transform: translate3d(-62.5px, 0, 0);
-  /* for first one, change to positive number */
-  transform: translate3d(-62.5px, 0, 0);
+  -webkit-transform: translate3d(-84px, 0, 0);
+  transform: translate3d(-84px, 0, 0);
+}
+/* .body__inner:hover {
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+} */
+/*  this is going to require  a javascript solution*/
+
+/* .overlay {
+  position: absolute;
+  width: 100vw;
+  height: 100%;
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  opacity: 0.6;
+} */
+
+.btn {
+  position: absolute;
+  cursor: pointer;
+  font-size: 1.5em;
+  display: inline-block;
+}
+.left {
+  left: 0;
+  top: 43%;
+}
+.right {
+  right: 0;
+  top: 43%;
+}
+.hidden {
+  opacity: 0;
+  transition: opacity 0.3s;
 }

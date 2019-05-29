@@ -19,10 +19,7 @@ export default function Slide(props) {
     match: `${video.vote_average * 10}% Match`, // use user score
     maturity: "M",
     length: "4 Seasons",
-    categories: ["test"]
-    // categories: video.genres.map(genre => {
-    //   genre;
-    // })
+    categories: video.genres
   });
 
   const Thumbnail = () => {

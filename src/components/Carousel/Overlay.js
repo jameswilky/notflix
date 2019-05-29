@@ -2,19 +2,26 @@ import React, { useState, useContext } from "react";
 import styles from "./Overlay.module.css";
 import { AuthContext } from "../../contexts/AuthContext";
 
+const userData = {
+  liked: false,
+  disliked: false,
+  favorited: false
+};
+
 export default function Overlay(props) {
   const { id, metaData, player } = props;
+  const { title, match, maturity, length, categories } = metaData;
+  const { liked, disliked, favorited } = userData;
   const { auth } = useContext(AuthContext);
-  // sub is the authentication id
-  // console.log(auth);
 
   const [isMuted, setIsMuted] = useState(false);
-  const [isLiked, setIsLiked] = useState(false);
-  const [isDisliked, setIsDisliked] = useState(false);
-  const [isAdded, setIsAdded] = useState(false);
+  const [isLiked, setIsLiked] = useState(liked);
+  const [isDisliked, setIsDisliked] = useState(disliked);
+  const [isFavorited, setIsFavorited] = useState(favorited);
 
-  const likeVideo = () => {
-    fetch("list", {
+  const updateUser = action => {
+    /* users/update*/
+    fetch("users/update", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -23,7 +30,9 @@ export default function Overlay(props) {
         },
         video: {
           id: id
-        }
+        },
+        /* use parameters instead*/
+        action: action
       })
     });
   };
@@ -51,22 +60,20 @@ export default function Overlay(props) {
           />
         </div>
         <div>
-          <h3>{metaData.title}</h3>
+          <h3>{title}</h3>
         </div>
         <div className={styles.text}>
-          <div className={styles.match}>{metaData.match}</div>
-          <div className={styles.maturity}>{metaData.maturity}</div>
-          <div>{metaData.length}</div>
+          <div className={styles.match}>{match}</div>
+          <div className={styles.maturity}>{maturity}</div>
+          <div>{length}</div>
         </div>
         <div className={styles.text}>
-          {/* <div>{metaData.categories[0]}</div> */}
+          <div>{categories[0]}</div>
           <div>
-            <span className={styles.dot}>&middot;</span>{" "}
-            {/* {metaData.categories[1]} */}
+            <span className={styles.dot}>&middot;</span> {/* {categories[1]} */}
           </div>
           <div>
-            <span className={styles.dot}>&middot;</span>{" "}
-            {/* {metaData.categories[2]} */}
+            <span className={styles.dot}>&middot;</span> {/* {categories[2]} */}
           </div>
         </div>
       </div>
@@ -94,7 +101,7 @@ export default function Overlay(props) {
                 <i
                   className="far fa-thumbs-up"
                   onClick={() => {
-                    likeVideo();
+                    updateUser({ type: "LIKE", payload: !isLiked });
 
                     setIsLiked(!isLiked);
                     setIsDisliked(false);
@@ -109,18 +116,23 @@ export default function Overlay(props) {
                 <i
                   className="far fa-thumbs-down"
                   onClick={() => {
+                    updateUser({ type: "DISLIKE", payload: !isDisliked });
+
                     setIsDisliked(!isDisliked);
                     setIsLiked(false);
                   }}
                 />
               </div>
               <div
-                className={`${styles.btn} ${isAdded ? styles.btnSelected : ""}`}
+                className={`${styles.btn} ${
+                  isFavorited ? styles.btnSelected : ""
+                }`}
               >
                 <i
                   className="fas fa-plus"
                   onClick={() => {
-                    setIsAdded(!isAdded);
+                    updateUser({ type: "FAVOURITE", payload: !isFavorited });
+                    setIsFavorited(!isFavorited);
                   }}
                 />
               </div>

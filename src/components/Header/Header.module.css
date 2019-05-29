@@ -89,7 +89,7 @@ h4 {
   margin-left: 142px;
 }
 
-.acountDropdown > *,
+.accountDropdown > *,
 .browserDropdown > * {
   color: var(--white);
   display: block;

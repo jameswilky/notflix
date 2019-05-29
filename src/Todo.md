@@ -1,6 +1,7 @@
-1. add transitions between each screen during loading
-   <!-- 2. collect trailer information and store it on node server -->
-2. Add video functionality to banner
+  <!-- 1. add transitions between each screen during loading -->
+  <!-- 2. collect trailer information and store it on node server -->
+
+1. Add video functionality to banner
    <!-- 4. Add search functionality -->
    <!-- 3. add client-side MyList functionality
    <!-- 3. add server-side mylist functionality -->
@@ -10,14 +11,14 @@
    <!-- ... and video data -->
    <!-- 10. convert auth to context api -->
    <!-- 6. redownload trailers to get genres -->
-3. build parser into a single script
+2. build parser into a single script
    <!-- 4. Create a (hook?) function that stores each player in an array so that all players can be operated on at once -->
-4. rework search functionality to work with new data types
-5. Improve carousel animation on first element
-6. Make carousels revolve forever
-7. make carousel jump in larger chunks
-8. expand database
-9. change videoID to trailerID
-10. remove regular id
-11. Allow browser to remember items which are liked
-12. expand crud functionality for list
+3. rework search functionality to work with new data types
+   <!-- 4. Improve carousel animation on first element -->
+4. Make carousels revolve forever
+   <!-- 5. make carousel jump in larger chunks -->
+5. expand database
+6. change videoID to trailerID
+7. remove regular id
+8. Allow browser to remember items which are liked
+9. expand crud functionality for list

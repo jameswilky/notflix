@@ -13,20 +13,21 @@ export default function Browser(props) {
 
   const { includeBanner, videoType = false, content } = props;
   const { videosLoaded, videosByGenre } = useVideos();
-  const [likedVideos, setLikedVideos] = useState([]);
+  const [listedVideos, setListedVideos] = useState([]);
   const { auth } = useContext(AuthContext);
 
   const query = props.history.location.search;
   const userId = "google-oauth2|103091392578361804114";
 
+  /* get rid of and add to user context*/
   useEffect(() => {
-    fetch(`/list/${userId}`)
+    fetch(`/users/${userId}`)
       .then(response => {
         if (response.ok) return response.json();
         throw new Error("Network response was not ok.");
       })
       .then(response => {
-        setLikedVideos(response);
+        setListedVideos(response);
       });
   }, []);
 
@@ -53,14 +54,7 @@ export default function Browser(props) {
       <>
         {" "}
         <div className={styles.container} />
-        <div>
-          <Carousel
-            genre={"MyList"}
-            videos={likedVideos}
-            key={uuid()}
-            {...props}
-          />
-        </div>
+        <Carousel genre={""} videos={listedVideos} key={uuid()} {...props} />
       </>
     );
   };
@@ -80,15 +74,14 @@ export default function Browser(props) {
 
   return (
     <div className={styles.main}>
-      <Loading />
-      {/* {videosLoaded ? (
+      {videosLoaded ? (
         <>
           {includeBanner ? <BrowserHeader /> : null}
           <div className={styles.carouselContainer}>{<Body />}</div>{" "}
         </>
       ) : (
         <Loading />
-      )} */}
+      )}
     </div>
   );
 }

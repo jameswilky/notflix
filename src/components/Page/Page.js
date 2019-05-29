@@ -3,7 +3,6 @@ import Header from "../Header/Header";
 import Browser from "../Browser/Browser";
 import Footer from "../Footer/Footer";
 import Profile from "../Profile/Profile";
-import Collection from "../Collection/Collection";
 import pageNames from "../../pageNames";
 
 export default function Page(props) {
@@ -35,9 +34,7 @@ export default function Page(props) {
   return (
     <>
       <Header {...props} isTransparent={isTransparent} />
-      {/* <VideoProvider> */}
       <Body />
-      {/* </VideoProvider> */}
       <Footer />
     </>
   );
