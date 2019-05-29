@@ -1,5 +1,5 @@
 .container {
-  height: 190px;
+  height: 175px;
   position: relative;
 }
 .header {
@@ -43,31 +43,21 @@
 }
 
 .body__inner:hover {
-  -webkit-transform: translate3d(-84px, 0, 0);
-  transform: translate3d(-84px, 0, 0);
+  -webkit-transform: translate3d(-62.5px, 0, 0);
+  transform: translate3d(-62.5px, 0, 0);
 }
-/* .body__inner:hover {
+.body__inner:hover {
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
-} */
+}
 /*  this is going to require  a javascript solution*/
-
-/* .overlay {
-  position: absolute;
-  width: 100vw;
-  height: 100%;
-  max-width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: center;
-  opacity: 0.6;
-} */
 
 .btn {
   position: absolute;
   cursor: pointer;
   font-size: 1.5em;
   display: inline-block;
+  opacity: 0.6;
 }
 .left {
   left: 0;

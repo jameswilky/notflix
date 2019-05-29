@@ -11,7 +11,10 @@ export default function Carousel(props) {
     window.document.body.clientWidth
   );
 
-  const [position, setPosition] = useState(0);
+  const [snapPosition, setSnapPosition] = useState(0);
+  const [showButtons, setShowButtons] = useState(false);
+  const [sliderAtStart, setSliderAtStart] = useState(true);
+  const [sliderAtEnd, setSliderAtEnd] = useState(true);
 
   const bodyRef = React.createRef();
   useEffect(() => {
@@ -19,6 +22,12 @@ export default function Carousel(props) {
     addEvent(window, "resize", captureWidth);
     return () => removeEvent(window, "resize", captureWidth);
   });
+
+  const atStart = () => bodyRef.current.scrollLeft <= 0;
+
+  const atEnd = () =>
+    bodyRef.current.clientWidth + bodyRef.current.scrollLeft + 1 >
+    bodyRef.current.scrollWidth;
 
   const scroll = x => {
     bodyRef.current.scrollTo({
@@ -28,40 +37,57 @@ export default function Carousel(props) {
   };
 
   const slide = n => {
-    if (position + n > 0) {
-      scroll(screenWidth * (position + n));
-      setPosition(position + n);
+    if (snapPosition + n > 0) {
+      scroll(screenWidth * (snapPosition + n));
+      setSnapPosition(snapPosition + n);
     } else {
       scroll(0);
-      setPosition(0);
+      setSnapPosition(0);
     }
   };
 
   return (
     <div>
-      <div className={styles.container}>
+      <div
+        className={styles.container}
+        onMouseEnter={() => setShowButtons(true)}
+        onMouseLeave={() => setShowButtons(false)}
+      >
         <div className={styles.header}>
           <h4>{genre}</h4>
         </div>
 
-        <div className={styles.body} ref={bodyRef}>
+        <div
+          className={styles.body}
+          ref={bodyRef}
+          onScroll={() => {
+            console.log(
+              bodyRef.current.clientWidth,
+              bodyRef.current.scrollLeft
+            );
+            atStart() ? setSliderAtStart(true) : setSliderAtStart(false);
+            atEnd() ? setSliderAtEnd(true) : setSliderAtEnd(false);
+          }}
+        >
           <div className={styles.body__inner}>
             {videos.map(video => {
               return <Slide video={video} key={uuid()} {...props} />;
             })}
           </div>
         </div>
+
         <div
           className={`${styles.btn} ${styles.left} ${
-            position !== 0 ? styles.hidden : ""
+            !sliderAtStart && showButtons ? "" : styles.hidden
           }`}
           onClick={() => slide(-1)}
         >
           <i className="fas fa-chevron-left" />
         </div>
-
         <div
-          className={`${styles.btn} ${styles.right}`}
+          className={`${styles.btn} ${styles.right} ${
+            !sliderAtEnd && showButtons ? "" : styles.hidden
+          }`}
           onClick={() => slide(1)}
         >
           <i className="fas fa-chevron-right" />
