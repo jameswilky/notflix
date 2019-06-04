@@ -6,8 +6,9 @@ export default function Video(props) {
   const { id, setPlayer, load } = props;
 
   const options = {
-    height: "140",
-    width: "250",
+    /* Temp */
+    height: "120",
+    width: "200",
     playerVars: {
       allowFullScreen: 1,
       controls: 0,

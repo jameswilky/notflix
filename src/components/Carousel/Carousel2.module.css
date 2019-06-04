@@ -1,0 +1,45 @@
+.container {
+  height: 175px;
+  position: relative;
+  overflow: hidden;
+}
+.header {
+  position: absolute;
+  padding-left: 28px;
+}
+
+.body {
+  overflow-x: scroll;
+  display: grid;
+  height: 200px;
+  display: grid;
+  align-content: center;
+  white-space: nowrap;
+  transition: 450ms all;
+  -webkit-transition: 450ms all;
+
+  /* dynamically remove these margins depending on scroll positon if infinite scroll wont work*/
+  margin-left: calc(var(--slideWidth) * -0.29);
+  margin-right: calc(var(--slideWidth) * -0.29);
+  padding-left: calc(var(--slideWidth) * 0.29);
+}
+/* Hide scrollbar chrome*/
+.body::-webkit-scrollbar {
+  width: 0 !important;
+}
+/* Hide scrollbar firefox */
+.body {
+  overflow: -moz-scrollbars-none;
+}
+
+/* hide IE 10+*/
+.body {
+  -ms-overflow-style: none;
+}
+
+.column {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  display: inline-flex;
+}

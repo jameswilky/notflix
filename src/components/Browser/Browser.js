@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import styles from "./Browser.module.css";
-import Carousel from "../Carousel/Carousel";
+import Carousel from "../Carousel/Carousel2";
 import BrowserHeader from "./BrowserHeader";
 import uuid from "uuid";
 import Loading from "../Loading/Loading";

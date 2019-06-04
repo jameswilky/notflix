@@ -20,5 +20,10 @@
 5. expand database
 6. change videoID to trailerID
 7. remove regular id
-8. Allow browser to remember items which are liked
+8. Allow components to remember display which items are liked
 9. expand crud functionality for list
+
+10. Fix Carousel:
+
+- use a variable width for each item
+- expand size of each item depending on screen size

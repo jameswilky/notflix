@@ -7,14 +7,12 @@ export default function useVideos() {
   const [videosByGenre, setVideosByGenre] = useState({});
   const { groupBy } = Utilities;
   useEffect(() => {
-    // console.log("fetching videos");
     fetch("/videos")
       .then(response => {
         if (response.ok) return response.json();
         throw new Error("Network respones was not ok.");
       })
       .then(response => {
-        console.log(response);
         setVideosByGenre(groupBy(response, genres));
         setVideosLoaded(true);
       })

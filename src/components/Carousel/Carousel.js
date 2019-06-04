@@ -23,6 +23,11 @@ export default function Carousel(props) {
     return () => removeEvent(window, "resize", captureWidth);
   });
 
+  useEffect(() => {
+    const captureWidth = () => setScreenWidth(window.document.body.clientWidth);
+    addEvent(window, "resize", captureWidth);
+    return () => removeEvent(window, "resize", captureWidth);
+  });
   const atStart = () => bodyRef.current.scrollLeft <= 0;
 
   const atEnd = () =>
@@ -46,6 +51,11 @@ export default function Carousel(props) {
     }
   };
 
+  /* 
+
+  Fixing ref useEffect thing
+  https://medium.com/@teh_builder/ref-objects-inside-useeffect-hooks-eb7c15198780
+  */
   return (
     <div>
       <div
@@ -61,10 +71,6 @@ export default function Carousel(props) {
           className={styles.body}
           ref={bodyRef}
           onScroll={() => {
-            console.log(
-              bodyRef.current.clientWidth,
-              bodyRef.current.scrollLeft
-            );
             atStart() ? setSliderAtStart(true) : setSliderAtStart(false);
             atEnd() ? setSliderAtEnd(true) : setSliderAtEnd(false);
           }}
