@@ -11,7 +11,7 @@
   --grey3: #bababa;
   --lightBlue: #2a94fc;
   --slideWidth: 200px;
-  --slideHeight: calc(var(--slideWidth) / 1.8);
+  --slideHeight: calc(var(--slideWidth) * 0.5625); /* 16:9 aspect ratio*/
   --slideTranslateMult: -2;
 }
 

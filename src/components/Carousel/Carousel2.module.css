@@ -1,26 +1,33 @@
 .container {
-  height: 200px;
+  height: calc(var(--slideWidth));
   position: relative;
   overflow: hidden;
+  /* padding: 0 calc(var(--slideWidth) * 0.12); */
+}
+.container {
+  margin-bottom: calc(var(--slideWidth) * -0.22);
 }
 .header {
+  top: calc(var(--slideWidth) * 0.035);
   position: absolute;
-  padding-left: 28px;
+  z-index: 0;
 }
 
 .body {
+  position: relative;
   overflow-x: scroll;
+  z-index: 1;
   display: grid;
-  height: 200px;
+  height: calc(var(--slideWidth));
   align-content: center;
   white-space: nowrap;
   transition: 450ms all;
   -webkit-transition: 450ms all;
 
   /* dynamically remove these margins depending on scroll positon if infinite scroll wont work*/
-  margin-left: calc(var(--slideWidth) * -0.29);
-  margin-right: calc(var(--slideWidth) * -0.29);
-  padding-left: calc(var(--slideWidth) * 0.29);
+  /* margin-left: calc(var(--slideWidth) * -0.12);
+  margin-right: calc(var(--slideWidth) * -0.12);
+  padding-left: calc(var(--slideWidth) * 0.12); */
 }
 /* Hide scrollbar chrome*/
 .body::-webkit-scrollbar {
