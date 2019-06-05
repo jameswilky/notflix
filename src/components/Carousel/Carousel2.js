@@ -24,14 +24,18 @@ const fitSlides = (screenWidth, min, n, videos) => {
     .filter(function(e) {
       return e;
     });
-  return { getTemplate, videosByColumn, slideWidth };
+
+  /* imperative operation, set CSS width*/
+  document.documentElement.style.setProperty("--slideWidth", `${slideWidth}px`);
+
+  return { getTemplate, videosByColumn };
 };
 
 export default function Carousel(props) {
   const { videos, genre, screenWidth } = props;
   const bodyRef = React.createRef();
   const containerRef = React.createRef();
-  const { getTemplate, videosByColumn, slideWidth } = fitSlides(
+  const { getTemplate, videosByColumn } = fitSlides(
     screenWidth,
     200,
     videos.length,
@@ -42,9 +46,16 @@ export default function Carousel(props) {
     return videosByColumn.map(column => {
       return (
         <div className={styles.column} key={uuid()}>
-          {column.map(video => {
+          {column.map((video, i, self) => {
             return (
-              <Slide video={video} key={uuid()} {...props} width={slideWidth} />
+              <Slide
+                video={video}
+                key={uuid()}
+                {...props}
+                position={
+                  i === 0 ? "first" : i < self.length - 1 ? "middle" : "last"
+                }
+              />
             );
           })}
         </div>

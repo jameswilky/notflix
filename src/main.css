@@ -10,6 +10,9 @@
   --grey2: #999999;
   --grey3: #bababa;
   --lightBlue: #2a94fc;
+  --slideWidth: 200px;
+  --slideHeight: calc(var(--slideWidth) / 1.8);
+  --slideTranslateMult: -2;
 }
 
 * {

@@ -3,12 +3,12 @@ import Youtube from "react-youtube";
 import styles from "./Video.module.css";
 
 export default function Video(props) {
-  const { id, setPlayer, load, width } = props;
+  const { id, setPlayer, load } = props;
 
   const options = {
     /* Temp */
-    height: width / 1.8,
-    width: width,
+    height: `120px`,
+    width: `200px`,
     playerVars: {
       allowFullScreen: 1,
       controls: 0,

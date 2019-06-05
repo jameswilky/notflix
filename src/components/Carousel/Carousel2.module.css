@@ -1,5 +1,5 @@
 .container {
-  height: 175px;
+  height: 200px;
   position: relative;
   overflow: hidden;
 }
@@ -12,7 +12,6 @@
   overflow-x: scroll;
   display: grid;
   height: 200px;
-  display: grid;
   align-content: center;
   white-space: nowrap;
   transition: 450ms all;
@@ -38,8 +37,41 @@
 }
 
 .column {
-  margin: 0;
-  padding: 0;
-  height: 100%;
   display: inline-flex;
+}
+.column > div:hover {
+  transform: scale(2);
+}
+/* ==============FIRST SLIDE======================*/
+.column > div:first-child:hover ~ div {
+  transform: translate3d(calc(var(--slideWidth)), 0, 0) !important;
+}
+.column > div:first-child {
+  transform-origin: center left;
+}
+
+/* ==============MIDDLE SLIDES=====================*/
+/* all slides on right of hovered item*/
+.column > div:hover ~ div {
+  transform: translate3d(calc(var(--slideWidth) / 2), 0, 0) !important;
+}
+/*  all*/
+.column:hover > div:not(:hover) {
+  /* By Default, slideTransaltMult is -2, it is changed to -1 when hovering over last slide
+  This will push the item further to left when hovering on last slide if slideTranslateMult is set to -1*/
+  transform: translate3d(
+    calc(var(--slideWidth) / var(--slideTranslateMult)),
+    0,
+    0
+  );
+}
+/* all central items*/
+.column > div:not(:first-child):not(:last-child) {
+  transform-origin: center;
+}
+
+/* ================LAST SLIDE===================== */
+
+.column > div:last-child {
+  transform-origin: center right;
 }

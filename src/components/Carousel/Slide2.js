@@ -4,7 +4,7 @@ import styles from "./Slide2.module.css";
 import Overlay from "./Overlay";
 
 export default function Slide(props) {
-  const { video, width } = props;
+  const { video, position } = props;
   const { videoId } = video;
   const [player, setPlayer] = useState();
   const [showThumbnail, setShowThumbnail] = useState(true);
@@ -39,7 +39,7 @@ export default function Slide(props) {
 
   return (
     <div
-      style={{ width: `${width}px`, height: `${width / 1.8}px` }}
+      position={position}
       className={styles.body}
       onClick={e => {
         /* allows user to start video once loaded*/
@@ -53,6 +53,14 @@ export default function Slide(props) {
         /* Start loading youtube player and hide thumbnail after animation is finished*/
         setLoadPlayer(true);
         setTimeout(() => setShowThumbnail(false), 400);
+
+        /* Will push items to left further when hovering on last item*/
+        if (position === "last") {
+          document.documentElement.style.setProperty(
+            "--slideTranslateMult",
+            `-1`
+          );
+        }
       }}
       onMouseOver={e => {
         /* After re-render, if mouse is hovering over the video once the player is loaded, it will play*/
@@ -66,14 +74,14 @@ export default function Slide(props) {
           player.pauseVideo();
           setTimeout(() => setShowThumbnail(true), 400);
         });
+
+        document.documentElement.style.setProperty(
+          "--slideTranslateMult",
+          `-2`
+        );
       }}
     >
-      <Video
-        id={videoId}
-        setPlayer={setPlayer}
-        load={loadPlayer}
-        width={width}
-      />
+      <Video id={videoId} setPlayer={setPlayer} load={loadPlayer} />
       <Overlay id={video._id} player={player} metaData={metaData} />
       <Thumbnail />
     </div>
