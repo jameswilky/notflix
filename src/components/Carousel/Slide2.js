@@ -4,11 +4,10 @@ import styles from "./Slide2.module.css";
 import Overlay from "./Overlay";
 
 export default function Slide(props) {
-  const { video } = props;
+  const { video, width } = props;
   const { videoId } = video;
   const [player, setPlayer] = useState();
   const [showThumbnail, setShowThumbnail] = useState(true);
-
   const [loadPlayer, setLoadPlayer] = useState(false);
   const playerLoading = new Promise(resolve => {
     if (player !== undefined) resolve(player);
@@ -40,6 +39,7 @@ export default function Slide(props) {
 
   return (
     <div
+      style={{ width: `${width}px`, height: `${width / 1.8}px` }}
       className={styles.body}
       onClick={e => {
         /* allows user to start video once loaded*/
@@ -68,7 +68,12 @@ export default function Slide(props) {
         });
       }}
     >
-      <Video id={videoId} setPlayer={setPlayer} load={loadPlayer} />
+      <Video
+        id={videoId}
+        setPlayer={setPlayer}
+        load={loadPlayer}
+        width={width}
+      />
       <Overlay id={video._id} player={player} metaData={metaData} />
       <Thumbnail />
     </div>

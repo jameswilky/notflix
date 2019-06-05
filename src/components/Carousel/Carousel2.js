@@ -2,56 +2,68 @@ import React, { useEffect, useState } from "react";
 import styles from "./Carousel2.module.css";
 import Slide from "./Slide2";
 import uuid from "uuid";
-import Utilities from "../../Utilities";
 
-const useResizeColumns = (parentWidth, slideWidth) => {
-  const [state, setState] = useState({
-    parentWidth: parentWidth,
-    minWidth: slideWidth,
-    nVisibleSlides: 0,
-    maxWidth: 0,
-    colSize: 0,
-    nCols: 0
-  });
-  console.log(state.parentWidth);
-  return {};
+const fitSlides = (screenWidth, min, n, videos) => {
+  const nSlides = n;
+  const parentWidth = screenWidth;
+  const minWidth = min;
+  const nVisibleSlides = Math.floor(parentWidth / minWidth) || 1;
+  const slideWidth = Math.floor(parentWidth / nVisibleSlides);
+  const colSize = slideWidth * nVisibleSlides;
+  const nCols =
+    (nSlides % nVisibleSlides) + Math.floor(nSlides / nVisibleSlides);
+
+  const getTemplate = () => `${colSize}px `.repeat(nCols);
+
+  const videosByColumn = videos
+    .map(function(e, i) {
+      return i % nVisibleSlides === 0
+        ? videos.slice(i, i + nVisibleSlides)
+        : null;
+    })
+    .filter(function(e) {
+      return e;
+    });
+  return { getTemplate, videosByColumn, slideWidth };
 };
 
 export default function Carousel(props) {
-  const { addEvent, removeEvent } = Utilities;
-  const { videos, genre } = props;
-
+  const { videos, genre, screenWidth } = props;
   const bodyRef = React.createRef();
   const containerRef = React.createRef();
+  const { getTemplate, videosByColumn, slideWidth } = fitSlides(
+    screenWidth,
+    200,
+    videos.length,
+    videos
+  );
 
-  const [containerWidth, setContainerWidth] = useState();
-
-  useEffect(() => {
-    const captureWidth = () => {
-      setContainerWidth(containerRef.current.offsetWidth);
-    };
-    addEvent(window, "resize", captureWidth);
-    captureWidth();
-    return () => removeEvent(window, "resize", captureWidth);
-  }, [containerWidth]);
-
+  const Columns = () => {
+    return videosByColumn.map(column => {
+      return (
+        <div className={styles.column} key={uuid()}>
+          {column.map(video => {
+            return (
+              <Slide video={video} key={uuid()} {...props} width={slideWidth} />
+            );
+          })}
+        </div>
+      );
+    });
+  };
   return (
     <>
-      <div
-        className={styles.container}
-        ref={containerRef}
-        onClick={() => console.log(containerWidth)}
-      >
+      <div className={styles.container} ref={containerRef}>
         <div className={styles.header}>
           <h4>{genre}</h4>
         </div>
 
-        <div className={styles.body} ref={bodyRef}>
-          <div className={styles.column}>
-            {videos.map(video => {
-              return <Slide video={video} key={uuid()} {...props} />;
-            })}
-          </div>
+        <div
+          className={styles.body}
+          ref={bodyRef}
+          style={{ gridTemplateColumns: getTemplate() }}
+        >
+          <Columns />
         </div>
       </div>
     </>

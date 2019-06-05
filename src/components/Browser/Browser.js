@@ -7,6 +7,7 @@ import Loading from "../Loading/Loading";
 import useVideos from "../../hooks/useVideos";
 import pageNames from "../../pageNames";
 import { AuthContext } from "../../contexts/AuthContext";
+import useScreenWidth from "../../hooks/useScreenWidth";
 
 export default function Browser(props) {
   const { FAVOURITES, SEARCH } = pageNames;
@@ -18,6 +19,8 @@ export default function Browser(props) {
 
   const query = props.history.location.search;
   const userId = "google-oauth2|103091392578361804114";
+
+  const { screenWidth } = useScreenWidth();
 
   /* get rid of and add to user context*/
   useEffect(() => {
@@ -44,7 +47,13 @@ export default function Browser(props) {
       }
       if (videos.length > 5) {
         return (
-          <Carousel genre={genre} videos={videos} key={uuid()} {...props} />
+          <Carousel
+            genre={genre}
+            videos={videos}
+            key={uuid()}
+            {...props}
+            screenWidth={screenWidth}
+          />
         );
       } else return null;
     });

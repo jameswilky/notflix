@@ -7,7 +7,9 @@ export default function useVideos() {
   const [videosByGenre, setVideosByGenre] = useState({});
   const { groupBy } = Utilities;
   useEffect(() => {
-    fetch("/videos")
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+    fetch("/videos", { signal: signal })
       .then(response => {
         if (response.ok) return response.json();
         throw new Error("Network respones was not ok.");
@@ -17,6 +19,10 @@ export default function useVideos() {
         setVideosLoaded(true);
       })
       .catch(error => console.log(error.message));
+
+    return () => {
+      abortController.abort();
+    };
   }, []);
   return { videosLoaded, videosByGenre };
 }
