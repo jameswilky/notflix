@@ -1,7 +1,8 @@
 .container {
   height: calc(var(--slideWidth));
   position: relative;
-  overflow: hidden;
+  overflow: auto;
+  padding: 0 30px;
   /* padding: 0 calc(var(--slideWidth) * 0.12); */
 }
 .container {
@@ -14,6 +15,8 @@
 }
 
 .body {
+  display: flex;
+  overflow-y: hidden;
   position: relative;
   overflow-x: scroll;
   z-index: 1;
@@ -29,12 +32,16 @@
   margin-right: calc(var(--slideWidth) * -0.12);
   padding-left: calc(var(--slideWidth) * 0.12); */
 }
+.column {
+}
 /* Hide scrollbar chrome*/
-.body::-webkit-scrollbar {
+.body::-webkit-scrollbar,
+.overlay {
   width: 0 !important;
 }
 /* Hide scrollbar firefox */
-.body {
+.body,
+.overlay {
   overflow: -moz-scrollbars-none;
 }
 
@@ -81,4 +88,30 @@
 
 .column > div:last-child {
   transform-origin: center right;
+}
+
+/* Buttons */
+
+.btn {
+  position: absolute;
+  cursor: pointer;
+  font-size: 1.5em;
+  display: inline-block;
+}
+.left {
+  left: 0;
+  top: calc(var(--slideWidth) * 0.4);
+}
+.right {
+  right: 0;
+  top: calc(var(--slideWidth) * 0.4);
+}
+.hidden {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.show {
+  opacity: 0.6;
+  transition: opacity 0.3s;
 }
