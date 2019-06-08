@@ -13,12 +13,11 @@
    <!-- 6. redownload trailers to get genres -->
 2. build parser into a single script
    <!-- 4. Create a (hook?) function that stores each player in an array so that all players can be operated on at once -->
-3. rework search functionality to work with new data types
    <!-- 4. Improve carousel animation on first element -->
-4. Make carousels revolve forever
+3. Make carousels revolve forever
    <!-- 5. make carousel jump in larger chunks -->
-5. expand database
-6. change videoID to trailerID
-7. remove regular id
-8. Allow components to remember display which items are liked
-9. expand crud functionality for list
+4. expand database
+5. change videoID to trailerID
+6. remove regular id
+7. Allow components to remember display which items are liked
+8. expand crud functionality for list

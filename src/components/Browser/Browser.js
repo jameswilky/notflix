@@ -14,12 +14,18 @@ export default function Browser(props) {
   const { FAVOURITES, SEARCH } = pageNames;
 
   const { includeBanner, videoType = false, content } = props;
-  const { videosLoaded, videosByGenre } = useVideos();
+
+  const query = props.history.location.search;
+
+  const { videosLoaded, videosByGenre, videos } = useVideos(
+    content,
+    query,
+    props.location
+  );
   const [listedVideos, setListedVideos] = useState([]);
   const { addEvent, removeEvent } = Utilities;
   const { auth } = useContext(AuthContext);
 
-  const query = props.history.location.search;
   const userId = "google-oauth2|103091392578361804114";
 
   const { screenWidth } = useScreenWidth();
@@ -36,36 +42,6 @@ export default function Browser(props) {
   //       setListedVideos(response);
   //     });
   // }, []);
-
-  useEffect(() => {
-    let typingTimer;
-    const startCountdown = () => {
-      clearTimeout(typingTimer);
-      typingTimer = setTimeout(submitSearch, 500);
-    };
-    const clearTimer = () => {
-      clearTimeout(typingTimer);
-    };
-    addEvent(window, "keyup", startCountdown);
-    addEvent(window, "keydown", clearTimer);
-
-    const submitSearch = () => {
-      if (content === SEARCH) {
-        fetch(`/search${query}`)
-          .then(response => {
-            if (response.ok) return response;
-            console.log(response);
-            // throw new Error("Network response was not ok.");
-          })
-          .then(response => console.log(response));
-      }
-    };
-
-    return () => {
-      removeEvent(window, "keyup", startCountdown);
-      removeEvent(window, "keydown", clearImmediate);
-    };
-  }, [query]);
 
   const BrowserBody = () => {
     return videosByGenre.map(items => {
@@ -103,11 +79,22 @@ export default function Browser(props) {
   const SearchResults = () => {
     return (
       <>
-        {" "}
-        <div className={styles.title}>
-          <h3>Search Results</h3>
-        </div>
-        <BrowserBody />
+        {videosLoaded ? (
+          <>
+            <div className={styles.title}>
+              <h3>{`Results for ${query.slice(3)}`}</h3>
+            </div>
+            <div className={styles.container}>
+              {videos ? (
+                videos.map(video => <div key={uuid()}>{video.title}</div>)
+              ) : (
+                <div>Sorry, no videos match this query</div>
+              )}
+            </div>
+          </>
+        ) : (
+          <Loading />
+        )}
       </>
     );
   };
@@ -121,7 +108,6 @@ export default function Browser(props) {
         return BrowserBody();
     }
   };
-
   return (
     <div className={styles.main}>
       {videosLoaded ? (

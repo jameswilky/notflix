@@ -136,20 +136,16 @@ app.get("/search", function(req, res, next) {
     if (req.query.q) {
       let query = req.query.q.toLowerCase().replace(/'/, "");
       console.log(query);
-      // const filteredVideos = videos.filter(
-      //   video =>
-      //     video.genre
-      //       .toLowerCase()
-      //       .replace(/'/, "")
-      //       .includes(query) ||
-      //     video.title
-      //       .toLowerCase()
-      //       .replace(/'/, "")
-      //       .includes(query)
-      // );
-      res.json({
-        test: "test"
-      });
+
+      const regex = new RegExp(query, "i");
+      Video.find({ title: regex }).then(
+        videos => {
+          res.status(200).json(videos);
+        },
+        err => {
+          res.status(500).json([]);
+        }
+      );
     } else {
       throw new Error("empty query found");
     }
