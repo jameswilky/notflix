@@ -131,25 +131,32 @@ app.get("/genres", function(req, res) {
   Genre.find({}).then(genres => res.status(200).json(genres));
 });
 
-app.get("/search", function(req, res) {
-  // remove apostrophes
-  let query = req.query.q.toLowerCase().replace(/'/, "");
-
-  const filteredVideos = videos.filter(
-    video =>
-      video.genre
-        .toLowerCase()
-        .replace(/'/, "")
-        .includes(query) ||
-      video.title
-        .toLowerCase()
-        .replace(/'/, "")
-        .includes(query)
-  );
-  res.json({
-    videos: filteredVideos,
-    query: query
-  });
+app.get("/search", function(req, res, next) {
+  try {
+    if (req.query.q) {
+      let query = req.query.q.toLowerCase().replace(/'/, "");
+      console.log(query);
+      // const filteredVideos = videos.filter(
+      //   video =>
+      //     video.genre
+      //       .toLowerCase()
+      //       .replace(/'/, "")
+      //       .includes(query) ||
+      //     video.title
+      //       .toLowerCase()
+      //       .replace(/'/, "")
+      //       .includes(query)
+      // );
+      res.json({
+        test: "test"
+      });
+    } else {
+      throw new Error("empty query found");
+    }
+  } catch (e) {
+    res.writeHead(500, { "Content-Type": "text/plain" });
+    res.end("Server error: " + e.message);
+  }
 });
 
 app.get("/private", checkJwt, function(req, res) {

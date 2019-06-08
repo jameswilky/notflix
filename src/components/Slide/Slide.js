@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import Video from "./Video";
-import styles from "./Slide2.module.css";
-import Overlay from "./Overlay";
+import Video from "../Video/Video";
+import styles from "./Slide.module.css";
+import Overlay from "../Overlay/Overlay";
 
 export default function Slide(props) {
   const { video, position, width } = props;
@@ -50,9 +50,9 @@ export default function Slide(props) {
         });
       }}
       onMouseEnter={e => {
-        /* Start loading youtube player and hide thumbnail after animation is finished*/
+        /* Start loading youtube player and hide thumbnail*/
         setLoadPlayer(true);
-        setTimeout(() => setShowThumbnail(false), 400);
+        setShowThumbnail(false);
 
         /* Will push items to left further when hovering on last item*/
         if (position === "last") {
@@ -69,10 +69,10 @@ export default function Slide(props) {
         });
       }}
       onMouseLeave={e => {
-        /* If player is loaded, then pause when leaving slide and show thumbnail after animation is finished*/
+        /* If player is loaded, then pause when leaving slide and show thumbnail */
         playerLoading.then(player => {
           player.pauseVideo();
-          setTimeout(() => setShowThumbnail(true), 400);
+          setShowThumbnail(true);
         });
 
         document.documentElement.style.setProperty(

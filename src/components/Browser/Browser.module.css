@@ -18,3 +18,8 @@
 .container {
   padding-top: 10vh;
 }
+
+.title {
+  padding-top: 5vh;
+  padding-left: calc(var(--slideWidth) * 0.12);
+}
