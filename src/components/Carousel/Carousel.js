@@ -1,22 +1,22 @@
 import React, { useEffect, useState, useRef } from "react";
 import styles from "./Carousel.module.css";
-import Slide from "../Slide/Slide";
-import uuid from "uuid";
-import ReactDOM from "react-dom";
-import Utilities from "../../Utilities";
 
+import ReactDOM from "react-dom";
+import Grid from "../Grid/Grid";
+import Utilities from "../../Utilities";
 export default function Carousel(props) {
   const { videos, genre, screenWidth } = props;
-  const containerRef = React.createRef();
   const { fitSlides } = Utilities;
   const {
+    slideWidth,
     getTemplate,
     videosByColumn,
-    slideWidth,
     containerWidth,
     nCols,
     colSize
   } = fitSlides(screenWidth, 200, videos.length, videos);
+
+  const containerRef = React.createRef();
 
   const [snapPosition, setSnapPosition] = useState(0);
   const [showButtons, setShowButtons] = useState(false);
@@ -73,68 +73,43 @@ export default function Carousel(props) {
     }
   };
 
-  const Columns = () => {
-    return videosByColumn.map(column => {
-      return (
-        <div className={styles.column} key={uuid()}>
-          {column.map((video, i, self) => {
-            return (
-              <Slide
-                video={video}
-                key={uuid()}
-                {...props}
-                position={
-                  i === 0 ? "first" : i < self.length - 1 ? "middle" : "last"
-                }
-                width={slideWidth}
-              />
-            );
-          })}
-        </div>
-      );
-    });
-  };
-
   return (
-    <>
-      <div
-        className={styles.container}
-        ref={containerRef}
-        onMouseEnter={() => {
-          setShowButtons(true);
-        }}
-        onMouseLeave={() => setShowButtons(false)}
-      >
-        <div className={styles.header}>
-          <h4>{genre}</h4>
-        </div>
-
-        <div
-          className={styles.body}
-          ref={bodyRef}
-          id={"test"}
-          style={{ gridTemplateColumns: getTemplate() }}
-        >
-          <Columns />
-        </div>
-
-        <div
-          className={`${styles.btn} ${styles.left} ${
-            showButtons && !sliderAtStart ? styles.show : styles.hidden
-          }`}
-          onClick={() => bodyRef.current && slide(bodyRef.current, -1)}
-        >
-          <i className="fas fa-chevron-left" />
-        </div>
-        <div
-          className={`${styles.btn} ${styles.right} ${
-            showButtons && !sliderAtEnd ? styles.show : styles.hidden
-          }`}
-          onClick={() => bodyRef.current && slide(bodyRef.current, 1)}
-        >
-          <i className="fas fa-chevron-right" />
-        </div>
+    <div
+      className={styles.container}
+      ref={containerRef}
+      onMouseEnter={() => {
+        setShowButtons(true);
+      }}
+      onMouseLeave={() => setShowButtons(false)}
+    >
+      <div className={styles.header}>
+        <h4>{genre}</h4>
       </div>
-    </>
+
+      <div
+        className={styles.body}
+        ref={bodyRef}
+        style={{ gridTemplateColumns: getTemplate() }}
+      >
+        <Grid videos={videos} screenWidth={screenWidth} />
+      </div>
+
+      <div
+        className={`${styles.btn} ${styles.left} ${
+          showButtons && !sliderAtStart ? styles.show : styles.hidden
+        }`}
+        onClick={() => bodyRef.current && slide(bodyRef.current, -1)}
+      >
+        <i className="fas fa-chevron-left" />
+      </div>
+      <div
+        className={`${styles.btn} ${styles.right} ${
+          showButtons && !sliderAtEnd ? styles.show : styles.hidden
+        }`}
+        onClick={() => bodyRef.current && slide(bodyRef.current, 1)}
+      >
+        <i className="fas fa-chevron-right" />
+      </div>
+    </div>
   );
 }

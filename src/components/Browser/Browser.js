@@ -22,27 +22,13 @@ export default function Browser(props) {
     query,
     props.location
   );
-  const [listedVideos, setListedVideos] = useState([]);
   const { auth } = useContext(AuthContext);
 
   const userId = "google-oauth2|103091392578361804114";
 
   const { screenWidth } = useScreenWidth();
 
-  /* get rid of and add to user context*/
-  // useEffect(() => {
-  //   fetch(`/users/${userId}`)
-  //     .then(response => {
-  //       if (response.ok) return response.json();
-  //       console.log(response);
-  //       // throw new Error("Network response was not ok.");
-  //     })
-  //     .then(response => {
-  //       setListedVideos(response);
-  //     });
-  // }, []);
-
-  const BrowserBody = () => {
+  const CarouselBody = () => {
     return videosByGenre.map(items => {
       const genre = Object.keys(items)[0];
       let videos = Object.values(items)[0];
@@ -67,15 +53,8 @@ export default function Browser(props) {
     });
   };
   const Favourites = () => {
-    return (
-      <>
-        {" "}
-        <div className={styles.container} />
-        <Carousel genre={""} videos={listedVideos} key={uuid()} {...props} />
-      </>
-    );
+    return <div />;
   };
-  console.log(videos);
   const SearchResults = () => {
     return (
       <>
@@ -83,16 +62,18 @@ export default function Browser(props) {
           <>
             {videos.length > 0 ? (
               <>
-                <div className={styles.title}>
-                  <h3>{`Results for ${query.slice(3)}`}</h3>
-                </div>
-                <div className={styles.container}>
-                  <Grid
-                    videos={videos}
-                    key={uuid()}
-                    {...props}
-                    screenWidth={screenWidth}
-                  />
+                <div className={styles.gridContainer}>
+                  <div className={styles.title}>
+                    <h3>{`Results for ${query.slice(3)}`}</h3>
+                  </div>
+                  <div className={styles.gridBody}>
+                    <Grid
+                      videos={videos}
+                      key={uuid()}
+                      {...props}
+                      screenWidth={screenWidth}
+                    />
+                  </div>
                 </div>
               </>
             ) : (
@@ -121,9 +102,9 @@ export default function Browser(props) {
       case FAVOURITES:
         return Favourites();
       case SEARCH:
-        return SearchResults(); // Temp
+        return SearchResults();
       default:
-        return BrowserBody();
+        return CarouselBody();
     }
   };
   return (
@@ -131,7 +112,8 @@ export default function Browser(props) {
       {videosLoaded ? (
         <>
           {includeBanner ? <BrowserHeader /> : null}
-          <div className={styles.carouselContainer}>{<Body />}</div>{" "}
+
+          <Body />
         </>
       ) : (
         <Loading />
