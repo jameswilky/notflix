@@ -10,10 +10,10 @@ export default function useScreenWidth() {
     setScreenWidth(window.innerWidth);
   });
 
-  // useEffect(() => {
-  //   addEvent(window, "resize", captureWidth);
-  //   return () => removeEvent(window, "resize", captureWidth);
-  // }, []);
+  useEffect(() => {
+    addEvent(window, "resize", captureWidth);
+    return () => removeEvent(window, "resize", captureWidth);
+  }, []);
 
   return { screenWidth };
 }

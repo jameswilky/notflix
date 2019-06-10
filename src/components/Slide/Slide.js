@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Video from "../Video/Video";
 import styles from "./Slide.module.css";
 import Overlay from "../Overlay/Overlay";

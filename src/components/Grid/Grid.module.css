@@ -1,12 +1,10 @@
 .container {
-  height: calc(var(--slideWidth));
   position: relative;
   overflow: auto;
-  padding: 0 calc(var(--slideWidth) * 0.12);
+  padding: calc(var(--slideWidth) * 0.12);
   margin-bottom: calc(var(--slideWidth) * -0.22);
 }
-.container {
-}
+
 .header {
   top: calc(var(--slideWidth) * 0.035);
   position: absolute;
@@ -14,17 +12,19 @@
 }
 
 .body {
-  /* display: flex; */
+  padding-top: calc(var(--slideHeight) / 2);
   overflow-y: hidden;
   position: relative;
   overflow-x: scroll;
   z-index: 1;
   display: grid;
-  height: calc(var(--slideWidth));
   align-content: center;
   white-space: nowrap;
   transition: 450ms all;
   -webkit-transition: 450ms all;
+  display: grid;
+  grid-gap: calc(var(--slideHeight) / 2);
+  height: 100%;
 
   /* dynamically remove these margins depending on scroll positon if infinite scroll wont work*/
   margin-left: calc(var(--slideWidth) * -0.12);
@@ -87,34 +87,4 @@
 
 .column > div:last-child {
   transform-origin: center right;
-}
-
-/* Buttons */
-.btnContainer {
-  position: absolute;
-
-  z-index: 2;
-}
-.btn {
-  position: absolute;
-  cursor: pointer;
-  font-size: 1.5em;
-  display: inline-block;
-  z-index: 2;
-  top: calc(var(--slideWidth) * 0.4);
-}
-.left {
-  left: 0;
-}
-.right {
-  right: 0;
-}
-.hidden {
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.show {
-  opacity: 0.7;
-  transition: opacity 0.3s;
 }

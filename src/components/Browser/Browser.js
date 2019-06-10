@@ -8,7 +8,7 @@ import useVideos from "../../hooks/useVideos";
 import pageNames from "../../pageNames";
 import { AuthContext } from "../../contexts/AuthContext";
 import useScreenWidth from "../../hooks/useScreenWidth";
-import Utilities from "../../Utilities";
+import Grid from "../Grid/Grid";
 
 export default function Browser(props) {
   const { FAVOURITES, SEARCH } = pageNames;
@@ -23,7 +23,6 @@ export default function Browser(props) {
     props.location
   );
   const [listedVideos, setListedVideos] = useState([]);
-  const { addEvent, removeEvent } = Utilities;
   const { auth } = useContext(AuthContext);
 
   const userId = "google-oauth2|103091392578361804114";
@@ -76,21 +75,40 @@ export default function Browser(props) {
       </>
     );
   };
+  console.log(videos);
   const SearchResults = () => {
     return (
       <>
         {videosLoaded ? (
           <>
-            <div className={styles.title}>
-              <h3>{`Results for ${query.slice(3)}`}</h3>
-            </div>
-            <div className={styles.container}>
-              {videos ? (
-                videos.map(video => <div key={uuid()}>{video.title}</div>)
-              ) : (
-                <div>Sorry, no videos match this query</div>
-              )}
-            </div>
+            {videos.length > 0 ? (
+              <>
+                <div className={styles.title}>
+                  <h3>{`Results for ${query.slice(3)}`}</h3>
+                </div>
+                <div className={styles.container}>
+                  <Grid
+                    videos={videos}
+                    key={uuid()}
+                    {...props}
+                    screenWidth={screenWidth}
+                  />
+                </div>
+              </>
+            ) : (
+              <div className={styles.notFound}>
+                Your Search for "{query.slice(3)}" did not have any matches.
+                Suggestions:
+                <ul>
+                  <li>Try different keywords</li>
+                  <li>Looking for a movie or TV show?</li>
+                  <li>
+                    Try using a movie, TV show title, an actor or director
+                  </li>
+                  <li> Try a genre like comedy, romance, sports or drama</li>
+                </ul>
+              </div>
+            )}
           </>
         ) : (
           <Loading />

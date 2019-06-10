@@ -50,7 +50,6 @@ export default function useVideos(content, query, location) {
       };
 
       const submitSearch = () => {
-        console.log("searching");
         fetch(`/search${query}`, { signal: signal })
           .then(response => {
             if (response.ok) return response.json();
@@ -62,7 +61,6 @@ export default function useVideos(content, query, location) {
           });
       };
 
-      console.log(location);
       if (!location.prevPath) submitSearch();
       else {
         addEvent(window, "keyup", startCountdown);

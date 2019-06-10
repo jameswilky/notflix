@@ -3,54 +3,12 @@ import styles from "./Carousel.module.css";
 import Slide from "../Slide/Slide";
 import uuid from "uuid";
 import ReactDOM from "react-dom";
-
-/* 
-Need to take a 1 unidirectional approach to scrolling
-
-buttons should not trigger a scroll, but a scroll should trigger a state change,
-rerendering to the correct scroll position
-*/
-
-const fitSlides = (screenWidth, min, n, videos) => {
-  const padding = 30;
-  const scrollBarWidth = 17;
-  const nSlides = n;
-  const containerWidth = screenWidth - (scrollBarWidth + padding * 2);
-  const minWidth = min;
-  const nVisibleSlides = Math.floor(containerWidth / minWidth) || 1;
-  const slideWidth = Math.floor(containerWidth / nVisibleSlides);
-  const colSize = slideWidth * nVisibleSlides;
-  const nCols =
-    (nSlides % nVisibleSlides) + Math.floor(nSlides / nVisibleSlides);
-
-  const getTemplate = () => `${colSize}px `.repeat(nCols);
-
-  const videosByColumn = videos
-    .map(function(e, i) {
-      return i % nVisibleSlides === 0
-        ? videos.slice(i, i + nVisibleSlides)
-        : null;
-    })
-    .filter(function(e) {
-      return e;
-    });
-
-  /* imperative operation, set CSS width*/
-  document.documentElement.style.setProperty("--slideWidth", `${slideWidth}px`);
-
-  return {
-    getTemplate,
-    videosByColumn,
-    slideWidth,
-    containerWidth,
-    nCols,
-    colSize
-  };
-};
+import Utilities from "../../Utilities";
 
 export default function Carousel(props) {
   const { videos, genre, screenWidth } = props;
   const containerRef = React.createRef();
+  const { fitSlides } = Utilities;
   const {
     getTemplate,
     videosByColumn,

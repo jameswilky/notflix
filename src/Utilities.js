@@ -36,5 +36,45 @@ export default (function() {
     }
   };
 
-  return { sortBy, groupBy, addEvent, removeEvent, groupBy };
+  const fitSlides = (screenWidth, min, n, videos) => {
+    const padding = 30;
+    const scrollBarWidth = 17;
+    const nSlides = n;
+    const containerWidth = screenWidth - (scrollBarWidth + padding * 2);
+    const minWidth = min;
+    const nVisibleSlides = Math.floor(containerWidth / minWidth) || 1;
+    const slideWidth = Math.floor(containerWidth / nVisibleSlides);
+    const colSize = slideWidth * nVisibleSlides;
+    const nCols =
+      (nSlides % nVisibleSlides) + Math.floor(nSlides / nVisibleSlides);
+
+    const getTemplate = () => `${colSize}px `.repeat(nCols);
+
+    const videosByColumn = videos
+      .map(function(e, i) {
+        return i % nVisibleSlides === 0
+          ? videos.slice(i, i + nVisibleSlides)
+          : null;
+      })
+      .filter(function(e) {
+        return e;
+      });
+
+    /* imperative operation, set CSS width*/
+    document.documentElement.style.setProperty(
+      "--slideWidth",
+      `${slideWidth}px`
+    );
+
+    return {
+      getTemplate,
+      videosByColumn,
+      slideWidth,
+      containerWidth,
+      nCols,
+      colSize
+    };
+  };
+
+  return { sortBy, groupBy, addEvent, removeEvent, groupBy, fitSlides };
 })();
