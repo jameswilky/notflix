@@ -13,13 +13,14 @@ export default function VideoPlayer(props) {
   const playerLoading = new Promise(resolve => {
     if (player !== undefined) resolve(player);
   });
-
+  console.log(video);
   const [metaData] = useState({
     title: video.title,
     match: `${video.vote_average * 10}% Match`, // use user score
     maturity: "M",
     length: "4 Seasons",
-    categories: video.genres
+    categories: video.genres,
+    overview: video.overview
   });
 
   const Thumbnail = () => {
@@ -55,6 +56,8 @@ export default function VideoPlayer(props) {
         /* Start loading youtube player and hide thumbnail*/
         setLoadPlayer(true);
         setShowThumbnail(false);
+
+        playerLoading.then(player => {});
 
         /* Will push items to left further when hovering on last item*/
         if (position === "last") {

@@ -10,19 +10,10 @@
   transition: 450ms all;
   max-width: 100%;
   margin-top: -8px;
-  background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.9) 0%,
-    rgba(0, 0, 0, 0) 100%
-  );
+  opacity: 1;
 }
 
 .thumbnail {
-  background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.9) 0%,
-    rgba(0, 0, 0, 0) 100%
-  );
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
@@ -32,21 +23,14 @@
   left: 0;
   right: 0;
   top: 0;
+
   opacity: 1;
-  transition: 400ms opacity, visibility 0s linear 400ms;
-  -moz-transition: 400ms opacity, visibility 0s linear 400ms;
-  -ms-transition: 400ms opacity, visibility 0s linear 400ms;
-  -o-transition: 400ms opacity, visibility 0s linear 400ms;
-  -webkit-transition: 400ms opacity, visibility 0s linear 400ms;
+  transition: 1000ms opacity, visibility 0s linear 1000ms;
+  -moz-transition: 1000ms opacity, visibility 0s linear 1000ms;
+  -ms-transition: 1000ms opacity, visibility 0s linear 1000ms;
+  -o-transition: 1000ms opacity, visibility 0s linear 1000ms;
+  -webkit-transition: 1000ms opacity, visibility 0s linear 1000ms;
 }
 .thumbnail:hover {
   opacity: 0;
-}
-
-.body:hover {
-  opacity: 1;
-}
-
-.body {
-  opacity: 0.8;
 }

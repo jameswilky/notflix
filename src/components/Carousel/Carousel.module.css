@@ -3,13 +3,14 @@
   position: relative;
   overflow: hidden;
   padding: 0 calc(var(--slideWidth) * 0.12);
-  margin-bottom: calc(var(--slideWidth) * -0.25);
+  margin-bottom: calc(var(--slideWidth) * -0.3);
 }
 
 .header {
-  top: calc(var(--slideWidth) * 0.05);
+  top: calc(var(--slideWidth) * 0.06);
   position: absolute;
   z-index: 0;
+  font-size: 0.9rem;
 }
 
 .body {

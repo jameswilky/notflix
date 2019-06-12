@@ -120,7 +120,7 @@ export default function Browser(props) {
                 width: `100%`,
                 maxHeight: `100vh`,
                 zIndex: 0,
-                minHeight: `calc(100vw * 0.5625)`,
+                minHeight: `calc(100vw * 0.48)`,
                 marginBottom: "calc(100vh * -0.1)"
               }}
             />

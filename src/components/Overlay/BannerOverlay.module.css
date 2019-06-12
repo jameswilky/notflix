@@ -4,83 +4,64 @@
   left: 0;
   right: 0;
   top: 0;
-  font-size: 9px;
+  opacity: 1;
+  font-size: 1.3vw;
   background: linear-gradient(
     to top,
-    rgba(0, 0, 0, 0.2) 0%,
+    rgba(0, 0, 0, 0.5) 0%,
     rgba(0, 0, 0, 0) 100%
   );
-  z-index: 5;
-}
-.body:after,
-.body:before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  display: #000;
-}
-
-.left {
-  bottom: 20px;
-  position: absolute;
-  left: 10px;
-  font-size: 0.7em;
-}
-
-.left * {
-  padding: 0.5px;
-}
-
-.playBtn {
-  font-size: 0.7em;
-  color: red;
-  border: 1px solid grey;
-  border-radius: 100%;
-  padding: 4px 3.5px 3px 4px;
+  z-index: 1;
+  cursor: default;
 }
 
 .text {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  padding: calc(var(--slideWidth) * 0.12);
+  padding-top: 15%;
+}
+.btnContainer {
+  padding: 15px 0;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  justify-items: center;
-  grid-gap: 2px;
-  width: 100px;
+  grid-gap: 10px;
+  font-size: 0.8em;
+  width: 40%;
 }
-.dot {
-  color: grey;
+.description {
+  width: 40%;
 }
-
-.match {
-  /* Match Rating*/
-  color: #00ee00;
+.btnContainer > div {
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+  cursor: pointer;
 }
-.maturity {
-  /* Maturity Rating*/
-  border: 1px solid var(--white);
-  padding: 0px 2px 1px 2.5px;
+.rightFloat {
+  font-size: 0.8rem;
+  position: relative;
+  right: 0;
+  float: right;
+  margin-right: calc(var(--slideWidth) * -0.12);
 }
-
-.right {
-  bottom: 20px;
-  right: 10px;
-  position: absolute;
-  font-size: 0.7em;
+.rightFloat * {
+  display: inline;
 }
-.btn {
-  margin: 3px auto;
-  border: 1px solid grey;
-  border-radius: 100%;
-  opacity: 0.7;
-}
-
-.btn > i {
-  padding: 3px 3px 2.5px 3px;
-}
-
-.btn:hover,
-.btnSelected {
-  color: white;
-  opacity: 1;
+.mute {
+  background-color: rgba(0, 0, 0, 0.2);
   border: 1px solid white;
+  border-radius: 100%;
+  padding: 3px 1.5px 3px 2px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.rating {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-left: 5px solid white;
+  padding: 3px;
+  padding-right: calc(var(--slideWidth) * 0.12);
+  padding-left: 5px;
 }

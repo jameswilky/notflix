@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import Youtube from "react-youtube";
 import styles from "./Video.module.css";
 
 export default function Video(props) {
   const { id, setPlayer, load, width } = props;
-
+  const [loaded, setLoaded] = useState(false);
   const options = {
     /* Temp */
     height: width * 0.5625,
@@ -18,6 +18,7 @@ export default function Video(props) {
 
   const onReadyHandler = e => {
     setPlayer(e.target);
+    setLoaded(true);
   };
 
   return (
@@ -28,6 +29,7 @@ export default function Video(props) {
           videoId={id}
           opts={options}
           onReady={e => onReadyHandler(e)}
+          className={styles.body}
         />
       ) : null}
     </>
