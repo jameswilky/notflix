@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import Video from "../Video/Video";
-import styles from "./Slide.module.css";
-import Overlay from "../Overlay/Overlay";
+import styles from "./VideoPlayer.module.css";
+import BannerOverlay from "../Overlay/BannerOverlay";
+import SlideOverlay from "../Overlay/SlideOverlay";
 
-export default function Slide(props) {
-  const { video, position, width } = props;
+export default function VideoPlayer(props) {
+  const { video, position, width, style = {}, type } = props;
   const { videoId } = video;
   const [player, setPlayer] = useState();
   const [showThumbnail, setShowThumbnail] = useState(true);
@@ -39,6 +40,7 @@ export default function Slide(props) {
 
   return (
     <div
+      style={style}
       position={position}
       className={styles.body}
       onClick={e => {
@@ -87,8 +89,18 @@ export default function Slide(props) {
         load={loadPlayer}
         width={width}
       />
-      <Overlay id={video._id} player={player} metaData={metaData} />
-      <Thumbnail />
+      {type === "slide" ? (
+        <>
+          <SlideOverlay id={video._id} player={player} metaData={metaData} />
+          <Thumbnail />
+        </>
+      ) : (
+        <>
+          {" "}
+          <Thumbnail />
+          <BannerOverlay id={video._id} player={player} metaData={metaData} />
+        </>
+      )}
     </div>
   );
 }

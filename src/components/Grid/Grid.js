@@ -1,5 +1,5 @@
 import React from "react";
-import Slide from "../Slide/Slide";
+import VideoPlayer from "../VideoPlayer/VideoPlayer";
 import uuid from "uuid";
 import styles from "./Grid.module.css";
 import Utilities from "../../Utilities";
@@ -19,7 +19,8 @@ export default function Grid(props) {
       <div className={styles.column} key={uuid()}>
         {column.map((video, i, self) => {
           return (
-            <Slide
+            <VideoPlayer
+              type={"slide"}
               video={video}
               key={uuid()}
               {...props}

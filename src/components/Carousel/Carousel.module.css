@@ -1,13 +1,13 @@
 .container {
   height: calc(var(--slideWidth));
   position: relative;
-  overflow: auto;
+  overflow: hidden;
   padding: 0 calc(var(--slideWidth) * 0.12);
-  margin-bottom: calc(var(--slideWidth) * -0.22);
+  margin-bottom: calc(var(--slideWidth) * -0.25);
 }
 
 .header {
-  top: calc(var(--slideWidth) * 0.035);
+  top: calc(var(--slideWidth) * 0.05);
   position: absolute;
   z-index: 0;
 }

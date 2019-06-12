@@ -5,15 +5,13 @@
   right: 0;
   top: 0;
   font-size: 9px;
-  opacity: 1;
   background: linear-gradient(
     to top,
-    rgba(0, 0, 0, 0.9) 0%,
+    rgba(0, 0, 0, 0.2) 0%,
     rgba(0, 0, 0, 0) 100%
   );
-  transition: 450ms opacity;
+  z-index: 5;
 }
-
 .body:after,
 .body:before {
   content: "";
@@ -24,7 +22,7 @@
 }
 
 .left {
-  bottom: 15px;
+  bottom: 20px;
   position: absolute;
   left: 10px;
   font-size: 0.7em;
@@ -39,7 +37,7 @@
   color: red;
   border: 1px solid grey;
   border-radius: 100%;
-  padding: 3px 3px 3px 4px;
+  padding: 4px 3.5px 3px 4px;
 }
 
 .text {
@@ -64,8 +62,8 @@
 }
 
 .right {
-  bottom: 15px;
-  right: 15px;
+  bottom: 20px;
+  right: 10px;
   position: absolute;
   font-size: 0.7em;
 }

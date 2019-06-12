@@ -9,7 +9,8 @@
   transform: translate3d(calc(var(--slideWidth)), 0, 0) !important;
 }
 .column > div:first-child {
-  transform-origin: center left;
+  /* Used to override case when a column has a single slide*/
+  transform-origin: center left !important;
 }
 
 /* ==============MIDDLE SLIDES=====================*/

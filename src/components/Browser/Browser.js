@@ -1,7 +1,6 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useContext } from "react";
 import styles from "./Browser.module.css";
 import Carousel from "../Carousel/Carousel";
-import BrowserHeader from "./BrowserHeader";
 import uuid from "uuid";
 import Loading from "../Loading/Loading";
 import useVideos from "../../hooks/useVideos";
@@ -9,6 +8,7 @@ import pageNames from "../../pageNames";
 import { AuthContext } from "../../contexts/AuthContext";
 import useScreenWidth from "../../hooks/useScreenWidth";
 import Grid from "../Grid/Grid";
+import VideoPlayer from "../VideoPlayer/VideoPlayer";
 
 export default function Browser(props) {
   const { FAVOURITES, SEARCH } = pageNames;
@@ -111,7 +111,20 @@ export default function Browser(props) {
     <div className={styles.main}>
       {videosLoaded ? (
         <>
-          {includeBanner ? <BrowserHeader /> : null}
+          {includeBanner ? (
+            <VideoPlayer
+              position="middle"
+              video={Object.values(videosByGenre[0])[0][1]}
+              width={screenWidth}
+              style={{
+                width: `100%`,
+                maxHeight: `100vh`,
+                zIndex: 0,
+                minHeight: `calc(100vw * 0.5625)`,
+                marginBottom: "calc(100vh * -0.1)"
+              }}
+            />
+          ) : null}
 
           <Body />
         </>

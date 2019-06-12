@@ -1,44 +1,26 @@
 import React, { useState, useContext } from "react";
-import styles from "./Overlay.module.css";
+import styles from "./SlideOverlay.module.css";
+import useVideoControls from "./useVideoControls";
 import { AuthContext } from "../../contexts/AuthContext";
 
-const userData = {
-  liked: false,
-  disliked: false,
-  favorited: false
-};
-
-export default function Overlay(props) {
-  const { id, metaData, player } = props;
+export default function SlideOverlay(props) {
+  const { id, player, metaData } = props;
   const { title, match, maturity, length, categories } = metaData;
-  const { liked, disliked, favorited } = userData;
   const { auth } = useContext(AuthContext);
+  const {
+    isMuted,
+    setIsMuted,
+    isLiked,
+    setIsLiked,
+    isDisliked,
+    setIsDisliked,
+    isFavorited,
+    setIsFavorited,
+    updateUser
+  } = useVideoControls(id, player, auth);
 
-  const [isMuted, setIsMuted] = useState(false);
-  const [isLiked, setIsLiked] = useState(liked);
-  const [isDisliked, setIsDisliked] = useState(disliked);
-  const [isFavorited, setIsFavorited] = useState(favorited);
-
-  const updateUser = action => {
-    /* users/update*/
-    fetch("users/update", {
-      method: "post",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        user: {
-          id: auth.userProfile.sub
-        },
-        video: {
-          id: id
-        },
-        /* use parameters instead*/
-        action: action
-      })
-    });
-  };
   const fullScreen = () => {
     player.playVideo();
-
     let iframe = player.a; // reference the iframe
     let requestFullScreen =
       iframe.requestFullScreen ||
@@ -48,6 +30,7 @@ export default function Overlay(props) {
       requestFullScreen.bind(iframe)();
     }
   };
+
   return (
     <div className={styles.body}>
       <div className={styles.left}>
