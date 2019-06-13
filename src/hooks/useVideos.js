@@ -4,32 +4,37 @@ import genres from "../genres";
 import pageNames from "../pageNames";
 
 export default function useVideos(content, query, location) {
-  const { SEARCH } = pageNames;
+  const { SEARCH, FAVORITES } = pageNames;
   const [videosLoaded, setVideosLoaded] = useState(false);
   const [videosByGenre, setVideosByGenre] = useState({});
-  const [videos, setVideos] = useState([]);
+  const [searchedVideos, setSearchedVideos] = useState([]);
+  const [favoritedVideos, setFavoritedVideos] = useState([]);
   const { groupBy, addEvent, removeEvent } = Utilities;
 
   useEffect(() => {
+    console.log("searching all");
+
     /* Load videos by genre for default browser*/
-    const abortController = new AbortController();
-    const signal = abortController.signal;
+    if (content !== (SEARCH || FAVORITES)) {
+      const abortController = new AbortController();
+      const signal = abortController.signal;
 
-    setVideosLoaded(false);
-    fetch("/videos", { signal: signal })
-      .then(response => {
-        if (response.ok) return response.json();
-        throw new Error("Network respones was not ok.");
-      })
-      .then(response => {
-        setVideosByGenre(groupBy(response, genres));
-        setVideosLoaded(true);
-      })
-      .catch(error => {});
+      setVideosLoaded(false);
+      fetch("/videos", { signal: signal })
+        .then(response => {
+          if (response.ok) return response.json();
+          throw new Error("Network respones was not ok.");
+        })
+        .then(response => {
+          setVideosByGenre(groupBy(response, genres));
+          setVideosLoaded(true);
+        })
+        .catch(error => {});
 
-    return () => {
-      abortController.abort();
-    };
+      return () => {
+        abortController.abort();
+      };
+    }
   }, []);
 
   useEffect(() => {
@@ -37,6 +42,8 @@ export default function useVideos(content, query, location) {
     setVideosLoaded(false);
 
     if (content === SEARCH) {
+      console.log("searching query");
+
       const abortController = new AbortController();
       const signal = abortController.signal;
       let typingTimer;
@@ -56,7 +63,9 @@ export default function useVideos(content, query, location) {
             throw new Error("Network response was not ok.");
           })
           .then(videos => {
-            videos !== [] ? setVideos(videos) : setVideos(false);
+            videos !== []
+              ? setSearchedVideos(videos)
+              : setSearchedVideos(false);
             setVideosLoaded(true);
           });
       };
@@ -75,5 +84,35 @@ export default function useVideos(content, query, location) {
     }
   }, [query]);
 
-  return { videosLoaded, videosByGenre, videos };
+  useEffect(() => {
+    /* Load favorited videos*/
+
+    if (content === FAVORITES) {
+      setVideosLoaded(false);
+      console.log("searching favorites");
+
+      const userId = "google-oauth2|103091392578361804114";
+
+      const abortController = new AbortController();
+      const signal = abortController.signal;
+
+      setVideosLoaded(false);
+      fetch(`/users/${userId}`, { signal: signal })
+        .then(response => {
+          if (response.ok) return response.json();
+          throw new Error("Network respones was not ok.");
+        })
+        .then(videos => {
+          setFavoritedVideos(videos);
+          setVideosLoaded(true);
+        })
+        .catch(error => {});
+
+      return () => {
+        abortController.abort();
+      };
+    }
+  }, []);
+
+  return { videosLoaded, videosByGenre, searchedVideos, favoritedVideos };
 }

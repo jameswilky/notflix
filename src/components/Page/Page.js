@@ -6,7 +6,7 @@ import Profile from "../Profile/Profile";
 import pageNames from "../../pageNames";
 
 export default function Page(props) {
-  const { HOME, MOVIES, TV_SHOWS, PROFILE, FAVOURITES, SEARCH } = pageNames;
+  const { HOME, MOVIES, TV_SHOWS, PROFILE, FAVORITES, SEARCH } = pageNames;
   const { content } = props;
 
   //Transparent header if the page is home, tv shows or movies
@@ -25,7 +25,7 @@ export default function Page(props) {
         return <Browser {...props} includeBanner={true} videoType={"movie"} />;
       case PROFILE:
         return <Profile {...props} />;
-      case FAVOURITES:
+      case FAVORITES:
         return <Browser {...props} includeBanner={false} />;
       default:
         return <Browser {...props} />;

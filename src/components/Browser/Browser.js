@@ -11,20 +11,19 @@ import Grid from "../Grid/Grid";
 import VideoPlayer from "../VideoPlayer/VideoPlayer";
 
 export default function Browser(props) {
-  const { FAVOURITES, SEARCH } = pageNames;
+  const { FAVORITES, SEARCH } = pageNames;
 
   const { includeBanner, videoType = false, content } = props;
 
   const query = props.history.location.search;
 
-  const { videosLoaded, videosByGenre, videos } = useVideos(
-    content,
-    query,
-    props.location
-  );
+  const {
+    videosLoaded,
+    videosByGenre,
+    searchedVideos,
+    favoritedVideos
+  } = useVideos(content, query, props.location);
   const { auth } = useContext(AuthContext);
-
-  const userId = "google-oauth2|103091392578361804114";
 
   const { screenWidth } = useScreenWidth();
 
@@ -52,15 +51,41 @@ export default function Browser(props) {
       } else return null;
     });
   };
-  const Favourites = () => {
-    return <div />;
+  const Favorites = () => {
+    return (
+      <>
+        {videosLoaded ? (
+          <div className={styles.gridContainer}>
+            <div className={styles.title}>
+              <h2>My List</h2>
+            </div>
+            {favoritedVideos.length > 0 ? (
+              <div className={styles.gridBody}>
+                <Grid
+                  videos={favoritedVideos}
+                  key={uuid()}
+                  {...props}
+                  screenWidth={screenWidth}
+                />
+              </div>
+            ) : (
+              <div className={styles.noItems}>
+                You haven't added any titles to your list yet.
+              </div>
+            )}
+          </div>
+        ) : (
+          <Loading />
+        )}
+      </>
+    );
   };
   const SearchResults = () => {
     return (
       <>
         {videosLoaded ? (
           <>
-            {videos.length > 0 ? (
+            {searchedVideos.length > 0 ? (
               <>
                 <div className={styles.gridContainer}>
                   <div className={styles.title}>
@@ -68,7 +93,7 @@ export default function Browser(props) {
                   </div>
                   <div className={styles.gridBody}>
                     <Grid
-                      videos={videos}
+                      videos={searchedVideos}
                       key={uuid()}
                       {...props}
                       screenWidth={screenWidth}
@@ -99,15 +124,14 @@ export default function Browser(props) {
   };
   const Body = () => {
     switch (content) {
-      case FAVOURITES:
-        return Favourites();
+      case FAVORITES:
+        return Favorites();
       case SEARCH:
         return SearchResults();
       default:
         return CarouselBody();
     }
   };
-  console.log(screenWidth);
   return (
     <div className={styles.main}>
       {videosLoaded ? (

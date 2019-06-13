@@ -11,7 +11,7 @@ function App(props) {
   const { history } = props;
   const auth = new Auth(history);
 
-  const { HOME, MOVIES, TV_SHOWS, PROFILE, FAVOURITES, SEARCH } = pageNames;
+  const { HOME, MOVIES, TV_SHOWS, PROFILE, FAVORITES, SEARCH } = pageNames;
 
   return (
     <AuthProvider auth={auth}>
@@ -40,10 +40,10 @@ function App(props) {
         }
       />
       <Route
-        path="/favourites"
+        path="/favorites"
         render={props =>
           auth.isAuthenticated() ? (
-            <Page {...props} content={FAVOURITES} />
+            <Page {...props} content={FAVORITES} />
           ) : (
             <Redirect to="/" />
           )

@@ -119,7 +119,7 @@ export default function SlideOverlay(props) {
                   className="fas fa-plus"
                   onClick={() => {
                     updateUser(
-                      { type: "FAVOURITE", payload: !isFavorited },
+                      { type: "FAVORITE", payload: !isFavorited },
                       auth,
                       id
                     );

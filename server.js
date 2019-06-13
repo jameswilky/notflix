@@ -103,8 +103,8 @@ app.post("/users/update", (req, res) => {
       }
     };
     switch (action.type) {
-      case "FAVOURITE":
-        if (!user.favorites.includes(newVideoId)) update("favourites", user);
+      case "FAVORITE":
+        if (!user.favorites.includes(newVideoId)) update("favorites", user);
         break;
       case "LIKE":
         if (!user.likes.includes(newVideoId)) {
@@ -129,7 +129,7 @@ app.post("/users/update", (req, res) => {
 });
 
 app.get("/users/:userId", function(req, res) {
-  // return a list of favourited videos
+  // return a list of favorited videos
   User.findOne({ userId: req.params.userId })
     .populate("favorites")
     .exec((err, user) => res.status(200).json(user.favorites));

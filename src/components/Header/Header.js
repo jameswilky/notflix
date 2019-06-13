@@ -61,7 +61,7 @@ export default function Header(props) {
         </div>
         <div>
           {isAuthenticated() && profile ? (
-            <Link to="/favourites">
+            <Link to="/favorites">
               <p>My List</p>
             </Link>
           ) : null}

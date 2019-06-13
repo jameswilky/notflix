@@ -3,7 +3,7 @@ const pageNames = {
   TV_SHOWS: "tvshows",
   MOVIES: "movies",
   PROFILE: "profile",
-  FAVOURITES: "favourites",
+  FAVORITES: "favorites",
   SEARCH: "search"
 };
 
