@@ -9,7 +9,6 @@ const userData = {
 /* Learn Higher Order components*/
 
 export default function useVideoControls(props) {
-  const { id, player, auth } = props;
   const { liked, disliked, favorited } = userData;
 
   const [isMuted, setIsMuted] = useState(false);
@@ -17,7 +16,7 @@ export default function useVideoControls(props) {
   const [isDisliked, setIsDisliked] = useState(disliked);
   const [isFavorited, setIsFavorited] = useState(favorited);
 
-  const updateUser = action => {
+  const updateUser = (action, auth, id) => {
     /* users/update*/
     fetch("users/update", {
       method: "post",

@@ -75,45 +75,55 @@ app.post("/users/update", (req, res) => {
   const newUserId = req.body.user.id;
   const newVideoId = req.body.video.id;
   const action = req.body.action;
-  console.log(action);
-  console.log(newVideoId);
 
   User.findOne({ userId: newUserId }, (err, user) => {
     /* Find user*/
     return user;
   }).then(user => {
     user === null
-      ? (user = new User({
+      ? /* If user doesnt exist, Create a new one*/
+        (user = new User({
           _id: new mongoose.Types.ObjectId(),
           userId: newUserId
         }))
-      : user;
+      : /* Otherwise, append to user that matches id*/
+        user;
+
+    const addTo = field => {
+      user[field] = [...user[field], newVideoId];
+    };
+    const removeFrom = field => {
+      user[field] = user[field].filter(id => id != newVideoId);
+    };
+    const update = field => {
+      if (action.payload) {
+        addTo(field);
+      } else {
+        removeFrom(field);
+      }
+    };
     switch (action.type) {
       case "FAVOURITE":
-        {
-          if (action.payload) {
-            user.favorites = [...user.favorites, newVideoId];
-          } else {
-            user.favorites = user.favorites.filter(id => id != newVideoId);
+        if (!user.favorites.includes(newVideoId)) update("favourites", user);
+        break;
+      case "LIKE":
+        if (!user.likes.includes(newVideoId)) {
+          update("likes", user);
+          if (user.dislikes.includes(newVideoId)) {
+            removeFrom("dislikes");
+          }
+        }
+
+        break;
+      case "DISLIKE":
+        if (!user.dislikes.includes(newVideoId)) {
+          update("dislikes", user);
+          if (user.likes.includes(newVideoId)) {
+            removeFrom("likes");
           }
         }
         break;
-      case "LIKE":
-        if (action.payload) {
-          user.likes = [...user.likes, newVideoId];
-        } else {
-          user.likes = user.likes.filter(id => id != newVideoId);
-        }
-        break;
-      case "DISLIKE":
-        if (action.payload) {
-          user.dislikes = [...user.dislikes, newVideoId];
-        } else {
-          user.dislikes = user.dislikes.filter(id => id != newVideoId);
-        }
-        break;
     }
-    console.log(user);
     user.save();
   });
 });

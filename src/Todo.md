@@ -1,10 +1,11 @@
-2. build parser into a single script
-3. Make carousels revolve forever
-4. expand database
-5. change videoID to trailerID
-6. remove regular id
-7. Allow components to remember display which items are liked
-8. expand crud functionality for list
-9. Add overlay for banner
-10. resize thumbnails
-11. resise youtube video font
+Major
+
+1. Give Banner functionality
+2. Create myList page
+3. create user info context
+
+Minor
+
+1. Expand Database
+2. Figure out correct sizing for banner video
+3. fix issue with search bar closing

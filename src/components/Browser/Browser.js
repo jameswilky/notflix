@@ -107,6 +107,7 @@ export default function Browser(props) {
         return CarouselBody();
     }
   };
+  console.log(screenWidth);
   return (
     <div className={styles.main}>
       {videosLoaded ? (
@@ -118,9 +119,9 @@ export default function Browser(props) {
               width={screenWidth}
               style={{
                 width: `100%`,
-                maxHeight: `100vh`,
+                maxHeight: `95vh`,
                 zIndex: 0,
-                minHeight: `calc(100vw * 0.48)`,
+                height: `calc(100vw * 0.7)`,
                 marginBottom: "calc(100vh * -0.1)"
               }}
             />

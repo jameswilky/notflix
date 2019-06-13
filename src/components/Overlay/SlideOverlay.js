@@ -84,7 +84,7 @@ export default function SlideOverlay(props) {
                 <i
                   className="far fa-thumbs-up"
                   onClick={() => {
-                    updateUser({ type: "LIKE", payload: !isLiked });
+                    updateUser({ type: "LIKE", payload: !isLiked }, auth, id);
 
                     setIsLiked(!isLiked);
                     setIsDisliked(false);
@@ -99,7 +99,11 @@ export default function SlideOverlay(props) {
                 <i
                   className="far fa-thumbs-down"
                   onClick={() => {
-                    updateUser({ type: "DISLIKE", payload: !isDisliked });
+                    updateUser(
+                      { type: "DISLIKE", payload: !isDisliked },
+                      auth,
+                      id
+                    );
 
                     setIsDisliked(!isDisliked);
                     setIsLiked(false);
@@ -114,7 +118,11 @@ export default function SlideOverlay(props) {
                 <i
                   className="fas fa-plus"
                   onClick={() => {
-                    updateUser({ type: "FAVOURITE", payload: !isFavorited });
+                    updateUser(
+                      { type: "FAVOURITE", payload: !isFavorited },
+                      auth,
+                      id
+                    );
                     setIsFavorited(!isFavorited);
                   }}
                 />

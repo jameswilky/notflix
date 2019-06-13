@@ -20,7 +20,7 @@
   height: 100%;
   width: 100%;
   padding: calc(var(--slideWidth) * 0.12);
-  padding-top: 15%;
+  padding-top: 20%;
 }
 .btnContainer {
   padding: 15px 0;
@@ -40,11 +40,10 @@
   cursor: pointer;
 }
 .rightFloat {
-  font-size: 0.8rem;
-  position: relative;
+  display: block;
+  font-size: 1rem;
+  position: absolute;
   right: 0;
-  float: right;
-  margin-right: calc(var(--slideWidth) * -0.12);
 }
 .rightFloat * {
   display: inline;
