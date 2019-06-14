@@ -1,24 +1,27 @@
 import React, { useState, useContext } from "react";
 import styles from "./BannerOverlay.module.css";
-import useVideoControls from "./useVideoControls";
 import { AuthContext } from "../../contexts/AuthContext";
+import { UserContext } from "../../contexts/UserContext";
+import uuid from "uuid";
 
 export default function BannerOverlay(props) {
   const { id, player, metaData } = props;
   const { title, match, maturity, length, categories, overview } = metaData;
-  const { auth } = useContext(AuthContext);
+  // const { auth } = useContext(AuthContext);
+  // const { updateUser, user, userLoaded } = useContext(UserContext);
+  // const [videoState, setVideoState] = useVideoState(user, userLoaded);
 
-  const {
-    isMuted,
-    setIsMuted,
-    isLiked,
-    setIsLiked,
-    isDisliked,
-    setIsDisliked,
-    isFavorited,
-    setIsFavorited,
-    updateUser
-  } = useVideoControls(id, player, auth);
+  // const fullScreen = () => {
+  //   player.playVideo();
+  //   let iframe = player.a; // reference the iframe
+  //   let requestFullScreen =
+  //     iframe.requestFullScreen ||
+  //     iframe.mozRequestFullScreen ||
+  //     iframe.webkitRequestFullScreen;
+  //   if (requestFullScreen) {
+  //     requestFullScreen.bind(iframe)();
+  //   }
+  // };
   return (
     <div className={styles.body}>
       <div className={styles.text}>

@@ -1,16 +1,28 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import styles from "./SlideOverlay.module.css";
-import useVideoControls from "./useVideoState";
 import { AuthContext } from "../../contexts/AuthContext";
 import { UserContext } from "../../contexts/UserContext";
 import uuid from "uuid";
+import useVideoState from "./useVideoState";
 
 export default function SlideOverlay(props) {
   const { id, player, metaData } = props;
   const { title, match, maturity, length, categories } = metaData;
   const { auth } = useContext(AuthContext);
   const { updateUser, user, userLoaded } = useContext(UserContext);
-  const [videoState, setVideoState] = useVideoState(user, userLoaded);
+
+  const [videoState, setVideoState] = useVideoState(user, userLoaded, id);
+  const { isMuted, isLiked, isDisliked, isFavorited } = videoState;
+  useEffect(() => {
+    if (userLoaded) {
+      setVideoState({
+        isMuted: isMuted,
+        isLiked: user.likes.filter(video => video._id === id).length > 0,
+        isDisliked: user.dislikes.filter(video => video._id === id).length > 0,
+        isFavorited: user.favorites.filter(video => video._id === id).length > 0
+      });
+    }
+  }, userLoaded);
 
   const fullScreen = () => {
     player.playVideo();
@@ -66,10 +78,10 @@ export default function SlideOverlay(props) {
               onClick={() => {
                 if (player.isMuted()) {
                   player.unMute();
-                  setIsMuted(false);
+                  setVideoState({ ...videoState, isMuted: false });
                 } else {
                   player.mute();
-                  setIsMuted(true);
+                  setVideoState({ ...videoState, isMuted: true });
                 }
               }}
             />{" "}
@@ -83,9 +95,11 @@ export default function SlideOverlay(props) {
                   className="far fa-thumbs-up"
                   onClick={() => {
                     updateUser({ type: "LIKE", payload: !isLiked }, auth, id);
-
-                    setIsLiked(!isLiked);
-                    setIsDisliked(false);
+                    setVideoState({
+                      ...videoState,
+                      isLiked: !isLiked,
+                      isDisliked: false
+                    });
                   }}
                 />
               </div>
@@ -103,8 +117,11 @@ export default function SlideOverlay(props) {
                       id
                     );
 
-                    setIsDisliked(!isDisliked);
-                    setIsLiked(false);
+                    setVideoState({
+                      ...videoState,
+                      isDisliked: !isDisliked,
+                      isLiked: false
+                    });
                   }}
                 />
               </div>
@@ -121,7 +138,7 @@ export default function SlideOverlay(props) {
                       auth,
                       id
                     );
-                    setIsFavorited(!isFavorited);
+                    setVideoState({ ...videoState, isFavorited: !isFavorited });
                   }}
                 />
               </div>
