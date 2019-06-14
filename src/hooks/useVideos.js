@@ -8,33 +8,30 @@ export default function useVideos(content, query, location) {
   const [videosLoaded, setVideosLoaded] = useState(false);
   const [videosByGenre, setVideosByGenre] = useState({});
   const [searchedVideos, setSearchedVideos] = useState([]);
-  const [favoritedVideos, setFavoritedVideos] = useState([]);
   const { groupBy, addEvent, removeEvent } = Utilities;
 
   useEffect(() => {
     console.log("searching all");
 
     /* Load videos by genre for default browser*/
-    if (content !== (SEARCH || FAVORITES)) {
-      const abortController = new AbortController();
-      const signal = abortController.signal;
+    const abortController = new AbortController();
+    const signal = abortController.signal;
 
-      setVideosLoaded(false);
-      fetch("/videos", { signal: signal })
-        .then(response => {
-          if (response.ok) return response.json();
-          throw new Error("Network respones was not ok.");
-        })
-        .then(response => {
-          setVideosByGenre(groupBy(response, genres));
-          setVideosLoaded(true);
-        })
-        .catch(error => {});
+    setVideosLoaded(false);
+    fetch("/videos", { signal: signal })
+      .then(response => {
+        if (response.ok) return response.json();
+        throw new Error("Network respones was not ok.");
+      })
+      .then(response => {
+        setVideosByGenre(groupBy(response, genres));
+        setVideosLoaded(true);
+      })
+      .catch(error => {});
 
-      return () => {
-        abortController.abort();
-      };
-    }
+    return () => {
+      abortController.abort();
+    };
   }, []);
 
   useEffect(() => {
@@ -84,35 +81,5 @@ export default function useVideos(content, query, location) {
     }
   }, [query]);
 
-  useEffect(() => {
-    /* Load favorited videos*/
-
-    if (content === FAVORITES) {
-      setVideosLoaded(false);
-      console.log("searching favorites");
-
-      const userId = "google-oauth2|103091392578361804114";
-
-      const abortController = new AbortController();
-      const signal = abortController.signal;
-
-      setVideosLoaded(false);
-      fetch(`/users/${userId}`, { signal: signal })
-        .then(response => {
-          if (response.ok) return response.json();
-          throw new Error("Network respones was not ok.");
-        })
-        .then(videos => {
-          setFavoritedVideos(videos);
-          setVideosLoaded(true);
-        })
-        .catch(error => {});
-
-      return () => {
-        abortController.abort();
-      };
-    }
-  }, []);
-
-  return { videosLoaded, videosByGenre, searchedVideos, favoritedVideos };
+  return { videosLoaded, videosByGenre, searchedVideos };
 }

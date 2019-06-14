@@ -1,23 +1,16 @@
 import React, { useState, useContext } from "react";
 import styles from "./SlideOverlay.module.css";
-import useVideoControls from "./useVideoControls";
+import useVideoControls from "./useVideoState";
 import { AuthContext } from "../../contexts/AuthContext";
+import { UserContext } from "../../contexts/UserContext";
+import uuid from "uuid";
 
 export default function SlideOverlay(props) {
   const { id, player, metaData } = props;
   const { title, match, maturity, length, categories } = metaData;
   const { auth } = useContext(AuthContext);
-  const {
-    isMuted,
-    setIsMuted,
-    isLiked,
-    setIsLiked,
-    isDisliked,
-    setIsDisliked,
-    isFavorited,
-    setIsFavorited,
-    updateUser
-  } = useVideoControls(id, player, auth);
+  const { updateUser, user, userLoaded } = useContext(UserContext);
+  const [videoState, setVideoState] = useVideoState(user, userLoaded);
 
   const fullScreen = () => {
     player.playVideo();
@@ -52,12 +45,17 @@ export default function SlideOverlay(props) {
         </div>
         <div className={styles.text}>
           <div>{categories[0]}</div>
-          <div>
-            <span className={styles.dot}>&middot;</span> {/* {categories[1]} */}
-          </div>
-          <div>
-            <span className={styles.dot}>&middot;</span> {/* {categories[2]} */}
-          </div>
+
+          {categories.length > 1
+            ? categories.map((category, i) => {
+                if (i > 1)
+                  return (
+                    <div key={uuid()}>
+                      <span className={styles.dot}>&middot;</span> {category}
+                    </div>
+                  );
+              })
+            : null}
         </div>
       </div>
       <div className={styles.right}>

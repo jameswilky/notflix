@@ -6,6 +6,7 @@ import Auth from "./Auth";
 import Callback from "./components/Callback/Callback";
 import pageNames from "./pageNames";
 import { AuthProvider } from "./contexts/AuthContext";
+import { UserProvider } from "./contexts/UserContext";
 
 function App(props) {
   const { history } = props;
@@ -15,44 +16,46 @@ function App(props) {
 
   return (
     <AuthProvider auth={auth}>
-      <Route
-        path="/"
-        exact
-        render={props => <Page {...props} content={HOME} />}
-      />
-      <Route
-        path="/tvshows"
-        render={props => <Page auth={auth} {...props} content={TV_SHOWS} />}
-      />
-      <Route
-        path="/movies"
-        render={props => <Page auth={auth} {...props} content={MOVIES} />}
-      />
-      <Route path="/callback" render={props => <Callback {...props} />} />
-      <Route
-        path="/profile"
-        render={() =>
-          auth.isAuthenticated() ? (
-            <Page content={PROFILE} />
-          ) : (
-            <Redirect to="/" />
-          )
-        }
-      />
-      <Route
-        path="/favorites"
-        render={props =>
-          auth.isAuthenticated() ? (
-            <Page {...props} content={FAVORITES} />
-          ) : (
-            <Redirect to="/" />
-          )
-        }
-      />
-      <Route
-        path={`/search`}
-        render={props => <Page auth={auth} {...props} content={SEARCH} />}
-      />
+      <UserProvider auth={auth}>
+        <Route
+          path="/"
+          exact
+          render={props => <Page {...props} content={HOME} />}
+        />
+        <Route
+          path="/tvshows"
+          render={props => <Page auth={auth} {...props} content={TV_SHOWS} />}
+        />
+        <Route
+          path="/movies"
+          render={props => <Page auth={auth} {...props} content={MOVIES} />}
+        />
+        <Route path="/callback" render={props => <Callback {...props} />} />
+        <Route
+          path="/profile"
+          render={() =>
+            auth.isAuthenticated() ? (
+              <Page content={PROFILE} />
+            ) : (
+              <Redirect to="/" />
+            )
+          }
+        />
+        <Route
+          path="/favorites"
+          render={props =>
+            auth.isAuthenticated() ? (
+              <Page {...props} content={FAVORITES} />
+            ) : (
+              <Redirect to="/" />
+            )
+          }
+        />
+        <Route
+          path={`/search`}
+          render={props => <Page auth={auth} {...props} content={SEARCH} />}
+        />
+      </UserProvider>
     </AuthProvider>
   );
 }

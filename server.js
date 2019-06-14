@@ -14,10 +14,6 @@ mongoose.connect(
 mongoose.connection
   .on("connected", function() {
     console.log("Successfully connected to Database");
-    // mongoose.connection.db.listCollections().toArray(function(err, names) {
-    //   console.log(names); // [{ name: 'dbname.myCollection' }]
-    //   module.exports.Collection = names;
-    // });
   })
   .then(() => console.log("worked"), err => console.log(err));
 
@@ -128,11 +124,11 @@ app.post("/users/update", (req, res) => {
   });
 });
 
-app.get("/users/:userId", function(req, res) {
-  // return a list of favorited videos
+app.get("/user/:userId", function(req, res) {
+  // return user
   User.findOne({ userId: req.params.userId })
-    .populate("favorites")
-    .exec((err, user) => res.status(200).json(user.favorites));
+    .populate("favorites likes dislikes")
+    .exec((err, user) => res.status(200).json(user));
 });
 app.get("/videos", function(req, res) {
   Video.find({}).then(videos => res.status(200).json(videos));

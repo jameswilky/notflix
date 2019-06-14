@@ -9,6 +9,7 @@ import { AuthContext } from "../../contexts/AuthContext";
 import useScreenWidth from "../../hooks/useScreenWidth";
 import Grid from "../Grid/Grid";
 import VideoPlayer from "../VideoPlayer/VideoPlayer";
+import { UserContext } from "../../contexts/UserContext";
 
 export default function Browser(props) {
   const { FAVORITES, SEARCH } = pageNames;
@@ -23,7 +24,9 @@ export default function Browser(props) {
     searchedVideos,
     favoritedVideos
   } = useVideos(content, query, props.location);
+
   const { auth } = useContext(AuthContext);
+  const { userLoaded, user } = useContext(UserContext);
 
   const { screenWidth } = useScreenWidth();
 
@@ -54,15 +57,15 @@ export default function Browser(props) {
   const Favorites = () => {
     return (
       <>
-        {videosLoaded ? (
+        {userLoaded ? (
           <div className={styles.gridContainer}>
             <div className={styles.title}>
               <h2>My List</h2>
             </div>
-            {favoritedVideos.length > 0 ? (
+            {user.favorites.length > 0 ? (
               <div className={styles.gridBody}>
                 <Grid
-                  videos={favoritedVideos}
+                  videos={user.favorites}
                   key={uuid()}
                   {...props}
                   screenWidth={screenWidth}
