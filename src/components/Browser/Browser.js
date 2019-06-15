@@ -10,7 +10,6 @@ import useScreenSize from "../../hooks/useScreenSize";
 import Grid from "../Grid/Grid";
 import VideoPlayer from "../VideoPlayer/VideoPlayer";
 import { UserContext } from "../../contexts/UserContext";
-import { brotliDecompress } from "zlib";
 
 export default function Browser(props) {
   const { FAVORITES, SEARCH } = pageNames;
@@ -19,12 +18,11 @@ export default function Browser(props) {
 
   const query = props.history.location.search;
 
-  const {
-    videosLoaded,
-    videosByGenre,
-    searchedVideos,
-    favoritedVideos
-  } = useVideos(content, query, props.location);
+  const { videosLoaded, videosByGenre, searchedVideos } = useVideos(
+    content,
+    query,
+    props.location
+  );
 
   const { auth } = useContext(AuthContext);
   const { userLoaded, user } = useContext(UserContext);
@@ -55,13 +53,6 @@ export default function Browser(props) {
       } else return null;
     });
   };
-
-  console.log(
-    `Width : ${screenWidth}, Height : ${screenHeight}, Cutoff : ${screenWidth *
-      0.5625}`
-  );
-
-  console.log();
 
   const Favorites = () => {
     return (
@@ -152,7 +143,7 @@ export default function Browser(props) {
           {includeBanner ? (
             <VideoPlayer
               position="middle"
-              video={Object.values(videosByGenre[0])[0][1]}
+              video={Object.values(videosByGenre[0])[0][0]}
               width={screenWidth}
               style={{
                 width: `100%`,
@@ -166,6 +157,7 @@ export default function Browser(props) {
                 border: 0,
                 backgroundColor: `rgba(0,0,0,0)`
               }}
+              autoplay={true}
             />
           ) : null}
 

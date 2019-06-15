@@ -4,10 +4,10 @@ import styles from "./VideoPlayer.module.css";
 import Overlay from "../Overlay/Overlay";
 
 export default function VideoPlayer(props) {
-  const { video, position, width, style = {}, type } = props;
+  const { video, position, width, style = {}, type, autoplay = false } = props;
   const { videoId } = video;
   const [player, setPlayer] = useState();
-  const [showThumbnail, setShowThumbnail] = useState(true);
+  const [showThumbnail, setShowThumbnail] = useState(!autoplay);
   const [loadPlayer, setLoadPlayer] = useState(false);
   const playerLoading = new Promise(resolve => {
     if (player !== undefined) resolve(player);
@@ -86,6 +86,7 @@ export default function VideoPlayer(props) {
         id={videoId}
         setPlayer={setPlayer}
         load={loadPlayer}
+        autoplay={autoplay}
         width={width}
       />
       {type === "slide" ? (

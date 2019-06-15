@@ -3,7 +3,7 @@ import Youtube from "react-youtube";
 import styles from "./Video.module.css";
 
 export default function Video(props) {
-  const { id, setPlayer, load, width } = props;
+  const { id, setPlayer, load, width, autoplay } = props;
   const [loaded, setLoaded] = useState(false);
   const options = {
     /* Temp */
@@ -12,7 +12,8 @@ export default function Video(props) {
     playerVars: {
       allowFullScreen: 1,
       controls: 0,
-      frameBorder: 0
+      frameBorder: 0,
+      autoplay: autoplay ? 1 : 0
     }
   };
 
@@ -23,7 +24,7 @@ export default function Video(props) {
 
   return (
     <>
-      {load ? (
+      {load || autoplay ? (
         <Youtube
           className={styles.youTube}
           videoId={id}
