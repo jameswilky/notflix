@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import Video from "../Video/Video";
 import styles from "./VideoPlayer.module.css";
-import BannerOverlay from "../Overlay/BannerOverlay";
-import SlideOverlay from "../Overlay/SlideOverlay";
+import Overlay from "../Overlay/Overlay";
 
 export default function VideoPlayer(props) {
   const { video, position, width, style = {}, type } = props;
@@ -91,14 +90,24 @@ export default function VideoPlayer(props) {
       />
       {type === "slide" ? (
         <>
-          <SlideOverlay id={video._id} player={player} metaData={metaData} />
+          <Overlay
+            type={type}
+            id={video._id}
+            player={player}
+            metaData={metaData}
+          />
           <Thumbnail />
         </>
       ) : (
         <>
           {" "}
           <Thumbnail />
-          <BannerOverlay id={video._id} player={player} metaData={metaData} />
+          <Overlay
+            type={type}
+            id={video._id}
+            player={player}
+            metaData={metaData}
+          />
         </>
       )}
     </div>

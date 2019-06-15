@@ -1,13 +1,18 @@
 import { useEffect, useState, useCallback } from "react";
 import Utilities from "../Utilities";
 
-export default function useScreenWidth() {
+export default function useScreenSize() {
   const { addEvent, removeEvent } = Utilities;
-  const [screenWidth, setScreenWidth] = useState(
-    window.document.body.clientWidth
-  );
+  const [state, setState] = useState({
+    screenWidth: window.innerWidth,
+    screenHeight: window.innerHeight
+  });
+
   const captureWidth = useCallback(() => {
-    setScreenWidth(window.innerWidth);
+    setState({
+      screenWidth: window.innerWidth,
+      screenHeight: window.innerHeight
+    });
   });
 
   useEffect(() => {
@@ -15,5 +20,5 @@ export default function useScreenWidth() {
     return () => removeEvent(window, "resize", captureWidth);
   }, []);
 
-  return { screenWidth };
+  return state;
 }

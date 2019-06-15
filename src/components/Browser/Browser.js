@@ -6,10 +6,11 @@ import Loading from "../Loading/Loading";
 import useVideos from "../../hooks/useVideos";
 import pageNames from "../../pageNames";
 import { AuthContext } from "../../contexts/AuthContext";
-import useScreenWidth from "../../hooks/useScreenWidth";
+import useScreenSize from "../../hooks/useScreenSize";
 import Grid from "../Grid/Grid";
 import VideoPlayer from "../VideoPlayer/VideoPlayer";
 import { UserContext } from "../../contexts/UserContext";
+import { brotliDecompress } from "zlib";
 
 export default function Browser(props) {
   const { FAVORITES, SEARCH } = pageNames;
@@ -28,7 +29,7 @@ export default function Browser(props) {
   const { auth } = useContext(AuthContext);
   const { userLoaded, user } = useContext(UserContext);
 
-  const { screenWidth } = useScreenWidth();
+  const { screenWidth, screenHeight } = useScreenSize();
 
   const CarouselBody = () => {
     return videosByGenre.map(items => {
@@ -54,6 +55,14 @@ export default function Browser(props) {
       } else return null;
     });
   };
+
+  console.log(
+    `Width : ${screenWidth}, Height : ${screenHeight}, Cutoff : ${screenWidth *
+      0.5625}`
+  );
+
+  console.log();
+
   const Favorites = () => {
     return (
       <>
@@ -83,6 +92,7 @@ export default function Browser(props) {
       </>
     );
   };
+
   const SearchResults = () => {
     return (
       <>
@@ -146,10 +156,15 @@ export default function Browser(props) {
               width={screenWidth}
               style={{
                 width: `100%`,
-                maxHeight: `95vh`,
+                maxHeight: `calc(${screenHeight}px)`,
                 zIndex: 0,
-                height: `calc(100vw * 0.7)`,
-                marginBottom: "calc(100vh * -0.1)"
+                height: `calc(${screenWidth}px * 0.5625)`,
+                marginBottom:
+                  screenWidth * 0.5625 > screenHeight
+                    ? `-30px`
+                    : `calc(100vh * -0.1)`,
+                border: 0,
+                backgroundColor: `rgba(0,0,0,0)`
               }}
             />
           ) : null}
