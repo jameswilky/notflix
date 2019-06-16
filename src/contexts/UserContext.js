@@ -3,6 +3,8 @@ const UserContext = new React.createContext(); // takes in an object and a funct
 
 const UserProvider = props => {
   const { auth } = props;
+  const [check, setCheck] = useState(false); /*hacky */
+
   const [userLoaded, setUserLoaded] = useState(false);
   const [user, setUser] = useState({});
 
@@ -24,28 +26,32 @@ const UserProvider = props => {
     });
   };
   useEffect(() => {
-    setUserLoaded(false);
+    // setUserLoaded(false);
     console.log("searching user...");
-    const userId = "google-oauth2|103091392578361804114";
 
     const abortController = new AbortController();
     const signal = abortController.signal;
 
-    fetch(`/user/${userId}`, { signal: signal })
-      .then(response => {
-        if (response.ok) return response.json();
-        throw new Error("Network respones was not ok.");
-      })
-      .then(user => {
-        setUser(user);
-        setUserLoaded(true);
-      })
-      .catch(error => {});
+    if (auth.userProfile) {
+      const userId = auth.userProfile.sub;
+      fetch(`/user/${userId}`, { signal: signal })
+        .then(response => {
+          if (response.ok) return response.json();
+          throw new Error("Network respones was not ok.");
+        })
+        .then(user => {
+          setUser(user);
+          setUserLoaded(true);
+        })
+        .catch(error => {});
+    } else {
+      setCheck(!check);
+    }
 
     return () => {
       abortController.abort();
     };
-  }, []);
+  }, [check]);
 
   const state = { userLoaded, user, updateUser };
 

@@ -143,7 +143,7 @@ export default function Browser(props) {
           {includeBanner ? (
             <VideoPlayer
               position="middle"
-              video={Object.values(videosByGenre[0])[0][0]}
+              video={Object.values(videosByGenre[0])[0][1]}
               width={screenWidth}
               style={{
                 width: `100%`,

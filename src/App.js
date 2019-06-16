@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Page from "./components/Page/Page";
 import "./main.css";
 import { Route, Redirect } from "react-router-dom";
@@ -16,7 +16,7 @@ function App(props) {
 
   return (
     <AuthProvider auth={auth}>
-      <UserProvider auth={auth}>
+      <UserProvider auth={auth} authVerfied={false}>
         <Route
           path="/"
           exact

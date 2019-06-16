@@ -4,9 +4,22 @@ import styles from "./SearchBar.module.css";
 import { withRouter } from "react-router-dom";
 
 function SearchBar(props) {
+  const prev = props.history.location.prevPath;
+
   const query = queryString.parse(props.location.search).q;
   const route = props.history.location.pathname;
-  const [show, setShow] = useState(query === undefined ? false : true);
+  const querying = query !== undefined;
+  const atHome = route === "/";
+  const condition = () => {
+    let show = false;
+    if (querying || atHome) show = true;
+
+    return show;
+  };
+  const [show, setShow] = useState(
+    condition()
+    // query !== undefined && route !== "/" && prev !== undefined ? true : false
+  );
   const [value, setValue] = useState(query === undefined ? "" : query);
 
   /* On Click outside*/
@@ -20,8 +33,6 @@ function SearchBar(props) {
 
     return () => document.removeEventListener("click", clickedAway);
   }, [show]);
-
-  // useEffect(() => console.log(props.history), []);
 
   /* On value change */
   const handleValueChange = e => {

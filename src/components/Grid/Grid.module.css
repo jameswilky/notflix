@@ -1,12 +1,15 @@
 .column {
   display: inline-flex;
 }
+
 .column > div:hover {
   transform: scale(1.5, 1.5);
+  -webkit-transform: scale(1.5, 1.5);
 }
 /* ==============FIRST SLIDE======================*/
 .column > div:first-child:hover ~ div {
   transform: translate3d(calc(var(--slideWidth) / 2), 0, 0) !important;
+  -webkit-transform: translate3d(calc(var(--slideWidth) / 2), 0, 0) !important;
 }
 .column > div:first-child {
   /* Used to override case when a column has a single slide*/

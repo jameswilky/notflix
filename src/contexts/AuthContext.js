@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 const AuthContext = new React.createContext(); // takes in an object and a function
 const AuthProvider = props => {
   return (
