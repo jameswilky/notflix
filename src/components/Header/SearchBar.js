@@ -7,10 +7,11 @@ import { HistoryContext } from "../../contexts/HistoryContext";
 function SearchBar(props) {
   const { isFirstLoad } = useContext(HistoryContext);
   const query = queryString.parse(props.location.search).q;
+  const route = props.history.location.pathname;
 
   const condition = () => {
     const querying = query !== undefined;
-    const atHome = props.history.location.pathname === "/";
+    const atHome = route === "/";
     let show = false;
 
     if (querying || (atHome && !isFirstLoad)) {
@@ -19,7 +20,10 @@ function SearchBar(props) {
 
     return show;
   };
-  const [show, setShow] = useState(condition());
+  const [show, setShow] = useState(
+    condition()
+    // query !== undefined && route !== "/" && prev !== undefined ? true : false
+  );
   const [value, setValue] = useState(query === undefined ? "" : query);
 
   /* On Click outside*/

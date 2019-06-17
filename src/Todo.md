@@ -3,7 +3,6 @@
 3. make hamburger menu
 4. make mobile overlay
 5. Expand Database
-6. fix issue with search bar closing
-7. infinite carousel
-8. fix header positioning
-9. fix premature search not found result when searching (return error)
+6. infinite carousel
+7. fix header positioning
+8. fix premature search not found result when searching (return error)

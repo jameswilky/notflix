@@ -20,16 +20,24 @@ export default function VideoPlayer(props) {
     categories: video.genres,
     overview: video.overview
   });
-
+  const thumbnailRef = React.useRef();
+  useEffect(() => {
+    if (showThumbnail) {
+      thumbnailRef.current.style.visibility = "visible";
+    } else {
+      thumbnailRef.current.style.visibility = "hidden";
+    }
+  });
   const Thumbnail = () => {
     return (
       <img
+        ref={thumbnailRef}
         className={`
         ${styles.thumbnail}
         `}
-        style={{
-          visibility: showThumbnail ? "visible" : "hidden"
-        }}
+        // style={{
+        //   visibility: showThumbnail ? "visible" : "hidden"
+        // }}
         data-video={videoId}
         alt="Play this video"
         src={`https://img.youtube.com/vi/${videoId}/0.jpg`}

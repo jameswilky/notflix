@@ -27,12 +27,13 @@
   right: 0;
   top: 0;
 
+  visibility: visible;
   opacity: 1;
-  transition: 450ms opacity, visibility 0s linear 450ms;
-  -moz-transition: 450ms opacity, visibility 0s linear 450ms;
-  -ms-transition: 450ms opacity, visibility 0s linear 450ms;
-  -o-transition: 450ms opacity, visibility 0s linear 450ms;
-  -webkit-transition: 450ms opacity, visibility 0s linear 450ms;
+  transition: opacity 450ms linear, visibility 0ms 400ms;
+  -moz-transition: opacity 450ms linear, visibility 0ms 400ms;
+  -ms-transition: opacity 450ms linear, visibility 0ms 400ms;
+  -o-transition: opacity 450ms linear, visibility 0ms 400ms;
+  -webkit-transition: opacity 450ms linear, visibility 0ms 400ms;
 }
 .thumbnail:hover {
   opacity: 0;

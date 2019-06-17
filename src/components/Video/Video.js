@@ -28,9 +28,7 @@ export default function Video(props) {
       {load || autoplay ? (
         <Youtube
           className={styles.test}
-          /* Temp*/
           videoId={id}
-          // videoId={autoplay ? "mlHklH5VBtI" : id}
           opts={options}
           onReady={e => onReadyHandler(e)}
           className={styles.body}
