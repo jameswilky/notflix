@@ -10,6 +10,7 @@ import { UserProvider } from "./contexts/UserContext";
 
 function App(props) {
   const { history } = props;
+
   const auth = new Auth(history);
 
   const { HOME, MOVIES, TV_SHOWS, PROFILE, FAVORITES, SEARCH } = pageNames;

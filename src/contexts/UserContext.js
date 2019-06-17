@@ -1,39 +1,51 @@
 import React, { useState, useEffect } from "react";
+import { AuthPlus } from "googleapis-common";
 const UserContext = new React.createContext(); // takes in an object and a function
 
 const UserProvider = props => {
   const { auth } = props;
-  const [check, setCheck] = useState(false); /*hacky */
+  const [profile, setProfile] = useState(null); /*hacky */
 
   const [userLoaded, setUserLoaded] = useState(false);
   const [user, setUser] = useState({});
 
+  useEffect(() => {
+    if (auth.isAuthenticated()) {
+      auth.getProfile((profile, error) => {
+        setProfile(profile);
+        console.log(error);
+      });
+    }
+  }, []);
+
   const updateUser = (action, auth, id) => {
     /* users/update*/
-    fetch("users/update", {
-      method: "post",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        user: {
-          id: auth.userProfile.sub
-        },
-        video: {
-          id: id
-        },
-        /* use parameters instead*/
-        action: action
-      })
-    });
+    if (profile && auth.isAuthenticated()) {
+      fetch("users/update", {
+        method: "post",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          user: {
+            id: profile.sub
+          },
+          video: {
+            id: id
+          },
+          /* use parameters instead*/
+          action: action
+        })
+      });
+    }
   };
+
   useEffect(() => {
     // setUserLoaded(false);
     console.log("searching user...");
 
     const abortController = new AbortController();
     const signal = abortController.signal;
-
-    if (auth.userProfile) {
-      const userId = auth.userProfile.sub;
+    if (auth.isAuthenticated() && profile) {
+      const userId = profile.sub;
       fetch(`/user/${userId}`, { signal: signal })
         .then(response => {
           if (response.ok) return response.json();
@@ -44,14 +56,12 @@ const UserProvider = props => {
           setUserLoaded(true);
         })
         .catch(error => {});
-    } else {
-      setCheck(!check);
     }
 
     return () => {
       abortController.abort();
     };
-  }, [check]);
+  }, [profile]);
 
   const state = { userLoaded, user, updateUser };
 
