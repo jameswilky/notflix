@@ -40,7 +40,6 @@ const UserProvider = props => {
 
   useEffect(() => {
     // setUserLoaded(false);
-    console.log("searching user...");
 
     const abortController = new AbortController();
     const signal = abortController.signal;

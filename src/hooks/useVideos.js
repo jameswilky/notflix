@@ -11,8 +11,6 @@ export default function useVideos(content, query, location) {
   const { groupBy, addEvent, removeEvent } = Utilities;
 
   useEffect(() => {
-    console.log("searching all");
-
     /* Load videos by genre for default browser*/
     const abortController = new AbortController();
     const signal = abortController.signal;
@@ -39,8 +37,6 @@ export default function useVideos(content, query, location) {
     setVideosLoaded(false);
 
     if (content === SEARCH) {
-      console.log("searching query");
-
       const abortController = new AbortController();
       const signal = abortController.signal;
       let typingTimer;

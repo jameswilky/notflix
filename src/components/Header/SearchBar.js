@@ -1,25 +1,25 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import queryString from "query-string";
 import styles from "./SearchBar.module.css";
 import { withRouter } from "react-router-dom";
+import { HistoryContext } from "../../contexts/HistoryContext";
 
 function SearchBar(props) {
-  const prev = props.history.location.prevPath;
-
+  const { isFirstLoad } = useContext(HistoryContext);
   const query = queryString.parse(props.location.search).q;
-  const route = props.history.location.pathname;
-  const querying = query !== undefined;
-  const atHome = route === "/";
+
   const condition = () => {
+    const querying = query !== undefined;
+    const atHome = props.history.location.pathname === "/";
     let show = false;
-    if (querying || atHome) show = true;
+
+    if (querying || (atHome && !isFirstLoad)) {
+      show = true;
+    }
 
     return show;
   };
-  const [show, setShow] = useState(
-    condition()
-    // query !== undefined && route !== "/" && prev !== undefined ? true : false
-  );
+  const [show, setShow] = useState(condition());
   const [value, setValue] = useState(query === undefined ? "" : query);
 
   /* On Click outside*/
