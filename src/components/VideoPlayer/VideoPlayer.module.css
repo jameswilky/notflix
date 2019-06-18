@@ -29,12 +29,12 @@
 
   visibility: visible;
   opacity: 1;
-  transition: opacity 450ms ease-in-out, visibility 0ms 400ms;
+  transition: opacity 450ms linear, visibility 0ms 400ms;
   -moz-transition: opacity 450ms linear, visibility 0ms 400ms;
   -ms-transition: opacity 450ms linear, visibility 0ms 400ms;
   -o-transition: opacity 450ms linear, visibility 0ms 400ms;
   -webkit-transition: opacity 450ms linear, visibility 0ms 400ms;
 }
-/* .thumbnail:hover {
+.thumbnail:hover {
   opacity: 0;
-} */
+}

@@ -11,8 +11,6 @@
     rgba(0, 0, 0, 0.5) 0%,
     rgba(0, 0, 0, 0) 100%
   );
-  transition: all 450ms;
-  z-index: 1;
 }
 .body:after,
 .body:before {
