@@ -23,8 +23,10 @@ export default function VideoPlayer(props) {
   const thumbnailRef = React.useRef();
   useEffect(() => {
     if (showThumbnail) {
+      thumbnailRef.current.style.opacity = "1";
       thumbnailRef.current.style.visibility = "visible";
     } else {
+      thumbnailRef.current.style.opacity = "0";
       thumbnailRef.current.style.visibility = "hidden";
     }
   });
@@ -61,7 +63,6 @@ export default function VideoPlayer(props) {
       onMouseEnter={e => {
         /* Start loading youtube player and hide thumbnail*/
         setLoadPlayer(true);
-        setShowThumbnail(false);
 
         /* Will push items to left further when hovering on last item*/
         if (position === "last") {
@@ -75,6 +76,7 @@ export default function VideoPlayer(props) {
         /* After re-render, if mouse is hovering over the video once the player is loaded, it will play*/
         playerLoading.then(player => {
           player.playVideo();
+          setShowThumbnail(false);
         });
       }}
       onMouseLeave={e => {

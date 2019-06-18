@@ -29,7 +29,6 @@
   right: 0;
   top: 0;
 
-  visibility: visible;
   opacity: 1;
   transition: opacity 450ms linear, visibility 0ms 400ms;
   -moz-transition: opacity 450ms linear, visibility 0ms 400ms;
@@ -38,5 +37,5 @@
   -webkit-transition: opacity 450ms linear, visibility 0ms 400ms;
 }
 .thumbnail:hover {
-  opacity: 0;
+  /* opacity: 0; */
 }

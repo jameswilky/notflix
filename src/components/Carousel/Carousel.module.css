@@ -1,15 +1,18 @@
 .container {
   height: calc(var(--slideWidth) * 1.9);
-  max-height: calc(var(--slideHeight) * 2.2);
+  max-height: calc(var(--slideHeight) * 2);
 
   position: relative;
   overflow: hidden;
   padding: 0 calc(var(--slideWidth) * 0.12);
   margin-bottom: calc(var(--slideWidth) * -0.425);
 }
+.container:hover {
+  z-index: 2;
+}
 
 .header {
-  top: calc(var(--slideWidth) * 0.06);
+  top: calc(var(--slideWidth) * 0.1);
   position: absolute;
   z-index: 0;
   font-size: 0.9rem;
