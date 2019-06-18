@@ -9,6 +9,9 @@
   width: 100%;
   z-index: 3;
   font-size: 0.7rem;
+  -webkit-transition: background-color 300ms linear;
+  -ms-transition: background-color 300ms linear;
+  transition: background-color 300ms linear;
 }
 
 .innerNav {

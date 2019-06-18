@@ -6,6 +6,7 @@ import userIcon from "../../images/userIcon.jpg";
 import { AuthContext } from "../../contexts/AuthContext";
 import SearchBar from "./SearchBar";
 import useScreenSize from "../../hooks/useScreenSize";
+import Utilities from "../../Utilities";
 
 export default function Header(props) {
   const { isTransparent } = props;
@@ -19,6 +20,19 @@ export default function Header(props) {
   const [profile, setProfile] = useState(null);
   const [error, setError] = useState("");
   const { screenWidth, media } = useScreenSize();
+  const [transparentHeader, setTransparentHeader] = useState(true);
+  console.log(transparentHeader ? "hide" : "show");
+  const { addEvent, removeEvent } = Utilities;
+  useEffect(() => {
+    const checkScrollHeight = e => {
+      window.scrollY > 0
+        ? setTransparentHeader(false)
+        : setTransparentHeader(true);
+    };
+
+    addEvent(window, "scroll", checkScrollHeight);
+    return () => removeEvent(window, "scroll", checkScrollHeight);
+  });
 
   useEffect(() => {
     if (isAuthenticated()) {
@@ -62,7 +76,7 @@ export default function Header(props) {
       <header
         className={styles.nav}
         style={{
-          backgroundColor: !isTransparent ? "none" : "var(--black)",
+          backgroundColor: transparentHeader ? "transparent" : "var(--black)",
           gridTemplateColumns:
             media === "tablet" || "mobile"
               ? `minmax(50px, 100px) 1fr 1fr 50px 50px`
