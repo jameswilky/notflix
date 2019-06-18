@@ -8,10 +8,24 @@ import uuid from "uuid";
 import useVideoState from "./useVideoState";
 
 export default function Overlay(props) {
-  const { id, player, metaData, type } = props;
+  const {
+    id,
+    player,
+    metaData,
+    type,
+    thumbnailRef,
+    setShowThumbnail,
+    showThumbnail,
+    setLoadPlayer,
+    position
+  } = props;
   const { title, match, maturity, length, categories, overview } = metaData;
   const { auth } = useContext(AuthContext);
   const { updateUser, user, userLoaded } = useContext(UserContext);
+
+  const playerLoading = new Promise(resolve => {
+    if (player !== undefined) resolve(player);
+  });
 
   const [videoState, setVideoState] = useVideoState(user, userLoaded, id);
   const { isMuted, isLiked, isDisliked, isFavorited } = videoState;
@@ -26,6 +40,16 @@ export default function Overlay(props) {
       });
     }
   }, userLoaded);
+
+  useEffect(() => {
+    if (showThumbnail) {
+      thumbnailRef.current.style.visibility = "visible";
+      thumbnailRef.current.style.opacity = "1";
+    } else {
+      thumbnailRef.current.style.visibility = "hidden";
+      thumbnailRef.current.style.opacity = "0";
+    }
+  }, [showThumbnail]);
 
   const fullScreen = () => {
     player.playVideo();
@@ -183,5 +207,49 @@ export default function Overlay(props) {
       </div>
     );
   };
-  return <>{type === "slide" ? <SlideOverlay /> : <BannerOverlay />}</>;
+  return (
+    <div
+      onClick={e => {
+        /* allows user to start video once loaded*/
+        playerLoading.then(player => {
+          try {
+            player.playVideo();
+          } catch {}
+        });
+      }}
+      onMouseEnter={e => {
+        /* Start loading youtube player and hide thumbnail*/
+        setLoadPlayer(true);
+        setShowThumbnail(false);
+
+        /* Will push items to left further when hovering on last item*/
+        if (position === "last") {
+          document.documentElement.style.setProperty(
+            "--slideTranslateMult",
+            `-1`
+          );
+        }
+      }}
+      onMouseOver={e => {
+        /* After re-render, if mouse is hovering over the video once the player is loaded, it will play*/
+        playerLoading.then(player => {
+          player.playVideo();
+        });
+      }}
+      onMouseLeave={e => {
+        /* If player is loaded, then pause when leaving slide and show thumbnail */
+        playerLoading.then(player => {
+          player.pauseVideo();
+        });
+        setShowThumbnail(true);
+
+        document.documentElement.style.setProperty(
+          "--slideTranslateMult",
+          `-2`
+        );
+      }}
+    >
+      {type === "slide" ? <SlideOverlay /> : <BannerOverlay />}
+    </div>
+  );
 }
