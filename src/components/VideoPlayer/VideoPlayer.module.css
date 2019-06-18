@@ -1,6 +1,8 @@
 .body {
   font-size: 20px;
   height: var(--slideHeight);
+  max-height: calc(var(--slideHeight) * 1.9);
+
   cursor: pointer;
   display: inline-block;
   position: relative;

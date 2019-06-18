@@ -10,7 +10,7 @@ export default function Grid(props) {
   const { fitSlides } = Utilities;
   const { screenWidth, media } = useScreenSize();
 
-  const minimum = media === "mobile" ? 140 : 180;
+  const minimum = media === "mobile" ? 140 : 200;
   const { videosByColumn, slideWidth } = fitSlides(
     screenWidth,
     minimum,

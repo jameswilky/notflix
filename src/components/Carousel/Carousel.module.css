@@ -1,9 +1,11 @@
 .container {
-  height: calc(var(--slideWidth));
+  height: calc(var(--slideWidth) * 1.9);
+  max-height: calc(var(--slideHeight) * 2.2);
+
   position: relative;
   overflow: hidden;
   padding: 0 calc(var(--slideWidth) * 0.12);
-  margin-bottom: calc(var(--slideWidth) * -0.3);
+  margin-bottom: calc(var(--slideWidth) * -0.425);
 }
 
 .header {
@@ -20,7 +22,9 @@
   overflow-x: scroll;
   z-index: 1;
   display: grid;
-  height: calc(var(--slideWidth));
+  height: calc(var(--slideWidth) * 1.9);
+  max-height: calc(var(--slideHeight) * 1.9);
+
   align-content: center;
   white-space: nowrap;
   transition: 450ms all;
