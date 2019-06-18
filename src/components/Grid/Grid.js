@@ -3,13 +3,17 @@ import VideoPlayer from "../VideoPlayer/VideoPlayer";
 import uuid from "uuid";
 import styles from "./Grid.module.css";
 import Utilities from "../../Utilities";
+import useScreenSize from "../../hooks/useScreenSize";
 
 export default function Grid(props) {
-  const { videos, screenWidth } = props;
+  const { videos } = props;
   const { fitSlides } = Utilities;
+  const { screenWidth, media } = useScreenSize();
+
+  const minimum = media === "mobile" ? 120 : 200;
   const { videosByColumn, slideWidth } = fitSlides(
     screenWidth,
-    200,
+    minimum,
     videos.length,
     videos
   );

@@ -7,7 +7,7 @@ export default function VideoPlayer(props) {
   const { video, position, width, style = {}, type, autoplay = false } = props;
   const { videoId } = video;
   const [player, setPlayer] = useState();
-  const [showThumbnail, setShowThumbnail] = useState(!autoplay);
+  const [showThumbnail, setShowThumbnail] = useState(true);
   const [loadPlayer, setLoadPlayer] = useState(false);
   const playerLoading = new Promise(resolve => {
     if (player !== undefined) resolve(player);
@@ -24,10 +24,12 @@ export default function VideoPlayer(props) {
   useEffect(() => {
     if (showThumbnail) {
       thumbnailRef.current.style.visibility = "visible";
+      thumbnailRef.current.style.opacity = "1";
     } else {
       thumbnailRef.current.style.visibility = "hidden";
+      thumbnailRef.current.style.opacity = "0";
     }
-  });
+  }, [showThumbnail]);
   const Thumbnail = () => {
     return (
       <img
@@ -35,9 +37,6 @@ export default function VideoPlayer(props) {
         className={`
         ${styles.thumbnail}
         `}
-        // style={{
-        //   visibility: showThumbnail ? "visible" : "hidden"
-        // }}
         data-video={videoId}
         alt="Play this video"
         src={`https://img.youtube.com/vi/${videoId}/0.jpg`}

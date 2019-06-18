@@ -4,8 +4,8 @@ import styles from "./Header.module.css";
 import logo from "../../images/logo.png";
 import userIcon from "../../images/userIcon.jpg";
 import { AuthContext } from "../../contexts/AuthContext";
-import Utilities from "../../Utilities";
 import SearchBar from "./SearchBar";
+import useScreenSize from "../../hooks/useScreenSize";
 
 export default function Header(props) {
   const { isTransparent } = props;
@@ -18,19 +18,7 @@ export default function Header(props) {
 
   const [profile, setProfile] = useState(null);
   const [error, setError] = useState("");
-  const [screenWidth, setScreenWidth] = useState(
-    window.document.body.clientWidth
-  );
-
-  const breakPoint = 800;
-
-  const { addEvent, removeEvent } = Utilities;
-
-  useEffect(() => {
-    const captureWidth = () => setScreenWidth(window.document.body.clientWidth);
-    addEvent(window, "resize", captureWidth);
-    return () => removeEvent(window, "resize", captureWidth);
-  });
+  const { screenWidth, media } = useScreenSize();
 
   useEffect(() => {
     if (isAuthenticated()) {
@@ -69,12 +57,19 @@ export default function Header(props) {
       </>
     );
   };
-
   return (
     <>
       <header
         className={styles.nav}
-        style={{ backgroundColor: isTransparent ? "none" : "var(--black)" }}
+        style={{
+          backgroundColor: !isTransparent ? "none" : "var(--black)",
+          gridTemplateColumns:
+            media === "tablet" || "mobile"
+              ? `minmax(50px, 100px) 1fr 1fr 50px 50px`
+              : `minmax(70px, 100px) 1fr minmax(290px, 1fr) 50px 50px`,
+          padding:
+            media === "mobile" ? `0 0` : `0 calc(var(--slideWidth) * 0.12)`
+        }}
       >
         <div className={styles.logoContainer}>
           <Link to="/">
@@ -83,7 +78,7 @@ export default function Header(props) {
           </Link>
         </div>
         <div className={styles.innerNav}>
-          {screenWidth > breakPoint ? (
+          {media === "desktop" ? (
             <SubNav />
           ) : (
             <div
