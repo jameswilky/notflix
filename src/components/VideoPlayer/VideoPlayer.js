@@ -9,6 +9,7 @@ export default function VideoPlayer(props) {
   const [player, setPlayer] = useState();
   const [showThumbnail, setShowThumbnail] = useState(!autoplay);
   const [loadPlayer, setLoadPlayer] = useState(false);
+
   const playerLoading = new Promise(resolve => {
     if (player !== undefined) resolve(player);
   });
@@ -30,6 +31,7 @@ export default function VideoPlayer(props) {
       thumbnailRef.current.style.visibility = "hidden";
     }
   });
+
   const Thumbnail = () => {
     return (
       <img

@@ -5,7 +5,7 @@ import bannerStyles from "./BannerOverlay.module.css";
 import { AuthContext } from "../../contexts/AuthContext";
 import { UserContext } from "../../contexts/UserContext";
 import uuid from "uuid";
-import useVideoState from "./useVideoState";
+import useVideoState from "../../hooks/useVideoState";
 
 export default function Overlay(props) {
   const { id, player, metaData, type } = props;

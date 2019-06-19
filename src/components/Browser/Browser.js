@@ -1,4 +1,5 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
+import ReactDOM from "react-dom";
 import styles from "./Browser.module.css";
 import Carousel from "../Carousel/Carousel";
 import uuid from "uuid";
@@ -26,8 +27,14 @@ export default function Browser(props) {
 
   const { auth } = useContext(AuthContext);
   const { userLoaded, user } = useContext(UserContext);
+  const [autoplay, setAutoplay] = useState(true);
+  const [isFirstMount, setIsFirstMount] = useState(false);
 
   const { screenWidth, screenHeight } = useScreenSize();
+
+  useEffect(() => {
+    setIsFirstMount(true);
+  }, []);
 
   const CarouselBody = () => {
     return videosByGenre.map(items => {
@@ -157,11 +164,14 @@ export default function Browser(props) {
                 border: 0,
                 backgroundColor: `rgba(0,0,0,0)`
               }}
-              autoplay={true}
+              autoplay={autoplay && !isFirstMount}
             />
           ) : null}
 
-          <Body />
+          <div onMouseOver={() => isFirstMount && setAutoplay(false)}>
+            {" "}
+            <Body />
+          </div>
         </>
       ) : (
         <Loading />
