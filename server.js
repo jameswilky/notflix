@@ -125,10 +125,20 @@ app.post("/users/update", (req, res) => {
 });
 
 app.get("/user/:userId", function(req, res) {
+  const userId = req.params.userId;
   // return user
-  User.findOne({ userId: req.params.userId })
+  User.findOne({ userId: userId })
     .populate("favorites likes dislikes")
-    .exec((err, user) => res.status(200).json(user));
+    .exec((err, user) => {
+      if (user === null) {
+        user = new User({
+          _id: new mongoose.Types.ObjectId(),
+          userId: userId
+        });
+      }
+      console.log(user);
+      res.status(200).json(user);
+    });
 });
 app.get("/videos", function(req, res) {
   Video.find({}).then(videos => res.status(200).json(videos));

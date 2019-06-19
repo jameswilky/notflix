@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { AuthPlus } from "googleapis-common";
 const UserContext = new React.createContext(); // takes in an object and a function
 
 const UserProvider = props => {
@@ -51,6 +50,7 @@ const UserProvider = props => {
           throw new Error("Network respones was not ok.");
         })
         .then(user => {
+          console.log(user);
           setUser(user);
           setUserLoaded(true);
         })

@@ -21,7 +21,6 @@ export default function Header(props) {
   const [error, setError] = useState("");
   const { screenWidth, media } = useScreenSize();
   const [transparentHeader, setTransparentHeader] = useState(true);
-  console.log(transparentHeader ? "hide" : "show");
   const { addEvent, removeEvent } = Utilities;
   useEffect(() => {
     const checkScrollHeight = e => {
