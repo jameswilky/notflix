@@ -9,7 +9,7 @@ export default function VideoPlayer(props) {
   const [player, setPlayer] = useState();
   const [showThumbnail, setShowThumbnail] = useState(!autoplay);
   const [loadPlayer, setLoadPlayer] = useState(false);
-  let lp = false;
+
   const playerLoading = new Promise(resolve => {
     if (player !== undefined) resolve(player);
   });
@@ -63,10 +63,6 @@ export default function VideoPlayer(props) {
         });
       }}
       onMouseEnter={e => {
-        /* Start loading youtube player and hide thumbnail*/
-        // setLoadPlayer(true);
-        lp = true;
-
         /* Will push items to left further when hovering on last item*/
         if (position === "last") {
           document.documentElement.style.setProperty(
@@ -77,11 +73,16 @@ export default function VideoPlayer(props) {
       }}
       onMouseOver={e => {
         /* After re-render, if mouse is hovering over the video once the player is loaded, it will play*/
-        playerLoading.then(player => {
-          console.log("playing");
-          player.playVideo();
-          setShowThumbnail(false);
-        });
+        setLoadPlayer(true);
+
+        playerLoading
+          .then(player => {
+            player.playVideo();
+            setShowThumbnail(false);
+          })
+          .catch(() => {
+            console.log("not ready");
+          });
       }}
       onMouseLeave={e => {
         /* If player is loaded, then pause when leaving slide and show thumbnail */
