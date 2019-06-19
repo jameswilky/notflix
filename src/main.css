@@ -13,6 +13,8 @@
   --slideWidth: 200px;
   --slideHeight: calc(var(--slideWidth) * 0.5625); /* 16:9 aspect ratio*/
   --slideTranslateMult: -2;
+  --mobile: 478px;
+  --tablet: 720px;
 }
 
 * {

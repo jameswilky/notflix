@@ -3,7 +3,7 @@ import Utilities from "../Utilities";
 
 export default function useScreenSize() {
   const { addEvent, removeEvent } = Utilities;
-  let breakpoints = { mobile: 477, tablet: 720 };
+  let breakpoints = { mobile: 478, tablet: 720 };
 
   const getMedia = () => {
     return window.innerWidth < breakpoints.mobile

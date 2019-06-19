@@ -22,6 +22,7 @@ export default function Header(props) {
   const { screenWidth, media } = useScreenSize();
   const [transparentHeader, setTransparentHeader] = useState(true);
   const { addEvent, removeEvent } = Utilities;
+  console.log(media);
   useEffect(() => {
     const checkScrollHeight = e => {
       window.scrollY > 0
@@ -77,77 +78,94 @@ export default function Header(props) {
         style={{
           backgroundColor: transparentHeader ? "transparent" : "var(--black)",
           gridTemplateColumns:
-            media === "tablet" || "mobile"
+            media === "mobile"
+              ? `1fr 3fr 4fr`
+              : media === "tablet"
               ? `minmax(50px, 100px) 1fr 1fr 50px 50px`
               : `minmax(70px, 100px) 1fr minmax(290px, 1fr) 50px 50px`,
           padding:
             media === "mobile" ? `0 0` : `0 calc(var(--slideWidth) * 0.12)`
         }}
       >
+        {media === "mobile" ? (
+          <div className={styles.menuContainer}>
+            <i className="fas fa-bars" />
+          </div>
+        ) : null}
         <div className={styles.logoContainer}>
           <Link to="/">
             {" "}
             <img className={styles.img} src={logo} alt="" />
           </Link>
         </div>
-        <div className={styles.innerNav}>
-          {media === "desktop" ? (
-            <SubNav />
-          ) : (
-            <div
-              onMouseEnter={() => setShowBrowserDropDown(true)}
-              onMouseLeave={() => setShowBrowserDropDown(false)}
-            >
-              <h4>Browse</h4>
-              <i className="fas fa-caret-down" />
-              {showBrowserDropDown ? (
-                <>
-                  <div className={styles.arrowBrowser}>
-                    <i className={`fas fa-caret-up`} />
-                  </div>
-                  <div className={styles.browserDropdown}>
-                    <SubNav />
-                  </div>
-                </>
-              ) : null}
-            </div>
-          )}
-        </div>
-        <SearchBar key={1} {...props} />
-        <div className={styles.notificationsBtn}>
-          <i className="fas fa-bell" />
-        </div>
-        {isAuthenticated() && profile ? (
-          <div
-            className={styles.accountBtn}
-            onMouseEnter={() => setShowAccountDropDown(true)}
-            onMouseLeave={() => setShowAccountDropDown(false)}
-          >
-            <img
-              className={styles.accountImg}
-              src={userIcon}
-              alt="Profile Avatar"
-            />
-            {showAccountDropDown ? (
-              <>
-                <div className={styles.arrow}>
-                  <i className={`fas fa-caret-up`} />
-                </div>
-                <div className={styles.accountDropdown}>
-                  <ul>
-                    <li>
-                      <Link to="/profile">Account</Link>
-                    </li>
-                    <li>Help Center</li>
-                    <li onClick={logout}>Log Out</li>
-                  </ul>
-                </div>
-              </>
-            ) : null}
+        {media !== "mobile" ? (
+          <div className={styles.innerNav}>
+            {media === "desktop" ? (
+              <SubNav />
+            ) : (
+              <div
+                onMouseEnter={() => setShowBrowserDropDown(true)}
+                onMouseLeave={() => setShowBrowserDropDown(false)}
+              >
+                <h4>Browse</h4>
+                <i className="fas fa-caret-down" />
+                {showBrowserDropDown ? (
+                  <>
+                    <div className={styles.arrowBrowser}>
+                      <i className={`fas fa-caret-up`} />
+                    </div>
+                    <div className={styles.browserDropdown}>
+                      <SubNav />
+                    </div>
+                  </>
+                ) : null}
+              </div>
+            )}
           </div>
-        ) : (
-          <button onClick={login}> Log in</button>
-        )}
+        ) : null}
+
+        <SearchBar key={1} {...props} />
+
+        <>
+          {media !== "mobile" ? (
+            <>
+              <div className={styles.notificationsBtn}>
+                <i className="fas fa-bell" />
+              </div>
+              {isAuthenticated() && profile ? (
+                <div
+                  className={styles.accountBtn}
+                  onMouseEnter={() => setShowAccountDropDown(true)}
+                  onMouseLeave={() => setShowAccountDropDown(false)}
+                >
+                  <img
+                    className={styles.accountImg}
+                    src={userIcon}
+                    alt="Profile Avatar"
+                  />
+                  {showAccountDropDown ? (
+                    <>
+                      <div className={styles.arrow}>
+                        <i className={`fas fa-caret-up`} />
+                      </div>
+                      <div className={styles.accountDropdown}>
+                        <ul>
+                          <li>
+                            <Link to="/profile">Account</Link>
+                          </li>
+                          <li>Help Center</li>
+                          <li onClick={logout}>Log Out</li>
+                        </ul>
+                      </div>
+                    </>
+                  ) : null}
+                </div>
+              ) : (
+                <button onClick={login}> Log in</button>
+              )}
+            </>
+          ) : null}
+        </>
       </header>
     </>
   );
