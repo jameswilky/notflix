@@ -1,8 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
-
 /* Learn Higher Order components*/
 
-export default function useVideoState(props) {
+export default function useVideoState() {
   const [videoState, setVideoState] = useState({
     isMuted: false,
     isLiked: false,

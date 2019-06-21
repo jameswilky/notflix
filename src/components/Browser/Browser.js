@@ -25,7 +25,6 @@ export default function Browser(props) {
     props.location
   );
 
-  const { auth } = useContext(AuthContext);
   const { userLoaded, user } = useContext(UserContext);
   const [autoplay, setAutoplay] = useState(true);
   const [isFirstMount, setIsFirstMount] = useState(false);

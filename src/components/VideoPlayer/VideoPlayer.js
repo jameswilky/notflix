@@ -21,6 +21,7 @@ export default function VideoPlayer(props) {
     categories: video.genres,
     overview: video.overview
   });
+
   const thumbnailRef = React.useRef();
   useEffect(() => {
     if (showThumbnail) {

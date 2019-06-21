@@ -4,6 +4,8 @@ import bannerStyles from "./BannerOverlay.module.css";
 
 import { AuthContext } from "../../contexts/AuthContext";
 import { UserContext } from "../../contexts/UserContext";
+import { AudioContext } from "../../contexts/AudioContext";
+
 import uuid from "uuid";
 import useVideoState from "../../hooks/useVideoState";
 
@@ -13,13 +15,14 @@ export default function Overlay(props) {
   const { auth } = useContext(AuthContext);
   const { updateUser, user, userLoaded } = useContext(UserContext);
 
-  const [videoState, setVideoState] = useVideoState(user, userLoaded, id);
-  const { isMuted, isLiked, isDisliked, isFavorited } = videoState;
+  const { muteAll, setMuteAll } = useContext(AudioContext);
+  const [videoState, setVideoState] = useVideoState(muteAll);
+  const { isLiked, isDisliked, isFavorited } = videoState;
 
   useEffect(() => {
     if (userLoaded) {
       setVideoState({
-        isMuted: isMuted,
+        muteAll: muteAll,
         isLiked: user.likes.filter(video => video._id === id).length > 0,
         isDisliked: user.dislikes.filter(video => video._id === id).length > 0,
         isFavorited: user.favorites.filter(video => video._id === id).length > 0
@@ -31,13 +34,14 @@ export default function Overlay(props) {
     playerLoading.then(player => {
       try {
         player.playVideo();
+
         let iframe = player.a;
         let requestFullScreen =
           iframe.requestFullScreen ||
           iframe.mozRequestFullScreen ||
           iframe.webkitRequestFullScreen;
         if (requestFullScreen) {
-          setTimeout(() => requestFullScreen.bind(iframe)(), 1);
+          requestFullScreen.bind(iframe)();
         }
       } catch {}
     });
@@ -68,13 +72,15 @@ export default function Overlay(props) {
     });
   };
   const mute = () => {
-    if (player.isMuted()) {
-      player.unMute();
-      setVideoState({ ...videoState, isMuted: false });
-    } else {
-      player.mute();
-      setVideoState({ ...videoState, isMuted: true });
-    }
+    playerLoading.then(() => {
+      if (player.isMuted()) {
+        player.unMute();
+        setMuteAll(false);
+      } else {
+        player.mute();
+        setMuteAll(true);
+      }
+    });
   };
   const BannerOverlay = () => {
     const styles = bannerStyles;
@@ -153,7 +159,7 @@ export default function Overlay(props) {
         <div className={styles.right}>
           <div className={styles.btnContainer}>
             <div
-              className={`${styles.btn} ${isMuted ? styles.btnSelected : ""}`}
+              className={`${styles.btn} ${muteAll ? styles.btnSelected : ""}`}
             >
               <i className="fas fa-volume-mute" onClick={() => mute()} />{" "}
             </div>
