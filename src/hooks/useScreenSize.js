@@ -33,10 +33,12 @@ export default function useScreenSize() {
 
   useEffect(() => {
     if (document.fullscreen) {
+      removeEvent(window, "resize", captureWidth);
+    } else {
       addEvent(window, "resize", captureWidth);
       return () => removeEvent(window, "resize", captureWidth);
     }
-  }, []);
+  });
 
   return state;
 }
