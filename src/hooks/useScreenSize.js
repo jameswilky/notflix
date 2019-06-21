@@ -21,6 +21,7 @@ export default function useScreenSize() {
   });
 
   const captureWidth = useCallback(() => {
+    console.log(document.fullscreen);
     if (!document.fullscreen) {
       setState({
         screenWidth: window.innerWidth,
@@ -31,8 +32,10 @@ export default function useScreenSize() {
   });
 
   useEffect(() => {
-    addEvent(window, "resize", captureWidth);
-    return () => removeEvent(window, "resize", captureWidth);
+    if (document.fullscreen) {
+      addEvent(window, "resize", captureWidth);
+      return () => removeEvent(window, "resize", captureWidth);
+    }
   }, []);
 
   return state;
