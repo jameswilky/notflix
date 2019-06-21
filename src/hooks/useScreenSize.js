@@ -38,7 +38,7 @@ export default function useScreenSize() {
       addEvent(window, "resize", captureWidth);
       return () => removeEvent(window, "resize", captureWidth);
     }
-  });
+  }, []);
 
   return state;
 }

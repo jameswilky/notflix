@@ -8,7 +8,7 @@ import uuid from "uuid";
 import useVideoState from "../../hooks/useVideoState";
 
 export default function Overlay(props) {
-  const { id, player, metaData, type } = props;
+  const { id, player, metaData, type, playerLoading } = props;
   const { title, match, maturity, length, categories, overview } = metaData;
   const { auth } = useContext(AuthContext);
   const { updateUser, user, userLoaded } = useContext(UserContext);
@@ -28,15 +28,19 @@ export default function Overlay(props) {
   }, userLoaded);
 
   const fullScreen = () => {
-    player.playVideo();
-    let iframe = player.a;
-    let requestFullScreen =
-      iframe.requestFullScreen ||
-      iframe.mozRequestFullScreen ||
-      iframe.webkitRequestFullScreen;
-    if (requestFullScreen) {
-      setTimeout(() => requestFullScreen.bind(iframe)(), 1);
-    }
+    playerLoading.then(player => {
+      try {
+        player.playVideo();
+        let iframe = player.a;
+        let requestFullScreen =
+          iframe.requestFullScreen ||
+          iframe.mozRequestFullScreen ||
+          iframe.webkitRequestFullScreen;
+        if (requestFullScreen) {
+          setTimeout(() => requestFullScreen.bind(iframe)(), 1);
+        }
+      } catch {}
+    });
   };
 
   const like = () => {

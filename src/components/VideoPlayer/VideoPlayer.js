@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Video from "../Video/Video";
 import styles from "./VideoPlayer.module.css";
 import Overlay from "../Overlay/Overlay";
-import Fullscreen from "react-full-screen";
 
 export default function VideoPlayer(props) {
   const { video, position, width, style = {}, type, autoplay = false } = props;
@@ -32,11 +31,6 @@ export default function VideoPlayer(props) {
       thumbnailRef.current.style.visibility = "hidden";
     }
   });
-
-  const [isFullscreen, setIsFullscreen] = useState(false);
-  const fullScreen = () => {
-    setIsFullscreen(true);
-  };
 
   const Thumbnail = () => {
     return (
@@ -113,8 +107,8 @@ export default function VideoPlayer(props) {
             type={type}
             id={video._id}
             player={player}
+            playerLoading={playerLoading}
             metaData={metaData}
-            // fullScreen={fullScreen}
           />
           <Thumbnail />
         </>
@@ -126,14 +120,11 @@ export default function VideoPlayer(props) {
             type={type}
             id={video._id}
             player={player}
+            playerLoading={playerLoading}
             metaData={metaData}
-            // fullScreen={fullScreen}
           />
         </>
       )}
-      <Fullscreen enabled={isFullscreen}>
-        <div> Testing</div>
-      </Fullscreen>
     </div>
   );
 }
