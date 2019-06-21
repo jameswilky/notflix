@@ -21,11 +21,13 @@ export default function useScreenSize() {
   });
 
   const captureWidth = useCallback(() => {
-    setState({
-      screenWidth: window.innerWidth,
-      screenHeight: window.innerHeight,
-      media: getMedia()
-    });
+    if (!document.fullscreen) {
+      setState({
+        screenWidth: window.innerWidth,
+        screenHeight: window.innerHeight,
+        media: getMedia()
+      });
+    }
   });
 
   useEffect(() => {

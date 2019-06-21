@@ -35,7 +35,7 @@ export default function Overlay(props) {
       iframe.mozRequestFullScreen ||
       iframe.webkitRequestFullScreen;
     if (requestFullScreen) {
-      requestFullScreen.bind(iframe)();
+      setTimeout(() => requestFullScreen.bind(iframe)(), 1);
     }
   };
 

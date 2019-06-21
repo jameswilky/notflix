@@ -8,6 +8,7 @@
   width: 100%;
   z-index: 3;
   font-size: 0.7rem;
+  opacity: 0.85;
   -webkit-transition: background-color 300ms linear;
   -ms-transition: background-color 300ms linear;
   transition: background-color 300ms linear;
@@ -125,4 +126,7 @@ h4 {
 
 .menuContainer {
   font-size: 1.5rem;
+}
+
+.sideMenu {
 }

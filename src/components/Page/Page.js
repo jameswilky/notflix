@@ -1,18 +1,36 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../Header/Header";
 import Browser from "../Browser/Browser";
 import Footer from "../Footer/Footer";
 import Profile from "../Profile/Profile";
 import pageNames from "../../pageNames";
+import Utilities from "../../Utilities";
 
 export default function Page(props) {
   const { HOME, MOVIES, TV_SHOWS, PROFILE, FAVORITES, SEARCH } = pageNames;
   const { content } = props;
+  const { addEvent, removeEvent } = Utilities;
 
   //Transparent header if the page is home, tv shows or movies
   const isTransparent =
     content === HOME || content === TV_SHOWS || content === MOVIES;
 
+  const [blockMouse, setBlockMouse] = useState(false);
+  useEffect(() => {
+    const handleEvent = e => console.log(e);
+    const events = [
+      // "fullscreenchange",
+      // "mozfullscreenchange",
+      "webkitfullscreenchange"
+      // "msfullscreenchange"
+    ];
+
+    events.forEach(event => addEvent(document, event, e => handleEvent(e)));
+
+    return events.forEach(event =>
+      removeEvent(document, event, e => handleEvent(e))
+    );
+  }, []);
   const Body = () => {
     switch (content) {
       case HOME:
@@ -33,9 +51,12 @@ export default function Page(props) {
   };
   return (
     <>
-      <Header {...props} isTransparent={isTransparent} />
-      <Body />
-      <Footer />
+      <div className={blockMouse ? "noPointerEvents" : null}>
+        {" "}
+        <Header {...props} isTransparent={isTransparent} />
+        <Body />
+        <Footer />
+      </div>
     </>
   );
 }
