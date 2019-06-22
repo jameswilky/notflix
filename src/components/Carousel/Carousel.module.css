@@ -17,6 +17,11 @@
   z-index: 0;
   font-size: 0.9rem;
 }
+@media (max-width: 478px) {
+  .header {
+    top: 0;
+  }
+}
 
 .body {
   /* display: flex; */
