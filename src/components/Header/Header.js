@@ -47,7 +47,7 @@ export default function Header(props) {
   const SideMenu = function() {
     return (
       <>
-        {isAuthenticated() ? (
+        {isAuthenticated() && profile ? (
           <>
             {" "}
             <div>
@@ -59,14 +59,17 @@ export default function Header(props) {
                   alt="Profile Avatar"
                 />
               </div>
-              <div> Testing</div>
+              <div>{profile.name}</div>
             </div>
             <div>
               {" "}
               <ul>
-                <li>Account</li>
+                <li>
+                  {" "}
+                  <Link to="/profile">Account</Link>
+                </li>
                 <li>Help Centre</li>
-                <li>Sign out of Netflix</li>
+                <li onClick={logout}>Sign out of Netflix</li>
               </ul>
             </div>
           </>
@@ -80,9 +83,26 @@ export default function Header(props) {
 
         <div>
           <ul>
-            <li>Home</li>
-            {isAuthenticated() ? <li>My List</li> : null}
-            <li>test</li>
+            <li>
+              <b style={{ color: "var(--white)" }}>Home</b>
+            </li>
+            {isAuthenticated() && profile ? (
+              <Link to="/favorites">
+                <p>My List</p>
+              </Link>
+            ) : null}{" "}
+            <li>
+              {" "}
+              <Link to="/movies">
+                <p>Movies</p>{" "}
+              </Link>
+            </li>
+            <li>
+              {" "}
+              <Link to="/tvshows">
+                <p>TV Shows</p>{" "}
+              </Link>
+            </li>
           </ul>
         </div>
       </>
