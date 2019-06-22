@@ -5,7 +5,7 @@ import ReactDOM from "react-dom";
 import Grid from "../Grid/Grid";
 import Utilities from "../../Utilities";
 export default function Carousel(props) {
-  const { videos, genre, screenWidth } = props;
+  const { videos, genre, screenWidth, media } = props;
   const { fitSlides } = Utilities;
   const {
     slideWidth,
@@ -33,21 +33,23 @@ export default function Carousel(props) {
     }
   };
   useEffect(() => {
-    ReactDOM.findDOMNode(bodyRef.current).addEventListener("scroll", function(
-      e
-    ) {
-      if (scrollTimer) {
-        clearTimeout(scrollTimer);
-      }
-      e.preventDefault();
-      scrollTimer = setTimeout(() => handleScroll(this), 100);
-    });
-    return () =>
-      ReactDOM.findDOMNode(bodyRef.current).removeEventListener(
-        "scroll",
-        handleScroll
-      );
-  }, []);
+    if (media !== "mobile") {
+      ReactDOM.findDOMNode(bodyRef.current).addEventListener("scroll", function(
+        e
+      ) {
+        if (scrollTimer) {
+          clearTimeout(scrollTimer);
+        }
+        e.preventDefault();
+        scrollTimer = setTimeout(() => handleScroll(this), 100);
+      });
+      return () =>
+        ReactDOM.findDOMNode(bodyRef.current).removeEventListener(
+          "scroll",
+          handleScroll
+        );
+    }
+  }, [media]);
 
   useEffect(() => {
     snapPosition === 0 ? setSliderAtStart(true) : setSliderAtStart(false);
@@ -94,22 +96,27 @@ export default function Carousel(props) {
         <Grid videos={videos} screenWidth={screenWidth} />
       </div>
 
-      <div
-        className={`${styles.btn} ${styles.left} ${
-          showButtons && !sliderAtStart ? styles.show : styles.hidden
-        }`}
-        onClick={() => bodyRef.current && slide(bodyRef.current, -1)}
-      >
-        <i className="fas fa-chevron-left" />
-      </div>
-      <div
-        className={`${styles.btn} ${styles.right} ${
-          showButtons && !sliderAtEnd ? styles.show : styles.hidden
-        }`}
-        onClick={() => bodyRef.current && slide(bodyRef.current, 1)}
-      >
-        <i className="fas fa-chevron-right" />
-      </div>
+      {media === "mobile" ? null : (
+        <>
+          {" "}
+          <div
+            className={`${styles.btn} ${styles.left} ${
+              showButtons && !sliderAtStart ? styles.show : styles.hidden
+            }`}
+            onClick={() => bodyRef.current && slide(bodyRef.current, -1)}
+          >
+            <i className="fas fa-chevron-left" />
+          </div>
+          <div
+            className={`${styles.btn} ${styles.right} ${
+              showButtons && !sliderAtEnd ? styles.show : styles.hidden
+            }`}
+            onClick={() => bodyRef.current && slide(bodyRef.current, 1)}
+          >
+            <i className="fas fa-chevron-right" />
+          </div>
+        </>
+      )}
     </div>
   );
 }

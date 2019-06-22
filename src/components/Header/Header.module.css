@@ -20,6 +20,10 @@
   }
 }
 
+.signIn {
+  font-size: 0.8rem;
+}
+
 .innerNav {
   display: flex;
   width: 100%;

@@ -244,7 +244,10 @@ export default function Header(props) {
                   ) : null}
                 </div>
               ) : (
-                <button onClick={login}> Log in</button>
+                <div className={styles.signIn} onClick={login}>
+                  {" "}
+                  Sign in
+                </div>
               )}
             </>
           ) : null}

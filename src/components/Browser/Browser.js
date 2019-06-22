@@ -54,6 +54,7 @@ export default function Browser(props) {
             key={uuid()}
             {...props}
             screenWidth={screenWidth}
+            media={media}
           />
         );
       } else return null;

@@ -103,10 +103,10 @@ export default function Overlay(props) {
               <i className="fas fa-plus" />
               My List
             </div>
-            <div>
+            {/* <div>
               <i className="fas fa-info-circle" />
               More Info
-            </div>
+            </div> */}
           </div>
           <div className={styles.description}>{overview}</div>
           <div className={styles.rightFloat}>
