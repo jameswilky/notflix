@@ -151,8 +151,8 @@ export default function Header(props) {
             media === "mobile"
               ? `1fr 3fr 4fr`
               : media === "tablet"
-              ? `minmax(50px, 100px) 1fr 1fr 50px 50px`
-              : `minmax(70px, 100px) 1fr minmax(290px, 1fr) 50px 50px`,
+              ? `minmax(50px, 80px) 1fr 1fr 50px 50px`
+              : `minmax(70px, 80px) 1fr minmax(290px, 1fr) 50px 50px`,
           padding:
             media === "mobile" ? `0 0` : `0 calc(var(--slideWidth) * 0.12)`
         }}

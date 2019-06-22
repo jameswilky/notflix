@@ -42,7 +42,11 @@ export default function VideoPlayer(props) {
         `}
         data-video={videoId}
         alt="Play this video"
-        src={`https://img.youtube.com/vi/${videoId}/0.jpg`}
+        src={
+          type === "slide"
+            ? `https://i.ytimg.com/vi/${videoId}/mqdefault.jpg`
+            : `https://i.ytimg.com/vi/${videoId}/sddefault.jpg`
+        }
       />
     );
   };
