@@ -77,8 +77,13 @@
 .creditCardIcon {
   font-size: 2rem;
 }
+.img {
+  width: 48px;
+  height: auto;
+  object-fit: contain;
+}
 /* Tablet + Desktop*/
-@media screen and (min-width: 451px) {
+@media screen and (min-width: 478px) {
   .innerContainer {
     background-color: var(--grey1);
     border-top: 1px solid black;
