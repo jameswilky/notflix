@@ -36,6 +36,3 @@
   -o-transition: opacity 450ms linear, visibility 0ms 400ms;
   -webkit-transition: opacity 450ms linear, visibility 0ms 400ms;
 }
-.thumbnail:hover {
-  /* opacity: 0; */
-}

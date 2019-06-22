@@ -29,7 +29,7 @@ export default function Browser(props) {
   const [autoplay, setAutoplay] = useState(true);
   const [isFirstMount, setIsFirstMount] = useState(false);
 
-  const { screenWidth, screenHeight } = useScreenSize();
+  const { screenWidth, screenHeight, media } = useScreenSize();
 
   useEffect(() => {
     setIsFirstMount(true);
@@ -157,8 +157,8 @@ export default function Browser(props) {
                 zIndex: 0,
                 height: `calc(${screenWidth}px * 0.5625)`,
                 marginBottom:
-                  screenWidth * 0.5625 > screenHeight
-                    ? `-30px`
+                  screenWidth * 0.5625 > screenHeight || media === "mobile"
+                    ? `-32px`
                     : `calc(100vh * -0.1)`,
                 border: 0,
                 backgroundColor: `rgba(0,0,0,0)`
