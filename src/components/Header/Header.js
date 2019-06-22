@@ -207,7 +207,7 @@ export default function Header(props) {
           </div>
         ) : null}
 
-        <SearchBar key={1} {...props} />
+        <SearchBar key={1} {...props} media={media} />
 
         <>
           {media !== "mobile" ? (

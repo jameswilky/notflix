@@ -8,6 +8,7 @@ function SearchBar(props) {
   const { isFirstLoad } = useContext(HistoryContext);
   const query = queryString.parse(props.location.search).q;
   const route = props.history.location.pathname;
+  const { media } = props;
 
   const condition = () => {
     const querying = query !== undefined;
@@ -57,26 +58,48 @@ function SearchBar(props) {
     setValue(e.target.value);
   };
   return (
-    <div
-      className={`${styles.container} ${show ? styles.show : ""}`}
-      onClick={() => setShow(!show)}
-    >
-      <i className={`fas fa-search ${styles.searchBtn}`} onClick={() => {}} />
-      {show ? (
-        <input
-          className={styles.input}
-          value={value}
-          onChange={e => {
-            handleValueChange(e);
-          }}
-          id={"search"}
-          onClick={e => e.stopPropagation()}
-          type="text"
-          placeholder="Titles, people, genres"
-          autoFocus
-        />
-      ) : null}
-    </div>
+    <>
+      {media === "mobile" ? (
+        <div className={styles.mobileContainer}>
+          <input
+            className={styles.input}
+            value={value}
+            onChange={e => {
+              handleValueChange(e);
+            }}
+            id={"search"}
+            onClick={e => e.stopPropagation()}
+            type="text"
+            placeholder="Search"
+            autoFocus
+          />
+        </div>
+      ) : (
+        <div
+          className={`${styles.container} ${show ? styles.show : ""}`}
+          onClick={() => setShow(!show)}
+        >
+          <i
+            className={`fas fa-search ${styles.searchBtn}`}
+            onClick={() => {}}
+          />
+          {show ? (
+            <input
+              className={styles.input}
+              value={value}
+              onChange={e => {
+                handleValueChange(e);
+              }}
+              id={"search"}
+              onClick={e => e.stopPropagation()}
+              type="text"
+              placeholder="Titles, people, genres"
+              autoFocus
+            />
+          ) : null}
+        </div>
+      )}
+    </>
   );
 }
 

@@ -37,6 +37,18 @@ input:-webkit-autofill:active {
     0.4s border-color ease;
 }
 
+.mobileContainer {
+  border: 1px solid gray;
+  margin: 20px;
+  padding: 3px;
+}
+
+.mobileContainer * {
+  font-size: 1rem;
+}
+.mobileContainer input {
+  padding-left: 4px;
+}
 .show {
   width: 100%;
   background-color: var(--black);
