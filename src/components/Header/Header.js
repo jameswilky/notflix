@@ -16,6 +16,7 @@ export default function Header(props) {
 
   const [showAccountDropDown, setShowAccountDropDown] = useState(false);
   const [showBrowserDropDown, setShowBrowserDropDown] = useState(false);
+  const [showSideMenu, setShowSideMenu] = useState(false);
 
   const [profile, setProfile] = useState(null);
   const [error, setError] = useState("");
@@ -43,6 +44,50 @@ export default function Header(props) {
     }
   }, []);
 
+  const SideMenu = function() {
+    return (
+      <>
+        {isAuthenticated() ? (
+          <>
+            {" "}
+            <div>
+              <div>
+                {" "}
+                <img
+                  className={styles.avatar}
+                  src={userIcon}
+                  alt="Profile Avatar"
+                />
+              </div>
+              <div> Testing</div>
+            </div>
+            <div>
+              {" "}
+              <ul>
+                <li>Account</li>
+                <li>Help Centre</li>
+                <li>Sign out of Netflix</li>
+              </ul>
+            </div>
+          </>
+        ) : (
+          <>
+            {" "}
+            <div />
+            <div onClick={login}> Sign in</div>
+          </>
+        )}
+
+        <div>
+          <ul>
+            <li>Home</li>
+            {isAuthenticated() ? <li>My List</li> : null}
+            <li>test</li>
+          </ul>
+        </div>
+      </>
+    );
+  };
   const SubNav = function() {
     return (
       <>
@@ -76,7 +121,12 @@ export default function Header(props) {
       <header
         className={styles.nav}
         style={{
-          backgroundColor: transparentHeader ? "transparent" : "var(--black)",
+          backgroundColor:
+            media === "mobile"
+              ? "var(--black)"
+              : transparentHeader
+              ? "transparent"
+              : "var(--black)",
           gridTemplateColumns:
             media === "mobile"
               ? `1fr 3fr 4fr`
@@ -88,9 +138,22 @@ export default function Header(props) {
         }}
       >
         {media === "mobile" ? (
-          <div className={styles.menuContainer}>
-            <i className="fas fa-bars" />
-          </div>
+          <>
+            <div
+              className={styles.menuContainer}
+              onClick={() => setShowSideMenu(!showSideMenu)}
+            >
+              <i className="fas fa-bars" />
+            </div>
+            <div
+              id={styles.sideMenu}
+              className={`${styles.sideMenu} ${
+                showSideMenu ? styles.slideIn : styles.slideOut
+              }`}
+            >
+              <SideMenu />
+            </div>
+          </>
         ) : null}
         <div className={styles.logoContainer}>
           <Link to="/">
@@ -139,7 +202,7 @@ export default function Header(props) {
                   onMouseLeave={() => setShowAccountDropDown(false)}
                 >
                   <img
-                    className={styles.accountImg}
+                    className={styles.avatar}
                     src={userIcon}
                     alt="Profile Avatar"
                   />

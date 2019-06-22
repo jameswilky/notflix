@@ -3,6 +3,13 @@
   min-height: 80vh;
 }
 
+@media only screen and (max-width: 478px) {
+  /* mobile*/
+  .main {
+    padding-top: 8vh;
+  }
+}
+
 .banner {
   width: 100%;
   object-fit: contain;
