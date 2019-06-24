@@ -1,12 +1,10 @@
 import React, { useContext, useState, useEffect } from "react";
-import ReactDOM from "react-dom";
 import styles from "./Browser.module.css";
 import Carousel from "../Carousel/Carousel";
 import uuid from "uuid";
 import Loading from "../Loading/Loading";
 import useVideos from "../../hooks/useVideos";
 import pageNames from "../../pageNames";
-import { AuthContext } from "../../contexts/AuthContext";
 import useScreenSize from "../../hooks/useScreenSize";
 import Grid from "../Grid/Grid";
 import VideoPlayer from "../VideoPlayer/VideoPlayer";
@@ -158,8 +156,10 @@ export default function Browser(props) {
                 zIndex: 0,
                 height: `calc(${screenWidth}px * 0.5625)`,
                 marginBottom:
-                  screenWidth * 0.5625 > screenHeight || media === "mobile"
-                    ? `0px`
+                  media === "mobile"
+                    ? "0px"
+                    : screenWidth * 0.5625 > screenHeight
+                    ? `-32px`
                     : `calc(100vh * -0.1)`,
                 border: 0,
                 backgroundColor: `rgba(0,0,0,0)`

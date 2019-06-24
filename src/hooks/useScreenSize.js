@@ -21,7 +21,6 @@ export default function useScreenSize() {
   });
 
   const captureWidth = useCallback(() => {
-    console.log(document.fullscreen);
     if (!document.fullscreen) {
       setState({
         screenWidth: window.innerWidth,

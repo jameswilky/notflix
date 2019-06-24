@@ -9,8 +9,6 @@ import useScreenSize from "../../hooks/useScreenSize";
 import Utilities from "../../Utilities";
 
 export default function Header(props) {
-  const { isTransparent } = props;
-
   const { auth } = useContext(AuthContext);
   const { isAuthenticated, login, logout, getProfile } = auth;
 
@@ -20,7 +18,7 @@ export default function Header(props) {
 
   const [profile, setProfile] = useState(null);
   const [error, setError] = useState("");
-  const { screenWidth, media } = useScreenSize();
+  const { media } = useScreenSize();
   const [transparentHeader, setTransparentHeader] = useState(true);
   const { addEvent, removeEvent } = Utilities;
   useEffect(() => {

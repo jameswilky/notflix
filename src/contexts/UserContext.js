@@ -12,7 +12,6 @@ const UserProvider = props => {
     if (auth.isAuthenticated()) {
       auth.getProfile((profile, error) => {
         setProfile(profile);
-        console.log(error);
       });
     }
   }, []);
@@ -50,7 +49,6 @@ const UserProvider = props => {
           throw new Error("Network respones was not ok.");
         })
         .then(user => {
-          console.log(user);
           setUser(user);
           setUserLoaded(true);
         })

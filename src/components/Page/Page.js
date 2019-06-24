@@ -15,22 +15,6 @@ export default function Page(props) {
   const isTransparent =
     content === HOME || content === TV_SHOWS || content === MOVIES;
 
-  const [blockMouse, setBlockMouse] = useState(false);
-  useEffect(() => {
-    const handleEvent = e => console.log(e);
-    const events = [
-      // "fullscreenchange",
-      // "mozfullscreenchange",
-      "webkitfullscreenchange"
-      // "msfullscreenchange"
-    ];
-
-    events.forEach(event => addEvent(document, event, e => handleEvent(e)));
-
-    return events.forEach(event =>
-      removeEvent(document, event, e => handleEvent(e))
-    );
-  }, []);
   const Body = () => {
     switch (content) {
       case HOME:
@@ -51,12 +35,10 @@ export default function Page(props) {
   };
   return (
     <>
-      <div className={blockMouse ? "noPointerEvents" : null}>
-        {" "}
-        <Header {...props} isTransparent={isTransparent} />
-        <Body />
-        <Footer />
-      </div>
+      {" "}
+      <Header {...props} isTransparent={isTransparent} />
+      <Body />
+      <Footer />
     </>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import { useState } from "react";
 /* Learn Higher Order components*/
 
 export default function useVideoState() {

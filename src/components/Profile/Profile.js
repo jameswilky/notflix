@@ -10,7 +10,6 @@ export default function Profile() {
   const [profile, setProfile] = useState({});
   const [error, setError] = useState("");
 
-  console.log(auth);
   useEffect(() => {
     auth.getProfile((profile, error) => {
       setProfile(profile);

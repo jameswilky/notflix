@@ -11,5 +11,3 @@ The app makes use of various techniques/technologies including:
 - Responsive design for both mobile and desktop
 - Integration with the YouTube Video Data API, YouTube WebPlayer API, and MovieDB API
 - CRUD functionality for favoriting videos
-- Heavy use of ES6+ syntax
-- CSS Animations

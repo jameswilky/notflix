@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import Youtube from "react-youtube";
 import styles from "./Video.module.css";
 import { AudioContext } from "../../contexts/AudioContext";
