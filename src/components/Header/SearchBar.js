@@ -10,7 +10,7 @@ function SearchBar(props) {
   const route = props.history.location.pathname;
   const { media } = props;
 
-  const condition = () => {
+  const getShowCondition = () => {
     const querying = query !== undefined;
     const atHome = route === "/";
     let show = false;
@@ -22,7 +22,7 @@ function SearchBar(props) {
     return show;
   };
   const [show, setShow] = useState(
-    condition()
+    getShowCondition()
     // query !== undefined && route !== "/" && prev !== undefined ? true : false
   );
   const [value, setValue] = useState(query === undefined ? "" : query);

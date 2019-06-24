@@ -12,30 +12,30 @@ export default function useVideos(content, query, location) {
 
   useEffect(() => {
     /* Load videos by genre for default browser*/
-    const abortController = new AbortController();
-    const signal = abortController.signal;
+    if (content !== SEARCH) {
+      const abortController = new AbortController();
+      const signal = abortController.signal;
+      setVideosLoaded(false);
+      fetch("/videos", { signal: signal })
+        .then(response => {
+          if (response.ok) return response.json();
+          throw new Error("Network respones was not ok.");
+        })
+        .then(response => {
+          setVideosByGenre(groupBy(response, genres));
+          setVideosLoaded(true);
+        })
+        .catch(error => {});
 
-    setVideosLoaded(false);
-    fetch("/videos", { signal: signal })
-      .then(response => {
-        if (response.ok) return response.json();
-        throw new Error("Network respones was not ok.");
-      })
-      .then(response => {
-        setVideosByGenre(groupBy(response, genres));
-        setVideosLoaded(true);
-      })
-      .catch(error => {});
-
-    return () => {
-      abortController.abort();
-    };
+      return () => {
+        abortController.abort();
+      };
+    }
   }, []);
 
   useEffect(() => {
     /* Load queried videos, with a slight delay after last key press to batch queries to server*/
-    setVideosLoaded(false);
-
+    console.log(videosLoaded);
     if (content === SEARCH) {
       const abortController = new AbortController();
       const signal = abortController.signal;
@@ -56,6 +56,8 @@ export default function useVideos(content, query, location) {
             throw new Error("Network response was not ok.");
           })
           .then(videos => {
+            console.log(videos);
+
             videos !== []
               ? setSearchedVideos(videos)
               : setSearchedVideos(false);

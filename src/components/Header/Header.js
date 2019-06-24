@@ -23,7 +23,6 @@ export default function Header(props) {
   const { screenWidth, media } = useScreenSize();
   const [transparentHeader, setTransparentHeader] = useState(true);
   const { addEvent, removeEvent } = Utilities;
-  console.log(media);
   useEffect(() => {
     const checkScrollHeight = e => {
       window.scrollY > 0

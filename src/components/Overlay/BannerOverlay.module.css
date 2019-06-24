@@ -5,7 +5,7 @@
   right: 0;
   top: 0;
   opacity: 1;
-  font-size: 1.3vw;
+  font-size: 1.4vw;
   z-index: 1;
   cursor: default;
   background: linear-gradient(
@@ -21,6 +21,7 @@
   width: 100%;
   padding: calc(var(--slideWidth) * 0.12);
   padding-top: 20%;
+  overflow: hidden;
 }
 .btnContainer {
   padding: 15px 0;
@@ -28,10 +29,10 @@
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 10px;
   font-size: 0.8em;
-  width: 40%;
+  width: 45%;
 }
 .description {
-  width: 40%;
+  width: 45%;
 }
 .btnContainer > div {
   text-align: center;
