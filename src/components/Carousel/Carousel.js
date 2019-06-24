@@ -7,14 +7,14 @@ import Utilities from "../../Utilities";
 export default function Carousel(props) {
   const { videos, genre, screenWidth, media } = props;
   const { fitSlides } = Utilities;
-  const {
-    slideWidth,
-    getTemplate,
-    videosByColumn,
-    containerWidth,
-    nCols,
-    colSize
-  } = fitSlides(screenWidth, 200, videos.length, videos);
+  const minimum = media === "mobile" ? screenWidth / 3 : 200;
+
+  const { getTemplate, containerWidth, nCols, colSize } = fitSlides(
+    screenWidth,
+    minimum,
+    videos.length,
+    videos
+  );
 
   const containerRef = React.createRef();
 

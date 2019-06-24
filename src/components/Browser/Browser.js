@@ -159,7 +159,7 @@ export default function Browser(props) {
                 height: `calc(${screenWidth}px * 0.5625)`,
                 marginBottom:
                   screenWidth * 0.5625 > screenHeight || media === "mobile"
-                    ? `-32px`
+                    ? `0px`
                     : `calc(100vh * -0.1)`,
                 border: 0,
                 backgroundColor: `rgba(0,0,0,0)`

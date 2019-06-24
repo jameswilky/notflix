@@ -6,13 +6,13 @@
   top: 0;
   opacity: 1;
   font-size: 1.3vw;
-  background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.5) 0%,
-    rgba(0, 0, 0, 0) 100%
-  );
   z-index: 1;
   cursor: default;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.6) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
 }
 
 .text {
@@ -63,4 +63,30 @@
   padding: 3px;
   padding-right: calc(var(--slideWidth) * 0.12);
   padding-left: 5px;
+}
+
+/* */
+.mobileContainer {
+  display: grid;
+  padding: calc(var(--slideWidth) * 0.12);
+  font-size: 0.7rem;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+.mobileTitle {
+  width: 60%;
+}
+.mobileInfo {
+  color: var(--grey2);
+}
+.mobileButton {
+  background-color: var(--red);
+  width: 60px;
+  font-size: 0.6rem;
+  letter-spacing: 0.4px;
+  text-align: center;
+  padding: 4px 8px 4px 8px;
 }

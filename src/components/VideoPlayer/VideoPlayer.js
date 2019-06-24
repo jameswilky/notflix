@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Video from "../Video/Video";
 import styles from "./VideoPlayer.module.css";
 import Overlay from "../Overlay/Overlay";
+import useScreenSize from "../../hooks/useScreenSize";
 
 export default function VideoPlayer(props) {
   const { video, position, width, style = {}, type, autoplay = false } = props;
@@ -9,6 +10,8 @@ export default function VideoPlayer(props) {
   const [player, setPlayer] = useState();
   const [showThumbnail, setShowThumbnail] = useState(!autoplay);
   const [loadPlayer, setLoadPlayer] = useState(false);
+
+  const { media } = useScreenSize();
 
   const playerLoading = new Promise(resolve => {
     if (player !== undefined) resolve(player);
@@ -23,6 +26,22 @@ export default function VideoPlayer(props) {
   });
 
   const thumbnailRef = React.useRef();
+  const fullScreen = () => {
+    playerLoading.then(player => {
+      try {
+        player.playVideo();
+
+        let iframe = player.a;
+        let requestFullScreen =
+          iframe.requestFullScreen ||
+          iframe.mozRequestFullScreen ||
+          iframe.webkitRequestFullScreen;
+        if (requestFullScreen) {
+          requestFullScreen.bind(iframe)();
+        }
+      } catch {}
+    });
+  };
   useEffect(() => {
     if (showThumbnail) {
       thumbnailRef.current.style.opacity = "1";
@@ -58,12 +77,16 @@ export default function VideoPlayer(props) {
       className={styles.body}
       onClick={e => {
         /* allows user to start video once loaded*/
-        playerLoading.then(player => {
-          try {
-            player.playVideo();
-          } catch {}
-        });
+
+        if (media !== "mobile") {
+          playerLoading.then(player => {
+            try {
+              player.playVideo();
+            } catch {}
+          });
+        }
       }}
+      onTouchStart={e => fullScreen()}
       onMouseEnter={e => {
         /* Will push items to left further when hovering on last item*/
         if (position === "last") {
@@ -114,6 +137,7 @@ export default function VideoPlayer(props) {
             player={player}
             playerLoading={playerLoading}
             metaData={metaData}
+            fullScreen={fullScreen}
           />
           <Thumbnail />
         </>
@@ -127,6 +151,7 @@ export default function VideoPlayer(props) {
             player={player}
             playerLoading={playerLoading}
             metaData={metaData}
+            fullScreen={fullScreen}
           />
         </>
       )}
