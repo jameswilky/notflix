@@ -5,11 +5,9 @@ const jwt = require("express-jwt"); // Validate JWT and set req.user
 const jwksRsa = require("jwks-rsa"); // Retrieve RSA keys from a JSON Web Key set (JWKS) endpoint
 const mongoose = require("mongoose");
 
-mongoose.connect(
-  "mongodb://localhost:27017/notflixLocalDB",
-  // "mongodb+srv://james123:james123@notflix-eiper.mongodb.net/notflixdb?retryWrites=true",
-  { useNewUrlParser: true }
-);
+mongoose.connect(process.env.LOCAL_SERVER, {
+  useNewUrlParser: true
+});
 
 mongoose.connection
   .on("connected", function() {

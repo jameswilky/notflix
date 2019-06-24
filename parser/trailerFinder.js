@@ -12,10 +12,14 @@ const createArray = n => {
   return output;
 };
 const showURL = n =>
-  `https://api.themoviedb.org/3/discover/tv?api_key=d7ff0311c59b14ff84cb1082f30fb9f6&language=en-US&sort_by=popularity.desc&page=${n}&timezone=America%2FNew_York&include_null_first_air_dates=false&with_original_language=en`;
+  `https://api.themoviedb.org/3/discover/tv?api_key=${
+    process.env.MOVIE_DB_API_KEY
+  }&language=en-US&sort_by=popularity.desc&page=${n}&timezone=America%2FNew_York&include_null_first_air_dates=false&with_original_language=en`;
 
 const movieURL = n =>
-  `https://api.themoviedb.org/3/discover/movie?api_key=d7ff0311c59b14ff84cb1082f30fb9f6&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${n}&with_original_language=en`;
+  `https://api.themoviedb.org/3/discover/movie?api_key=${
+    process.env.MOVIE_DB_API_KEY
+  }&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${n}&with_original_language=en`;
 
 const getData = (url, dest, limit) => {
   const output = createArray(limit);
