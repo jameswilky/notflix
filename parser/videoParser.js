@@ -1,6 +1,6 @@
 /* 
 This tool is meant to be used after youtubeFinder.html tool. this will take a 
-json file and remove unnecassary fields and perge pages into one array and cleanr 
+json file and remove unnecassary fields and merge pages into one array and cleanr 
 data for database entry
 */
 

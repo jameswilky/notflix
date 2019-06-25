@@ -10,47 +10,54 @@
     <script src="https://apis.google.com/js/api.js"></script>
     <script>
       /**
-       This tool takes in the input movies and tv show json files and 
-       searches for the relevant youtube ID for each item. it prints 
+       This tool takes in the input movies and tv show json files and
+       searches for the relevant youtube ID for each item. it prints
        the JSON file to the GUI after a few seconds
 
        */
 
-      const apiKey = process.env.YOUTUBE_API_KEY;
+      const apiKey = "";
 
       let items;
       let genres;
-      const files = [
+      const folders = [
         {
           type: "movies",
-          path: "./input/movies.json",
-          genres: "./resources/movieGenres.json"
+          path: "./input/movies/"
         },
         {
-          type: "tvShows",
-          path: "./input/tvShows.json",
-          genres: "./resources/tvShowGenres.json"
+          type: "tvShow",
+          path: "./input/shows/"
         }
       ];
 
-      loadJSON(files[1]);
+      fetch("./resources/movieGenres.json")
+        .then(res => {
+          return res.json();
+        })
+        .then(result => {
+          console.log("file loaded");
+          folders[0].genres = result;
+        });
 
-      function loadJSON(file) {
-        fetch(file.path)
+      fetch("./resources/tvShowGenres.json")
+        .then(res => {
+          return res.json();
+        })
+        .then(result => {
+          console.log("file loaded");
+          folders[1].genres = result;
+        });
+
+      function start(file, genres) {
+        fetch(file)
           .then(res => {
             return res.json();
           })
           .then(result => {
             console.log("file loaded");
             items = result;
-          });
-        fetch(file.genres)
-          .then(res => {
-            return res.json();
-          })
-          .then(result => {
-            console.log("file loaded");
-            genres = result;
+            execute(items, genres);
           });
       }
       function loadClient() {
@@ -66,51 +73,54 @@
             }
           );
       }
+
       // Make sure the client is loaded and sign-in is complete before calling this method.
-      function execute() {
+      function execute(items, genres) {
         items.forEach(page => {
-          page.results.forEach(movie => {
-            console.log(movie);
-            movie.genre_ids = movie.genre_ids.map(id => {
-              return genres.genres.find(genre => genre.id === id);
-            });
-            return gapi.client.youtube.search
-              .list({
-                part: "id",
-                q: `${
-                  movie.title === undefined ? movie.name : movie.title
-                } trailer`,
-                type: "videos"
-              })
-              .then(
-                function(response) {
-                  // Handle the results here (response.result has the parsed body).
-                  movie.videoId = response.result.items[0].id.videoId;
-                },
-                function(err) {
-                  console.error("Execute error", err);
-                }
-              );
-          });
+          Promise.all(
+            page.results.forEach(movie => {
+              movie.genre_ids = movie.genre_ids.map(id => {
+                return genres.genres.find(genre => genre.id === id);
+              });
+              return gapi.client.youtube.search
+                .list({
+                  part: "id",
+                  q: `${
+                    movie.title === undefined ? movie.name : movie.title
+                  } trailer`,
+                  type: "videos"
+                })
+                .then(
+                  function(response) {
+                    // Handle the results here (response.result has the parsed body).
+                    movie.videoId = response.result.items[0].id.videoId;
+                  },
+                  function(err) {
+                    console.error("Execute error", err);
+                  }
+                );
+            })
+          ).then(outputJSON(items));
         });
-        console.log(items);
-        setTimeout(() => outputJSON(), 10000);
       }
-      function outputJSON() {
+      function outputJSON(items) {
         let pre = document.createElement("PRE");
-        pre.style.width = "500px";
+
         pre.innerHTML = JSON.stringify(items);
-        document.body.appendChild(pre);
+        document.body.querySelector("#root").appendChild(pre);
       }
 
       gapi.load("client:auth2", function() {
         gapi.auth2.init({ client_id: "YOUR_CLIENT_ID" });
       });
+
+      let file = "./input/movies/movies0.json";
+      start(file, folders[0].genres);
     </script>
     <button onclick="loadClient()">
       load
     </button>
-    <button onclick="execute();">execute</button>
-    <pre id="output"></pre>
+    <button onclick="start();">start</button>
+    <div id="root" style="width:500px;"></div>
   </body>
 </html>

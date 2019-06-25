@@ -3,6 +3,20 @@
   min-height: 80vh;
 }
 
+/* Hide scrollbar chrome*/
+.main::-webkit-scrollbar {
+  width: 0 !important;
+}
+/* Hide scrollbar firefox */
+.main {
+  overflow: -moz-scrollbars-none;
+}
+
+/* hide IE 10+*/
+.main {
+  -ms-overflow-style: none;
+}
+
 @media only screen and (max-width: 478px) {
   /* mobile*/
   .main {
