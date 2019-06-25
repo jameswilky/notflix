@@ -19,6 +19,10 @@
 .env.production.local
 .env
 
+/parser.env
+/parser/input
+/parser/output
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

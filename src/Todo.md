@@ -1,4 +1,3 @@
-1. add 20 tests
-2. refactor with hocs https://tylermcginnis.com/react-higher-order-components/
-3. Expand Database
-4. infinite carousel
+1. refactor with hocs https://tylermcginnis.com/react-higher-order-components/
+2. Expand Database
+3. infinite carousel
