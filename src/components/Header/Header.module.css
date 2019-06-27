@@ -22,6 +22,7 @@
 
 .signIn {
   font-size: 0.8rem;
+  cursor: pointer;
 }
 
 .innerNav {
@@ -33,6 +34,7 @@
 .innerNav > div {
   box-sizing: border-box;
   padding: 0 5px;
+  cursor: pointer;
 }
 
 i,
@@ -50,10 +52,12 @@ h4 {
 
 .notificationsBtn {
   font-size: 1.3rem;
+  cursor: pointer;
 }
 .accountBtn {
   position: relative;
   display: inline-block;
+  cursor: pointer;
 }
 
 .accountDropdown {
