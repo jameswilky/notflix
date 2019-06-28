@@ -21,25 +21,25 @@ The app makes use of various techniques/technologies including:
 
 Follow the below instructions to run on your local machine.
 
-#1. Clone Repo
+# Clone Repo
 
 ```
 git clone https://github.com/jameswilky/notflix
 ```
 
-#2. Install NPM packages
+# Install NPM packages
 
 ```
 npm i
 ```
 
-#3. Run Server
+# Run Server
 
 ```
 node server
 ```
 
-#4. Run Application
+# Run Application
 
 ```
 npm start

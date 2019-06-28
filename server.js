@@ -5,7 +5,7 @@ const jwt = require("express-jwt"); // Validate JWT and set req.user
 const jwksRsa = require("jwks-rsa"); // Retrieve RSA keys from a JSON Web Key set (JWKS) endpoint
 const mongoose = require("mongoose");
 
-mongoose.connect(process.env.LOCAL_SERVER, {
+mongoose.connect(process.env.REMOTE_SERVER, {
   useNewUrlParser: true
 });
 
